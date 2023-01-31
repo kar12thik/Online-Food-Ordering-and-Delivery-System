@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ofods-app/static/css/main.ca0889ed.css",
+    "main.js": "/ofods-app/static/js/main.03d84316.js",
+    "index.html": "/ofods-app/index.html",
+    "main.ca0889ed.css.map": "/ofods-app/static/css/main.ca0889ed.css.map",
+    "main.03d84316.js.map": "/ofods-app/static/js/main.03d84316.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ca0889ed.css",
+    "static/js/main.03d84316.js"
+  ]
+}
