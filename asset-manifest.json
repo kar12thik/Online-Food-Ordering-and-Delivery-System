@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Online-Food-Ordering-and-Delivery-System/static/css/main.ca0889ed.css",
+    "main.js": "/Online-Food-Ordering-and-Delivery-System/static/js/main.027e580d.js",
+    "index.html": "/Online-Food-Ordering-and-Delivery-System/index.html",
+    "main.ca0889ed.css.map": "/Online-Food-Ordering-and-Delivery-System/static/css/main.ca0889ed.css.map",
+    "main.027e580d.js.map": "/Online-Food-Ordering-and-Delivery-System/static/js/main.027e580d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ca0889ed.css",
+    "static/js/main.027e580d.js"
+  ]
+}
