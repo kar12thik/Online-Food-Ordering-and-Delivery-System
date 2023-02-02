@@ -1,6 +1,6 @@
 {
+  "homepage": "https://kar12thik.github.io/Online-Food-Ordering-and-Delivery-System",
   "name": "ofods-app",
-  "homepage": "https://kar12thik.github.io/ofods-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,11 +14,16 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d build",
+    "predeploy" : "npm run build:dev",
+    "deploy" : "gh-pages -d build:dev",
+    "start": "react-scripts start",
+    "start:dev": "env-cmd -f .env.development react-scripts start",
     "start:qa": "env-cmd -f .env.qa react-scripts start",
     "start:prod": "env-cmd -f .env.production react-scripts start",
     "build": "react-scripts build",
+    "build:dev": "env-cmd -f .env.development react-scripts build",
+    "build:qa": "env-cmd -f .env.qa react-scripts build",
+    "build:prod": "env-cmd -e .env.production react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
