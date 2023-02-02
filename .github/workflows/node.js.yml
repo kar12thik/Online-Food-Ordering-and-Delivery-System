@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "testing-gp" ]
   pull_request:
-    branches: [ "develop" ]
+    branches: [ "testing-gp" ]
 
 jobs:
   build:
