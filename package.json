@@ -14,13 +14,13 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d build",
-    "start": "react-scripts start",
+    "predeploy": "env-cmd -f .env.development npm run build",
+    "deploy": "env-cmd -f .env.development gh-pages -b testing-gp -d build",
+    "start": "env-cmd -f .env.development react-scripts start",
     "start:dev": "env-cmd -f .env.development react-scripts start",
     "start:qa": "env-cmd -f .env.qa react-scripts start",
     "start:prod": "env-cmd -f .env.production react-scripts start",
-    "build": "react-scripts build",
+    "build": "env-cmd -f .env.development react-scripts build",
     "build:dev": "env-cmd -f .env.development react-scripts build",
     "build:qa": "env-cmd -f .env.qa react-scripts build",
     "build:prod": "env-cmd -e .env.production react-scripts build",
