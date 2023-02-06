@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
 
 function ProcessInfo() {
   return (
-    <div>ProcessInfo</div>
-  )
+    <div className="border flex">
+      <div className="w-1/3">Choose Restaurant</div>
+      <div className="w-1/3">Choose Food</div>
+      <div className="w-1/3">Pick Up</div>
+    </div>
+  );
 }
 
-export default ProcessInfo
+export default ProcessInfo;
+
