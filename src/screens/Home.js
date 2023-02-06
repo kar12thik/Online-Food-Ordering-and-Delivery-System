@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import NavigationBar from "../components/NavigationBar";
 import Deals from "../components/Deals";
 import ProcessInfo from "../components/ProcessInfo";

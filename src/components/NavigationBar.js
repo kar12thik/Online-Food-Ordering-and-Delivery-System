@@ -1,16 +1,7 @@
-import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 
-class NavigationBar extends Component {
-    constructor() {
-        super()
-        this.state = {
-
-        }
-    }
-    
-    render() {
-        return (
+function NavigationBar() {
+    return(
             <div>
                 <nav className="navbar bg-black p-10 h-10 items-center">
                     <Link className="nav-logo" to='/'>
@@ -18,14 +9,14 @@ class NavigationBar extends Component {
                         <h1 className='text-white'>Quick Food</h1>
                     </Link>
                     <div className="nav-options ">
-                        {this.renderHomeLinks()}
+                        {renderHomeLinks()}
                     </div>
                 </nav>
             </div>
-        )
+        );
     }
 
-    renderHomeLinks() {
+    function renderHomeLinks() {
         return (
             <div className="nav-links flex items-center">
                 <div className="nav-item text-white ml-20 text-2xl">
@@ -40,12 +31,11 @@ class NavigationBar extends Component {
                     </Link>
                 </div>
             </div>
-        )
+        );
     }
 
-    renderUserAccountLinks() {
+    function renderUserAccountLinks() {
 
     }
-}
 
 export default NavigationBar;
