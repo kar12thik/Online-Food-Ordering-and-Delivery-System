@@ -2,7 +2,7 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import Banner from "./components/Banner";
 import ProcessInfo from "./components/ProcessInfo";
-import Footer from "./components/Footer";
+import Footer from "./components/Footer/Footer";
 import FeaturedRest from "./components/FeaturedRest";
 import SearchRest from "./components/SearchRest";
 import OrderNow from "./components/OrderNow";
@@ -14,8 +14,8 @@ function App() {
       <NavBar />
       <Banner />
       <ProcessInfo />
-      <SearchRest/>
-      <OrderNow/>
+      <SearchRest />
+      <OrderNow />
       <FeaturedRest />
       <Footer />
       {/* <h1 className="text-3xl font-bold underline">
