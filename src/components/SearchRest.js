@@ -2,7 +2,7 @@ import React from "react";
 
 function SearchRest() {
   return <div className="border">
-          <div class="flex h-screen bg-gradient-to-r from-cyan-500 to-blue-500">
+          <div class="flex h-screen bg-[url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80')] bg-no-repeat bg-cover">
   <form class="m-auto items-center">
     <label for="simple-search" class="sr-only">Search</label>
     <h1 class="mb-4 items-center text-center text-4xl font-extrabold uppercase leading-none tracking-tight text-gray-900 dark:text-white md:text-5xl lg:text-6xl">Organic Fast Food <br/> Made <br/> Easy and Healthy</h1>
