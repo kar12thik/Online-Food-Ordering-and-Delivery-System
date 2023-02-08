@@ -11,14 +11,21 @@ function App() {
   console.log(process.env);
   return (
     <div>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/restaurants" element={<Restaurants />} />
-        <Route path="/register-restaurant" element={<RegisterRestaurants />} />
-      </Routes>
-      <Footer />
+      <div>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/restaurants" element={<Restaurants />} />
+          <Route
+            path="/register-restaurant"
+            element={<RegisterRestaurants />}
+          />
+        </Routes>
+      </div>
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 }
