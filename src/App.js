@@ -3,20 +3,20 @@ import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
-import Restaurants from "./screens/Restaurants"
+import Restaurants from "./screens/Restaurants";
 import RegisterRestaurants from "./screens/RegisterRestaurant";
 import Footer from "./components/Footer";
 
 function App() {
   console.log(process.env);
   return (
-    <div>
+    <div className="App h-screen w-full flex flex-col">
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element= {<Login/>} />
-        <Route path="/restaurants" element= {<Restaurants/>} />
-        <Route path="/register-restaurant" element ={ <RegisterRestaurants/>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/restaurants" element={<Restaurants />} />
+        <Route path="/register-restaurant" element={<RegisterRestaurants />} />
       </Routes>
       <Footer />
     </div>
