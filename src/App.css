@@ -2,6 +2,9 @@
   text-align: center;
 }
 
+/* Below lines Added by Dax Patel.*/
+/* Above lines Added by Dax Patel.*/
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -14,19 +17,19 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #eb2907;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(8px + 2vmin);
   color: white;
 }
 
-.App-link {
+/* .App-link {
   color: #61dafb;
-}
+} */
 
 @keyframes App-logo-spin {
   from {
