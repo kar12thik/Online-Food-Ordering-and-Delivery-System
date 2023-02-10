@@ -5,7 +5,7 @@ import Home from "./screens/Home";
 import Login from "./screens/Login";
 import Restaurants from "./screens/Restaurants";
 import RegisterRestaurants from "./screens/RegisterRestaurant";
-import Footer from "./components/Footer/Footer";
+import Footer from "./components/Footer";
 
 function App() {
   console.log(process.env);
