@@ -5,6 +5,7 @@ import Home from "./screens/Home";
 import Login from "./screens/Login";
 import Restaurants from "./screens/Restaurants"
 import RegisterRestaurants from "./screens/RegisterRestaurant";
+import Orders from "./screens/Orders";
 import Footer from "./components/Footer";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element= {<Login/>} />
         <Route path="/restaurants" element= {<Restaurants/>} />
         <Route path="/register-restaurant" element ={ <RegisterRestaurants/>} />
+        <Route path="/orders" element ={ <Orders/>} />
       </Routes>
       <Footer />
     </div>
