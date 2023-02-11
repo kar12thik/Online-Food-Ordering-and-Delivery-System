@@ -64,7 +64,7 @@ export default class Login extends Component {
         } else {
             this.setState({
                 showError: true,
-                registerFormError: "Please enter a valid name.",
+                registerFormError: "Invalid Input !! Please enter a valid name.",
                 userName: "",
             });
         }
@@ -82,7 +82,7 @@ export default class Login extends Component {
         } else {
             this.setState({
                 showError: true,
-                registerFormError: "Please enter a valid email address.",
+                registerFormError: "Invalid Input !! Please enter a valid email address.",
                 userEmail: ""
             });
         }
@@ -100,7 +100,7 @@ export default class Login extends Component {
         } else {
             this.setState({
                 showError: true,
-                registerFormError: "Use alphanumeric, uppercase, lowercase & greater than 10 characters.",
+                registerFormError: "Invalid Input !! Use alphanumeric, uppercase, lowercase & greater than 10 characters.",
                 userPassword: "",
             });
         }
@@ -118,7 +118,7 @@ export default class Login extends Component {
         } else {
             this.setState({
                 showError: true,
-                registerFormError: "Confirmation password not matched.",
+                registerFormError: "Invalid Input !! Confirmation password not matched.",
                 userConfirmPassword: false,
             });
         }
@@ -136,7 +136,7 @@ export default class Login extends Component {
         } else {
             this.setState({
                 showError: true,
-                registerFormError: "Please enter a valid city name.",
+                registerFormError: "Invalid Input !! Please enter a valid city name.",
                 userCity: "",
             });
         }
@@ -154,7 +154,7 @@ export default class Login extends Component {
         } else {
             this.setState({
                 showError: true,
-                registerFormError: "Please enter a valid country name.",
+                registerFormError: "Invalid Input !! Please enter a valid country name.",
                 userCountry: "",
             });
         }
@@ -177,7 +177,7 @@ export default class Login extends Component {
         } else {
             this.setState({
                 showError: true,
-                registerFormError: "Please enter a valid age.",
+                registerFormError: "Invalid Input !! Please enter a valid age.",
                 userAge: "",
             });
         }
@@ -194,7 +194,7 @@ export default class Login extends Component {
         } else {
             this.setState({
                 showError: true,
-                registerFormError: "Please select a profile image.",
+                registerFormError: "Invalid Input !! Please select a profile image.",
                 userProfileImageLable: "Choose image...",
                 userProfileImage: "",
             });
@@ -213,7 +213,7 @@ export default class Login extends Component {
             this.setState({
                 userTNC: false,
                 showError: true,
-                registerFormError: "Please accept terms and conditions.",
+                registerFormError: "Invalid Input !! Please accept terms and conditions.",
             })
         }
     }
@@ -231,48 +231,48 @@ export default class Login extends Component {
         if (!userName.match(userNameFormate)) {
             this.setState({
                 showError: true,
-                registerFormError: "Please enter a valid name.",
+                registerFormError: "Invalid Input !! Please enter a valid name.",
             });
         } else if (!userEmail.match(userEmailFormate)) {
             this.setState({
                 showError: true,
-                registerFormError: "Please enter a valid email address.",
+                registerFormError: "Invalid Input !! Please enter a valid email address.",
                 userEmail: ""
             });
         } else if (!userPassword.match(userPasswordFormate)) {
             this.setState({
                 showError: true,
-                registerFormError: "Use alphanumeric, uppercase, lowercase & greater than 10 characters.",
+                registerFormError: "Invalid Input !! Use alphanumeric, uppercase, lowercase & greater than 10 characters.",
                 userPassword: "",
             });
         } else if (!userConfirmPassword) {
             this.setState({
                 showError: true,
-                registerFormError: "Confirmation password not matched.",
+                registerFormError: "Invalid Input !! Confirmation password not matched.",
                 userConfirmPassword: false,
             });
         } else if (!userCity.match(userCityFormate)) {
             this.setState({
                 showError: true,
-                registerFormError: "Please enter a valid city name.",
+                registerFormError: "Invalid Input !! Please enter a valid city name.",
                 userCity: "",
             });
         } else if (!userCountry.match(userCountryFormate)) {
             this.setState({
                 showError: true,
-                registerFormError: "Please enter a valid country name.",
+                registerFormError: "Invalid Input !! Please enter a valid country name.",
                 userCountry: "",
             });
         } else if (!(userAge > 0 && userAge < 101)) {
             this.setState({
                 showError: true,
-                registerFormError: "Please enter a valid age.",
+                registerFormError: "Invalid Input !! Please enter a valid age.",
                 userAge: "",
             });
         } else if (userProfileImage == null) {
             this.setState({
                 showError: true,
-                registerFormError: "Please select a profile image.",
+                registerFormError: "Invalid Input !! Please select a profile image.",
                 userProfileImageLable: "Choose image...",
                 userProfileImage: "",
             });
@@ -297,12 +297,6 @@ export default class Login extends Component {
                 propsHistory: this.props.history,
                 typeOfFood: [],
             }
-            //try {
-            //    const signUpReturn = await signUp(userDetails)
-            //    // console.log(signUpReturn)
-            //}catch(error){
-            //    console.log("Error in Sign up => ",error)
-            //}
         }
     }
 
@@ -313,12 +307,6 @@ export default class Login extends Component {
             userLoginPassword: userLoginPassword,
             propsHistory: this.props.history,
         }
-        //try {
-        //    const LoginReturn = await logIn(userLoginDetails)
-        //    // console.log(LoginReturn)
-        //}catch(error){
-        //    console.log("Error in Login => ",error)
-        //}
     }
 
     render() {
