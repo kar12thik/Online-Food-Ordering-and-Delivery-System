@@ -5,9 +5,9 @@ const Footer = () => {
   return (
     <footer
       aria-label="Site Footer"
-      className="bg-neutral-300 bg-white dark:bg-gray-900 "
+      className="bg-neutral-300 dark:bg-gray-900 "
     >
-      <div className="max-w-screen-xl px-4 py-16 space-y-8 sm:px-6 lg:space-y-16 lg:px-8">
+      <div className="max-w-screen-xl px-4 py-16 space-y-8 sm:px-6 lg:space-y-16 lg:px-8 mx-auto">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           <div className="mx-auto">
             <div className="text-teal-600 dark:text-teal-300">
