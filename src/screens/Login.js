@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 // import Navbar from '../components/Navbar';
 /* import Navbar2 from '../components/Navbar2'; */
 /* import Footer from '../components/Footer'; */
@@ -7,221 +7,155 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../App.css'
 
-export default class Login extends Component {
-    constructor() {
-        super()
-        this.state = {
-            isRegisterForm: false,
-            registerFormError: "",
-            userProfileImageLable: "Choose image",
-            userName: "",
-            userEmail: "",
-            userPassword: "",
-            userConfirmPassword: false,
-            userCity: "",
-            userCountry: "",
-            userGender: "Male",
-            userAge: "",
-            userProfileImage: null,
-            userTNC: false,
-            showError: false,
-            userLoginEmail: "",
-            userLoginPassword: "",
-        }
-        this.handleForms = this.handleForms.bind(this);
-        this.handleUserName = this.handleUserName.bind(this);
-        this.handleUserEmail = this.handleUserEmail.bind(this);
-        this.handleUserPassword = this.handleUserPassword.bind(this);
-        this.handleUserConfirmPassword = this.handleUserConfirmPassword.bind(this);
-        this.handleUserCity = this.handleUserCity.bind(this);
-        this.handleUserCountry = this.handleUserCountry.bind(this);
-        this.handleUserAge = this.handleUserAge.bind(this);
-        this.handleCreateAccountBtn = this.handleCreateAccountBtn.bind(this);
-        this.handleUserProfileImage = this.handleUserProfileImage.bind(this);
-        this.handleUserTNC = this.handleUserTNC.bind(this);
-        this.handleUserGender = this.handleUserGender.bind(this);
-        this.handleLoginNowBtn = this.handleLoginNowBtn.bind(this);
-    }
+const Login = (props) => {
+    const [isRegisterForm, setIsRegisterForm] = useState(false);
+    const [registerFormError, setRegisterFormError] = useState("");
+    const [userProfileImageLable, setUserProfileImageLable] = useState("Choose image");
+    const [userName, setUserName] = useState("");
+    const [userEmail, setUserEmail] = useState("");
+    const [userPassword, setUserPassword] = useState("");
+    const [userConfirmPassword, setUserConfirmPassword] = useState(false);
+    const [userCity, setUserCity] = useState("");
+    const [userCountry, setUserCountry] = useState("");
+    const [userGender, setUserGender] = useState("Male");
+    const [userAge, setUserAge] = useState("");
+    const [userProfileImage, setUserProfileImage] = useState(null);
+    const [userTNC, setUserTNC] = useState(false);
+    const [showError, setShowError] = useState(false);
+    const [userLoginEmail, setUserLoginEmail] = useState("");
+    const [userLoginPassword, setUserLoginPassword] = useState("");
 
-    handleForms() {
-        const { isRegisterForm } = this.state;
-        if (isRegisterForm) {
-            this.setState({ isRegisterForm: false });
-        } else {
-            this.setState({ isRegisterForm: true });
-        }
-    }
-
-    handleUserName(e) {
+    const handleForms = () => {
+        setIsRegisterForm(!isRegisterForm);
+      }
+    
+    const handleUserName = (e) => {
         const userName = e;
         const userNameFormate = /^([A-Za-z.\s_-]).{5,}$/;
         if (userName.match(userNameFormate)) {
-            this.setState({
-                showError: false,
-                registerFormError: "",
-                userName: userName,
-            });
+            setShowError(false);
+            setRegisterFormError("");
+            setUserName(userName);
         } else {
-            this.setState({
-                showError: true,
-                registerFormError: "Invalid Input !! Please enter a valid name.",
-                userName: "",
-            });
+            setShowError(true);
+            setRegisterFormError("Invalid Input !! Please enter a valid name.");
+            setUserName("");
         }
     }
 
-    handleUserEmail(e) {
+    const handleUserEmail = (e) => {
         const userEmail = e;
         const userEmailFormate = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if (userEmail.match(userEmailFormate)) {
-            this.setState({
-                showError: false,
-                registerFormError: "",
-                userEmail: userEmail,
-            });
+            setShowError(false);
+            setRegisterFormError("");
+            setUserEmail(userEmail);
         } else {
-            this.setState({
-                showError: true,
-                registerFormError: "Invalid Input !! Please enter a valid email address.",
-                userEmail: ""
-            });
+            setShowError(true);
+            setRegisterFormError("Invalid Input !! Please enter a valid email address.");
+            setUserEmail("");
         }
-    }
+    };
 
-    handleUserPassword(e) {
+    const handleUserPassword = (e) => {
         const userPassword = e;
         const userPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;
         if (userPassword.match(userPasswordFormate)) {
-            this.setState({
-                showError: false,
-                registerFormError: "",
-                userPassword: userPassword,
-            });
+            setShowError(false);
+            setRegisterFormError("");
+            setUserPassword(userPassword);
         } else {
-            this.setState({
-                showError: true,
-                registerFormError: "Invalid Input !! Use alphanumeric, uppercase, lowercase & greater than 10 characters.",
-                userPassword: "",
-            });
+            setShowError(true);
+            setRegisterFormError("Invalid Input !! Use alphanumeric, uppercase, lowercase & greater than 10 characters.");
+            setUserPassword("");
         }
-    }
+    };
 
-    handleUserConfirmPassword(e) {
+    const handleUserConfirmPassword = (e) => {
         const userConfirmPassword = e;
-        const { userPassword } = this.state;
         if (userConfirmPassword.match(userPassword)) {
-            this.setState({
-                showError: false,
-                registerFormError: "",
-                userConfirmPassword: true,
-            });
+            setShowError(false);
+            setRegisterFormError("");
+            setUserConfirmPassword(true);
         } else {
-            this.setState({
-                showError: true,
-                registerFormError: "Invalid Input !! Confirmation password not matched.",
-                userConfirmPassword: false,
-            });
+            setShowError(true);
+            setRegisterFormError("Invalid Input !! Confirmation password not matched.");
+            setUserConfirmPassword(false);
         }
-    }
+    };
 
-    handleUserCity(e) {
+    const handleUserCity = (e) => {
         const userCity = e;
         const userCityFormate = /^([A-Za-z.\s_-]).{5,}$/;
         if (userCity.match(userCityFormate)) {
-            this.setState({
-                showError: false,
-                registerFormError: "",
-                userCity: userCity,
-            });
+            setShowError(false);
+            setRegisterFormError('');
+            setUserCity(userCity);
         } else {
-            this.setState({
-                showError: true,
-                registerFormError: "Invalid Input !! Please enter a valid city name.",
-                userCity: "",
-            });
+            setShowError(true);
+            setRegisterFormError('Invalid Input !! Please enter a valid city name.');
+            setUserCity('');
         }
-    }
+    };
 
-    handleUserCountry(e) {
+    const handleUserCountry = (e) => {
         const userCountry = e;
         const userCountryFormate = /^([A-Za-z.\s_-]).{5,}$/;
         if (userCountry.match(userCountryFormate)) {
-            this.setState({
-                showError: false,
-                registerFormError: "",
-                userCountry: userCountry,
-            });
+            setShowError(false);
+            setRegisterFormError('');
+            setUserCountry(userCountry);
         } else {
-            this.setState({
-                showError: true,
-                registerFormError: "Invalid Input !! Please enter a valid country name.",
-                userCountry: "",
-            });
+            setShowError(true);
+            setRegisterFormError('Invalid Input !! Please enter a valid country name.');
+            setUserCountry('');
         }
-    }
+    };
 
-    handleUserGender(e) {
-        this.setState({
-            userGender: e.target.value,
-        })
-    }
+    const handleUserGender = (e) => {
+        setUserGender(e.target.value);
+    };
 
-    handleUserAge(e) {
+    const handleUserAge = (e) => {
         const userAge = e;
         if (userAge > 0 && userAge < 101) {
-            this.setState({
-                showError: false,
-                registerFormError: "",
-                userAge: userAge,
-            });
+            setShowError(false);
+            setRegisterFormError('');
+            setUserAge(userAge);
         } else {
-            this.setState({
-                showError: true,
-                registerFormError: "Invalid Input !! Please enter a valid age.",
-                userAge: "",
-            });
+            setShowError(true);
+            setRegisterFormError('Invalid Input !! Please enter a valid age.');
+            setUserAge('');
         }
-    }
-
-    handleUserProfileImage(e) {
+    };
+    
+    const handleUserProfileImage = (e) => {
         if (e.target.files[0] != null) {
-            this.setState({
-                showError: false,
-                registerFormError: "",
-                userProfileImageLable: e.target.files[0].name,
-                userProfileImage: e.target.files[0]
-            });
+            setUserProfileImageLable(e.target.files[0].name);
+            setUserProfileImage(e.target.files[0]);
+            setShowError(false);
+            setRegisterFormError("");
         } else {
-            this.setState({
-                showError: true,
-                registerFormError: "Invalid Input !! Please select a profile image.",
-                userProfileImageLable: "Choose image...",
-                userProfileImage: "",
-            });
+            setShowError(true);
+            setRegisterFormError("Invalid Input !! Please select a profile image.");
+            setUserProfileImageLable("Choose image...");
+            setUserProfileImage("");
         }
-    }
+    };
 
-    handleUserTNC() {
-        const { userTNC } = this.state
+    const handleUserTNC = () => {
         if (!userTNC) {
-            this.setState({
-                userTNC: true,
-                showError: false,
-                registerFormError: "",
-            })
+            setUserTNC(true);
+            setShowError(false);
+            setRegisterFormError('');
         } else {
-            this.setState({
-                userTNC: false,
-                showError: true,
-                registerFormError: "Invalid Input !! Please accept terms and conditions.",
-            })
+            setUserTNC(false);
+            setShowError(true);
+            setRegisterFormError('Invalid Input !! Please accept terms and conditions.');
         }
-    }
+    };
 
-    async handleCreateAccountBtn() {
-        const { userName, userEmail, userPassword, userConfirmPassword, userCity, userCountry, userGender, userAge, userProfileImage, userTNC } = this.state;
-
-        // const whiteSpaces = /^(?!\s*$)[-a-zA-Z0-9_:,.' ']{1,100}$/;
+    const handleCreateAccountBtn = async () => {
         const userNameFormate = /^([A-Za-z.\s_-]).{5,}$/;
         const userEmailFormate = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         const userPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;
@@ -229,61 +163,42 @@ export default class Login extends Component {
         const userCityFormate = /^([A-Za-z.\s_-]).{5,}$/;
 
         if (!userName.match(userNameFormate)) {
-            this.setState({
-                showError: true,
-                registerFormError: "Invalid Input !! Please enter a valid name.",
-            });
+            setShowError(true);
+            setRegisterFormError("Invalid Input !! Please enter a valid name.");
         } else if (!userEmail.match(userEmailFormate)) {
-            this.setState({
-                showError: true,
-                registerFormError: "Invalid Input !! Please enter a valid email address.",
-                userEmail: ""
-            });
+            setShowError(true);
+            setRegisterFormError("Invalid Input !! Please enter a valid email address.");
+            setUserEmail("");
         } else if (!userPassword.match(userPasswordFormate)) {
-            this.setState({
-                showError: true,
-                registerFormError: "Invalid Input !! Use alphanumeric, uppercase, lowercase & greater than 10 characters.",
-                userPassword: "",
-            });
+            setShowError(true);
+            setRegisterFormError("Invalid Input !! Use alphanumeric, uppercase, lowercase & greater than 10 characters.");
+            setUserPassword("");
         } else if (!userConfirmPassword) {
-            this.setState({
-                showError: true,
-                registerFormError: "Invalid Input !! Confirmation password not matched.",
-                userConfirmPassword: false,
-            });
+            setShowError(true);
+            setRegisterFormError("Invalid Input !! Confirmation password not matched.");
+            setUserConfirmPassword(false);
         } else if (!userCity.match(userCityFormate)) {
-            this.setState({
-                showError: true,
-                registerFormError: "Invalid Input !! Please enter a valid city name.",
-                userCity: "",
-            });
+            setShowError(true);
+            setRegisterFormError("Invalid Input !! Please enter a valid city name.");
+            setUserCity("");
         } else if (!userCountry.match(userCountryFormate)) {
-            this.setState({
-                showError: true,
-                registerFormError: "Invalid Input !! Please enter a valid country name.",
-                userCountry: "",
-            });
+            setShowError(true);
+            setRegisterFormError("Invalid Input !! Please enter a valid country name.");
+            setUserCountry("");
         } else if (!(userAge > 0 && userAge < 101)) {
-            this.setState({
-                showError: true,
-                registerFormError: "Invalid Input !! Please enter a valid age.",
-                userAge: "",
-            });
-        } else if (userProfileImage == null) {
-            this.setState({
-                showError: true,
-                registerFormError: "Invalid Input !! Please select a profile image.",
-                userProfileImageLable: "Choose image...",
-                userProfileImage: "",
-            });
+            setShowError(true);
+            setRegisterFormError("Invalid Input !! Please enter a valid age.");
+            setUserAge("");
+        } else if (userProfileImage === null) {
+            setShowError(true);
+            setRegisterFormError("Invalid Input !! Please select a profile image.");
+            setUserProfileImageLable("Choose image...");
+            setUserProfileImage("");
         } else if (!userTNC) {
-            this.setState({
-                userTNC: false,
-                showError: true,
-                registerFormError: "Please accept terms and conditions.",
-            })
+            setUserTNC(false);
+            setShowError(true);
+            setRegisterFormError("Please accept terms and conditions.");
         } else {
-            // console.log(userName, userEmail, userPassword, userConfirmPassword, userCity, userCountry, userGender, userAge, userProfileImage, userTNC)
             const userDetails = {
                 userName: userName,
                 userEmail: userEmail,
@@ -294,24 +209,21 @@ export default class Login extends Component {
                 userAge: userAge,
                 userProfileImage: userProfileImage,
                 isRestaurant: false,
-                propsHistory: this.props.history,
+                propsHistory: props.history,
                 typeOfFood: [],
-            }
+            };
         }
-    }
-
-    async handleLoginNowBtn(){
-        const { userLoginEmail, userLoginPassword } = this.state;
+    };
+            
+    const handleLoginNowBtn = async () => {
         const userLoginDetails = {
             userLoginEmail: userLoginEmail,
             userLoginPassword: userLoginPassword,
-            propsHistory: this.props.history,
-        }
-    }
+            propsHistory: props.history,
+        };
+    };
 
-    render() {
-        const { isRegisterForm, showError, registerFormError, userProfileImageLable, userTNC, userGender } = this.state;
-        return (
+    return (
             <div>
                 <div className="container-fluid py-5 bg-light">
                     {isRegisterForm ?
@@ -321,82 +233,83 @@ export default class Login extends Component {
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
                                         <label htmlFor="userFullName">Full Name</label>
-                                        <input type="text" className="form-control" id="userName" placeholder="Full Name" onKeyUp={(e) => this.handleUserName(e.target.value)} />
+                                        <input type="text" className="form-control" id="userName" placeholder="Full Name" onKeyUp={(e) => handleUserName(e.target.value)} />
                                     </div>
                                     <div className="form-group col-md-6">
                                         <label htmlFor="userEmail">Email</label>
-                                        <input type="email" className="form-control" id="userEmail" placeholder="Email" onKeyUp={(e) => this.handleUserEmail(e.target.value)} />
+                                        <input type="email" className="form-control" id="userEmail" placeholder="Email" onKeyUp={(e) => handleUserEmail(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
                                         <label htmlFor="userPassword">Password</label>
-                                        <input type="password" className="form-control" id="userPassword" placeholder="Password" onKeyUp={(e) => this.handleUserPassword(e.target.value)} />
+                                        <input type="password" className="form-control" id="userPassword" placeholder="Password" onKeyUp={(e) => handleUserPassword(e.target.value)} />
                                     </div>
                                     <div className="form-group col-md-6">
                                         <label htmlFor="userConfirmPassword">Confirm Password</label>
-                                        <input type="password" className="form-control" id="userConfirmPassword" placeholder="Password" onKeyUp={(e) => this.handleUserConfirmPassword(e.target.value)} />
+                                        <input type="password" className="form-control" id="userConfirmPassword" placeholder="Password" onKeyUp={(e) => handleUserConfirmPassword(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
                                         <label htmlFor="userCity">City</label>
-                                        <input type="text" className="form-control" id="userCity" onKeyUp={(e) => this.handleUserCity(e.target.value)} />
+                                        <input type="text" className="form-control" id="userCity" onKeyUp={(e) => handleUserCity(e.target.value)} />
                                     </div>
                                     <div className="form-group col-md-6">
                                         <label htmlFor="userCountry">Country</label>
-                                        <input type="text" className="form-control" id="userCountry" onKeyUp={(e) => this.handleUserCountry(e.target.value)} />
+                                        <input type="text" className="form-control" id="userCountry" onKeyUp={(e) => handleUserCountry(e.target.value)} />
                                     </div>
                                 </div>
                                 <div className="form-row">
                                     <div className="form-group col-md-4">
                                         <label htmlFor="userGender">Gender</label>
-                                        <select id="userGender" className="form-control" value={userGender} onChange={this.handleUserGender}>
+                                        <select id="userGender" className="form-control" value={userGender} onChange={handleUserGender}>
                                             <option defaultValue>Male</option>
                                             <option>Female</option>
                                         </select>
                                     </div>
                                     <div className="form-group col-md-2">
                                         <label htmlFor="userAge">Age</label>
-                                        <input type="number" className="form-control" id="userAge" onKeyUp={(e) => this.handleUserAge(e.target.value)} />
+                                        <input type="number" className="form-control" id="userAge" onKeyUp={(e) => handleUserAge(e.target.value)} />
                                     </div>
                                     <div className="form-group col-md-6">
                                         <p className="mb-2">Profile Image</p>
                                         <div className="custom-file">
-                                            <input type="file" className="custom-file-input" id="userProfileImage" onChange={this.handleUserProfileImage} />
+                                            <input type="file" className="custom-file-input" id="userProfileImage" onChange={handleUserProfileImage} />
                                             <label className="custom-file-label" htmlFor="userProfileImage">{userProfileImageLable}</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="form-group">
                                     <div className="custom-control custom-checkbox">
-                                        <input type="checkbox" className="custom-control-input" id="userTNC" defaultChecked={userTNC} onChange={this.handleUserTNC} />
+                                        <input type="checkbox" className="custom-control-input" id="userTNC" defaultChecked={userTNC} onChange={handleUserTNC} />
                                         <label className="custom-control-label" htmlFor="userTNC">Accept Terms and Conditions</label>
                                     </div>
                                 </div>
                                 <p className="text-danger">{showError ? registerFormError : null}</p>
-                                <button type="submit" className="btn btn-warning text-uppercase mb-3" onClick={this.handleCreateAccountBtn}><b>Create an Account</b></button>
+                                <button type="submit" className="btn btn-warning text-uppercase mb-3" onClick={handleCreateAccountBtn}><b>Create an Account</b></button>
                             </form>
-                            <p className="m-0">Already have an account? <span className="cursor-pointer text-warning" onClick={this.handleForms}>Login Here</span></p>
+                            <p className="m-0">Already have an account? <span className="cursor-pointer text-warning" onClick={handleForms}>Login Here</span></p>
                         </div> :
                         <div className="col-lg-4 col-md-6 col-sm-12 mx-auto bg-white shadow p-4">
                             <h2 className="text-center mb-4">Login Your Account</h2>
                             <form action="javascript:void(0)">
                                 <div className="form-group">
                                     <label htmlFor="userLoginEmail">Email</label>
-                                    <input type="email" className="form-control" id="userLoginEmail" placeholder="Email" onChange={(e) => this.setState({userLoginEmail: e.target.value})} />
+                                    <input type="email" className="form-control" id="userLoginEmail" placeholder="Email" onChange={handleUserEmail} />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="userLoginPassword">Password</label>
-                                    <input type="password" className="form-control" id="userLoginPassword" placeholder="Password" onChange={(e) => this.setState({userLoginPassword: e.target.value})} />
+                                    <input type="password" className="form-control" id="userLoginPassword" placeholder="Password" onChange={handleUserPassword} />
                                 </div>
-                                <button type="submit" className="btn btn-warning text-uppercase mb-3" onClick={this.handleLoginNowBtn}><b>Login Now</b></button>
+                                <button type="submit" className="btn btn-warning text-uppercase mb-3" onClick={handleLoginNowBtn}><b>Login Now</b></button>
                             </form>
-                            <p className="m-0">Don't have an account yet? <span className="cursor-pointer text-warning" onClick={this.handleForms}>Create an Account</span></p>
+                            <p className="m-0">Don't have an account yet? <span className="cursor-pointer text-warning" onClick={handleForms}>Create an Account</span></p>
                         </div>
                     }
                 </div>
             </div>
-        );
-    }
+    ); 
 }
+
+export default Login;
