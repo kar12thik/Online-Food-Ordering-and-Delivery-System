@@ -1,29 +1,33 @@
-// import logo from "./logo.svg";
 import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import Home from "./screens/Home";
+import Login from "./screens/Login";
+import Restaurants from "./screens/Restaurants";
+import RegisterRestaurants from "./screens/RegisterRestaurant";
+import Footer from "./components/Footer";
+//import logo from "./logo.svg"
 
 function App() {
   console.log(process.env);
   return (
-    <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-      <h1 className="text-3xl font-bold underline">
-        OFODS - React Dev Environment Setup
-      </h1>
-      <h2>{process.env.REACT_APP_NAME}</h2>
-      <h3>Env : {process.env.REACT_APP_ENV}</h3>
+    <div>
+      
+      <div>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/restaurants" element={<Restaurants />} />
+          <Route
+            path="/register-restaurant"
+            element={<RegisterRestaurants />}
+          />
+        </Routes>
+      </div>
+      <div>
+        <Footer />
+      </div>
     </div>
   );
 }
