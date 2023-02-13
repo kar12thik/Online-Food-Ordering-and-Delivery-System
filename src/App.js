@@ -7,7 +7,7 @@ import Restaurants from "./screens/Restaurants";
 import RegisterRestaurants from "./screens/RegisterRestaurant";
 import Orders from "./screens/Orders";
 import Footer from "./components/Footer";
-
+  
 function App() {
   console.log(process.env);
   return (
