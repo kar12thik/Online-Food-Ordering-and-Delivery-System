@@ -7,7 +7,7 @@ import OrderNow from "../components/OrderNow";
 
 function Home() {
   return (
-    <div className="App h-full flex flex-col">
+    <div className="App sm:w-screen md:w-screen lg:w-screen flex flex-col">
       <Banner />
       <ProcessInfo />
       <SearchRest />
