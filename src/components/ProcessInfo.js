@@ -20,29 +20,21 @@ function ProcessInfo() {
             <ProcessInfoCard
               imgUrl={RestaurantImg}
               cardHeading="Choose A Restaurant"
+              cardDescription="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus"
             />
           </div>
-          <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-          <lottie-player
-            src="https://assets6.lottiefiles.com/packages/lf20_2z4qmxlj.json"
-            background="transparent"
-            speed="1"
-            // style="width: 300px; height: 300px;"
-            className="w-20 h-20"
-            loop
-            controls
-            autoplay
-          ></lottie-player>
           <div className="my-4 md:my-0 lg:my-0">
             <ProcessInfoCard
               imgUrl={DishImg}
               cardHeading="Choose A Tasty Dish"
+              cardDescription="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus"
             />
           </div>
           <div className="my-4 md:my-0 lg:my-0">
             <ProcessInfoCard
               imgUrl={DeliveryImg}
               cardHeading="Pick Up Or Delivery"
+              cardDescription="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus"
             />
           </div>
         </div>
