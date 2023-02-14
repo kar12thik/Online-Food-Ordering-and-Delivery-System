@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+// import Logo from "../Display_Logo.png"
 
 function NavBar() {
     const [navbar, setNavbar] = useState(false);
@@ -11,6 +12,7 @@ function NavBar() {
                     <div className="flex items-center justify-between py-3 md:py-5 md:block">
                         <Link className="nav-logo" to='/'>
                             <h1 className='text-white'>Quick Food</h1>
+                            {/* <img src={Logo}/> */}
                         </Link>
                         <div className="md:hidden">
                             <button
