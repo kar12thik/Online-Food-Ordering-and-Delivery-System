@@ -9,8 +9,8 @@ function Home() {
   return (
     <div className="App sm:w-screen md:w-screen lg:w-screen flex flex-col">
       <Banner />
-      <ProcessInfo />
       <SearchRest />
+      <ProcessInfo />
       <OrderNow />
       <FeaturedRest />
     </div>
