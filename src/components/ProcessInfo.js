@@ -4,10 +4,10 @@ import DishImg from "../icons/dish.svg";
 import DeliveryImg from "../icons/delivery.svg";
 import RestaurantImg from "../icons/restaurant.svg";
 
-function ProcessInfo() {
+function ProcessInfo({ dataTestId }) {
   return (
     <div>
-      <div className="pt-10 pb-10">
+      <div className="pt-10 pb-10" data-testid={dataTestId}>
         <h1 className="text-3xl uppercase font-bold underline">How it Works</h1>
         <p className="mt-2 mb-6">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

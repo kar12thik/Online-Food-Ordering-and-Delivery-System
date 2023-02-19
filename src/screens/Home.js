@@ -8,11 +8,11 @@ import OrderNow from "../components/OrderNow";
 function Home() {
   return (
     <div className="App sm:w-screen md:w-screen lg:w-screen flex flex-col">
-      <Banner />
-      <SearchRest />
-      <ProcessInfo />
-      <OrderNow />
-      <FeaturedRest />
+      <Banner dataTestId="banner" />
+      <SearchRest dataTestId="Search_Restaurants" />
+      <ProcessInfo dataTestId="Howitworks" />
+      <OrderNow dataTestId="OrderNow" />
+      <FeaturedRest dataTestId="FeaturedRestaurants" />
     </div>
   );
 }
