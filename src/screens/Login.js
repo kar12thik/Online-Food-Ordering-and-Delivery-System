@@ -289,7 +289,7 @@ const Login = (props) => {
                                       <p class="block text-gray-700 font-bold mb-2">Profile Image</p>
                                       <div class="relative border-2 border-gray-300 border-dashed rounded-md">
                                         <input type="file" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userProfileImage" onChange={handleUserProfileImage} />
-                                        <label class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" htmlFor="userProfileImage">{userProfileImageLable}</label>
+                                        
                                       </div>
                                     </div>
                                 </div>
