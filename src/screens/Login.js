@@ -302,7 +302,7 @@ const Login = (props) => {
                                 <div class = "flex flex-row items-center px-1 py-1">
                                     <p class="form-item w-full mx-auto md:w-1/2 px-1 py-1 text-red-600">{showError ? registerFormError : null}</p>
                                 </div>                                
-                                    <center><button type="submit" class=" center bg-yellow-500 text-white uppercase font-bold py-2 px-4 rounded mb-4" onClick={handleCreateAccountBtn}><b>Create an Account</b></button>
+                                    <center><button type="button" class=" center bg-yellow-500 text-white uppercase font-bold py-2 px-4 rounded mb-4" onClick={handleCreateAccountBtn}><b>Create an Account</b></button>
                                     </center>
                                 
                             </form>
