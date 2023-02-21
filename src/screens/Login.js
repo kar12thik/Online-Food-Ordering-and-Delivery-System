@@ -10,7 +10,7 @@ import '../App.css'
 const Login = (props) => {
     const [isRegisterForm, setIsRegisterForm] = useState(false);
     const [registerFormError, setRegisterFormError] = useState("");
-    const [userProfileImageLable, setUserProfileImageLable] = useState("Choose image");
+    const [setUserProfileImageLable] = useState("Choose image");
     const [userName, setUserName] = useState("");
     const [userEmail, setUserEmail] = useState("");
     const [userPassword, setUserPassword] = useState("");
@@ -131,7 +131,6 @@ const Login = (props) => {
     
     const handleUserProfileImage = (e) => {
         if (e.target.files[0] != null) {
-            setUserProfileImageLable(e.target.files[0].name);
             setUserProfileImage(e.target.files[0]);
             setShowError(false);
             setRegisterFormError("");
@@ -171,7 +170,7 @@ const Login = (props) => {
             setUserEmail("");
         } else if (!userPassword.match(userPasswordFormate)) {
             setShowError(true);
-            setRegisterFormError("Invalid Input !! Use alphanumeric, uppercase, lowercase & greater than 10 characters.");
+            setRegisterFormError("Invalid Password !! Use alphanumeric, uppercase, lowercase & greater than 10 characters.");
             setUserPassword("");
         } else if (!userConfirmPassword) {
             setShowError(true);
@@ -288,8 +287,7 @@ const Login = (props) => {
                                     <div class="form-item w-full mx-auto md:w-1/2">
                                       <p class="block text-gray-700 font-bold mb-2">Profile Image</p>
                                       <div class="relative border-2 border-gray-300 border-dashed rounded-md">
-                                        <input type="file" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userProfileImage" onChange={handleUserProfileImage} />
-                                        
+                                        <input type="file" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userProfileImage" accept="image/*" onChange={handleUserProfileImage} />
                                       </div>
                                     </div>
                                 </div>
@@ -302,7 +300,7 @@ const Login = (props) => {
                                 <div class = "flex flex-row items-center px-1 py-1">
                                     <p class="form-item w-full mx-auto md:w-1/2 px-1 py-1 text-red-600">{showError ? registerFormError : null}</p>
                                 </div>                                
-                                    <center><button type="button" class=" center bg-yellow-500 text-white uppercase font-bold py-2 px-4 rounded mb-4" onClick={handleCreateAccountBtn}><b>Create an Account</b></button>
+                                    <center><button type="button" class=" cen-ter bg-yellow-500 text-white uppercase font-bold py-2 px-4 rounded mb-4" onClick={handleCreateAccountBtn}><b>Create an Account</b></button>
                                     </center>
                                 
                             </form>
