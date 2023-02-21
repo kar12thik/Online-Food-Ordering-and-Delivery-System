@@ -1,10 +1,10 @@
 import FeaturedRestCards from "./FeaturedRestCards";
 
-function FeaturedRest() {
+function FeaturedRest({dataTestId}) {
   const imgUrl =
     "https://react-quick-food.firebaseapp.com/static/media/listing-logo12.c9102623.png";
   return (
-    <div className="border bg-white p-8">
+    <div className="border bg-white p-8" data-testid={dataTestId}>
       <h1 className="text-4xl font-bold">FEATURED RESTAURANT</h1>
       <p className="py-4">
         {" "}
