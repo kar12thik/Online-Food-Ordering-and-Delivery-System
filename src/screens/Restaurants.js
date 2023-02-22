@@ -1,12 +1,12 @@
 import React from "react";
 import SearchRestOnRestPage from "../components/SearchRestOnRestPage";
-import FeaturedRest from "../components/FeaturedRest";
+import RestList from "../components/RestList";
 
 function Restaurants() {
   return (
     <div>
       <SearchRestOnRestPage dataTestId="Search_Restaurants_On_RestPage"></SearchRestOnRestPage>
-      <FeaturedRest dataTestId="Featured_Restaurants"></FeaturedRest>
+      <RestList dataTestId="Featured_Restaurants"></RestList>
     </div>
   );
 }

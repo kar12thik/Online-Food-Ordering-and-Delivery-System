@@ -96,6 +96,9 @@ function FeaturedRestCards(props) {
                 )}
               </svg>
             </button>
+            <button class="bg-indigo-500 ...">
+              Save changes
+            </button>
           </div>
         </div>
       </a>
