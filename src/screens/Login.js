@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 // import Navbar from '../components/Navbar';
 /* import Navbar2 from '../components/Navbar2'; */
 /* import Footer from '../components/Footer'; */
-/* import {signUp, logIn} from '../config/firebase'; */
+import {signUp, logIn} from '../config/firebase'; 
 
 //import 'bootstrap/dist/css/bootstrap.css';
 import '../App.css'
@@ -211,7 +211,12 @@ const Login = (props) => {
                 propsHistory: props.history,
                 typeOfFood: [],
             };
-            return userDetails;
+            try {
+                const signUpReturn = await signUp(userDetails)
+                console.log(signUpReturn)
+            }catch(error){
+                console.log("Error in Sign up => ",error)
+            }
         }
     };
             
@@ -221,7 +226,12 @@ const Login = (props) => {
             userLoginPassword: userLoginPassword,
             propsHistory: props.history,
         };
-        return userLoginDetails;
+        try {
+            const LoginReturn = await logIn(userLoginDetails)
+            console.log(LoginReturn)
+        }catch(error){
+            console.log("Error in Login => ",error)
+        }
     };
 
     return (
