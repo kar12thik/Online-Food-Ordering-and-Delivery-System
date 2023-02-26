@@ -9,22 +9,17 @@ import Orders from "./screens/Orders";
 import Footer from "./components/Footer";
 
 function App() {
-  console.log(process.env);
   return (
     <div>
-      <div>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/restaurants" element={<Restaurants />} />
-          <Route path="/register-restaurant" element={<RegisterRestaurants />} />
-          <Route path="/orders" element ={ <Orders/>} />
-        </Routes>
-      </div>
-      <div>
-        <Footer />
-      </div>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/restaurants" element={<Restaurants />} />
+        <Route path="/register-restaurant" element={<RegisterRestaurants />} />
+        <Route path="/orders" element={<Orders />} />
+      </Routes>
+      <Footer />
     </div>
   );
 }
