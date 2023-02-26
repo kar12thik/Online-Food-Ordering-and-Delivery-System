@@ -75,7 +75,7 @@ function renderHomeLinks() {
                 </li>
                 <li className="text-white">
                     <Link to='/register-restaurant'>
-                        <button type="button" className="btn bg-orange h-12 px-6">REGISTER RESTAURANT</button>
+                        <button type="button" className="btn rounded-lg bg-orange h-12 px-6">REGISTER RESTAURANT</button>
                     </Link>
                 </li>
             </ul>
