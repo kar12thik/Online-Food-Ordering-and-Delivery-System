@@ -37,7 +37,7 @@ const RestaurantDetails = (props) => {
                 </div>
                 <div className="flex mb-2 border-b-2">
                     <div className="w-2/3 pr-0">
-                        <p className="mb-0">Kabab</p>
+                        <p className="mb-0">Pizza</p>
                     </div>
                     <div className="w-1/3 pl-0 text-right">
                         <p className="mb-0 font-bold">$10</p>
@@ -86,11 +86,11 @@ const RestaurantDetails = (props) => {
         </div>
         <div className="container-fluid bg-slate-200">
             <div className="container">
-                <div className="flex pt-10 pl-20 pb-10 ml-10">
+                <div className="flex mx-auto flex-col md:flex-row lg:flex-row sm:space-x-0 md:space-x-4 lg:space-x-4 pt-10 pl-20 pb-10 ml-10">
                     <div className="w-1/3 justify-center">
                         <div>
                             <h3 class="mb-4 font-bold text-gray-900 dark:text-white">Categories</h3>
-                            <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                            <ul class="w-60 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                 <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                     <div class="flex items-center pl-3">
                                         <input id="vue-checkbox" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
@@ -144,7 +144,8 @@ const RestaurantDetails = (props) => {
                                 </div>
                             </div> : <p className="text-green-600 p-3">Cart is empty.</p> }
                             <div>
-                                <button type="button" className="btn rounded-lg ml-10 mt-4 text-white bg-orange p-3">CONFIRM ORDER</button>
+                            {cartItemsCount !== 0 ? <button type="button" className="btn rounded-lg ml-10 mt-4 text-white bg-orange p-3">CONFIRM ORDER</button> : null}
+                                {/* <button type="button" className="btn rounded-lg ml-10 mt-4 text-white bg-orange p-3">CONFIRM ORDER</button> */}
                             </div>
                         </div>
                     </div>
