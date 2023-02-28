@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
-function FeaturedRestCards(props) {
+function FeaturedRestCards1(props) {
   const [like, setLike] = useState(false);
 
   return (
     <div className="">
+    <div class="w-screen">
       <a
         href="/"
         className="m-1 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-full lg:max-w-2xl hover:bg-gray-100 dark:border-gray-700 bg-white-800"
@@ -103,7 +104,8 @@ function FeaturedRestCards(props) {
         </div>
       </a>
     </div>
+    </div>
   );
 }
 
-export default FeaturedRestCards;
+export default FeaturedRestCards1;
