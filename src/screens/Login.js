@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-// import Navbar from '../components/Navbar';
+import Navbar from '../components/NavBar';
 /* import Navbar2 from '../components/Navbar2'; */
-/* import Footer from '../components/Footer'; */
+import Footer from '../components/Footer'; 
 import {signUp, logIn} from '../config/firebase'; 
 
 //import 'bootstrap/dist/css/bootstrap.css';
@@ -213,7 +213,11 @@ const Login = (props) => {
             };
             try {
                 const signUpReturn = await signUp(userDetails)
-                console.log(signUpReturn)
+                //console.log(signUpReturn)
+                if (signUpReturn.success) {
+                    // Redirect to the login page
+                    props.history.push("/login");
+                }
             }catch(error){
                 console.log("Error in Sign up => ",error)
             }
@@ -228,7 +232,12 @@ const Login = (props) => {
         };
         try {
             const LoginReturn = await logIn(userLoginDetails)
-            console.log(LoginReturn)
+            //console.log(LoginReturn)
+            // if (LoginReturn.success) {
+            //         // Redirect to the login page
+            //         console.log("You have successfully Logged in...")
+            //         props.history.push("../screens/Home");
+            // }
         }catch(error){
             console.log("Error in Login => ",error)
         }
