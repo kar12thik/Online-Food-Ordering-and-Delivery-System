@@ -44,8 +44,8 @@ function RestList({dataTestId}) {
     <div className="container-fluid bg-slate-200">
             <div className="container">
                 <div className="flex mx-auto flex-col md:flex-row lg:flex-row sm:space-x-0 md:space-x-4 lg:space-x-4 pt-10 pl-20 pb-10 ml-10">
-                    <aside className="w-1/3 justify-center">
-                        <div>
+                    <div className="w-1/3 justify-center">
+                        <div className="sticky top-0">
                             <h3 class="mb-4 font-bold text-gray-900 dark:text-white">Categories</h3>
                             <ul class="w-60 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                                 <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
@@ -74,8 +74,8 @@ function RestList({dataTestId}) {
                                 </li>
                             </ul>
                         </div>
-                    </aside>
-                    <div className="w-2/3 justify-center h-[calc(100vh-5.75rem)] sticky overflow-y-scroll overscroll-contain">
+                    </div>
+                    <div className="w-2/3 justify-center">
                     <h3 class="justify-center mb-4 font-bold text-gray-900 dark:text-white">Featured Restaurants</h3>
                         <div className="flex justify-center items-center">
                             <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1">
