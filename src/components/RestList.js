@@ -77,8 +77,8 @@ function RestList({dataTestId}) {
                     </div>
                     <div className="w-2/3 justify-center">
                     <h3 class="justify-center mb-4 font-bold text-gray-900 dark:text-white">Featured Restaurants</h3>
-                        <div className="flex justify-center items-center">
-                            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1">
+                        <div className="flex items-center">
+                            <div className="grid w-10/12 grid-cols-1 md:grid-cols-1 lg:grid-cols-1">
                             <FeaturedRestCards1
                                 restImg={imgUrl}
                                 restName="Chefs"
