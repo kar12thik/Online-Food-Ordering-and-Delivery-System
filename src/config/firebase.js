@@ -1,6 +1,7 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
+import { useState } from 'react';
 
 // #todo: Convert firebaseConfig to Environment Variables
 const firebaseConfig = {
@@ -12,6 +13,7 @@ const firebaseConfig = {
   appId: "1:912102731712:web:06089e16176ff47963a225",
   measurementId: "G-FX9YTWS39P",
 };
+
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -96,23 +98,52 @@ function signUp(userDetails) {
     });
   }
     
+  // async function logIn(userLoginDetails) {
+  //   const { userLoginEmail, userLoginPassword } = userLoginDetails;
+  //   console.log(userLoginEmail)
+  //   console.log(userLoginPassword)
+
+  //   try {
+  //     userLoginDetails.propsHistory.push("/Restaurants");
+  //     const success = await firebase.auth().signInWithEmailAndPassword(userLoginEmail, userLoginPassword);
+  //     const snapshot = await db.collection('users').doc(success.user.uid).get();
+      
+      
+      
+  //     if(snapshot.data().isRestaurant) {
+  //       userLoginDetails.propsHistory.push("/Restaurants");
+  //     } else {
+  //       userLoginDetails.propsHistory.push("/Restaurants");
+  //     }
+  
+  //     return success;
+  //   } catch (error) {
+  //    return Promise.reject(error.message);
+  //   }
+  // }
+  
+
 function logIn(userLoginDetails) {
   return new Promise((resolve, reject) => {
-      const { userLoginEmail, userLoginPassword } = userLoginDetails;
-      console.log (userLoginEmail,userLoginPassword);
+      const { userLoginEmail, userLoginPassword,propsHistory } = userLoginDetails;
+      let userFound = false;
+      // console.log (userLoginEmail,userLoginPassword);
       firebase.auth().signInWithEmailAndPassword(userLoginEmail, userLoginPassword).then((success) => {
           console.log (" 00 - Second Iteration");
+          userFound = true
           db.collection('users').doc(success.user.uid).get().then((snapshot) => {
-              debugger
-              console.log("11");
-              console.log("snapshot.data =>>", snapshot.data().isRestaurant);
-              if(snapshot.data().isRestaurant){
-                  userLoginDetails.propsHistory.push("/Restaurants");
-                  resolve(success)
-              }else{
-                  userLoginDetails.propsHistory.push("/Restaurants");
-                  resolve(success)
-              }             
+            
+            // propsHistory.push("/");
+              // //debugger
+              // console.log("11");
+              // console.log("snapshot.data =>>", snapshot.data().isRestaurant);
+              // if(snapshot.data().isRestaurant){
+              //     userLoginDetails.propsHistory.push("/Restaurants");
+              //     resolve(success)
+              // }else{
+              //     userLoginDetails.propsHistory.push("/");
+              //     resolve(success)
+              // }             
           })
       }).catch((error) => {
           console.log("22");
@@ -121,6 +152,7 @@ function logIn(userLoginDetails) {
           var errorMessage = error.message;
           reject(errorMessage)
       });
+      return userFound
 
   })
 }
