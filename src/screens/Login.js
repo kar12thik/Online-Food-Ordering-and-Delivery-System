@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-// import Navbar from '../components/Navbar';
+//import Navbar from '../components/NavBar';
 /* import Navbar2 from '../components/Navbar2'; */
-/* import Footer from '../components/Footer'; */
-/* import {signUp, logIn} from '../config/firebase'; */
+// import Footer from '../components/Footer'; 
+import {signUp, logIn} from '../config/firebase'; 
+import { useNavigate } from 'react-router-dom';
 
 //import 'bootstrap/dist/css/bootstrap.css';
 import '../App.css'
 
 const Login = (props) => {
+    const navigate = useNavigate();
     const [isRegisterForm, setIsRegisterForm] = useState(false);
     const [registerFormError, setRegisterFormError] = useState("");
     const [setUserProfileImageLable] = useState("Choose image");
@@ -22,8 +24,8 @@ const Login = (props) => {
     const [userProfileImage, setUserProfileImage] = useState(null);
     const [userTNC, setUserTNC] = useState(false);
     const [showError, setShowError] = useState(false);
-    const [userLoginEmail] = useState("");
-    const [userLoginPassword] = useState("");
+    const [userLoginEmail,setUserLoginEmail] = useState("");
+    const [userLoginPassword,setUserLoginPassword] = useState("");
 
     const handleForms = () => {
         setIsRegisterForm(!isRegisterForm);
@@ -211,17 +213,44 @@ const Login = (props) => {
                 propsHistory: props.history,
                 typeOfFood: [],
             };
-            return userDetails;
+            try {
+                const signUpReturn = await signUp(userDetails)
+                //console.log(signUpReturn)
+                if (signUpReturn.success) {
+                    // Redirect to the login page
+                    props.history.push("/login");
+                }
+            }catch(error){
+                console.log("Error in Sign up => ",error)
+            }
         }
     };
-            
-    const handleLoginNowBtn = async () => {
+    
+    // useEffect(()=>{
+    //     console.log(userLoginEmail)
+    //     console.log(userLoginPassword)
+    // },[userLoginEmail,userLoginPassword])
+    const handleLoginNowBtn = async (event) => {
+        event.preventDefault()
+        console.log(props.history)
         const userLoginDetails = {
             userLoginEmail: userLoginEmail,
             userLoginPassword: userLoginPassword,
             propsHistory: props.history,
         };
-        return userLoginDetails;
+        try {
+            navigate("/")
+            const LoginReturn = await logIn(userLoginDetails)
+            //console.log(LoginReturn)
+            if (LoginReturn) {
+            //         // Redirect to the login page
+                
+                    console.log("You have successfully Logged in...")
+                    // props.history.push("../screens/Home");
+            }
+        }catch(error){
+            console.log("Error in Login => ",error)
+        }
     };
 
     return (
@@ -309,16 +338,16 @@ const Login = (props) => {
                         </div> :
                         <div class="bg-white shadow p-4 mx-auto sm:w-full md:w-1/2 lg:w-1/3">
                         <h1 class="text-center text-2xl tracking-widest py-2  border-b-2 border-yellow-500 font-bold text-gray-800">Login Your Account</h1>
-                        <form action=" ">
+                        <form onSubmit={handleLoginNowBtn}>
                             <div class="mb-4 px-2 py-2">
                                 <label class="block text-gray-700 font-bold mb-2" for="userLoginEmail">Email</label>
-                                <input type="email" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="userLoginEmail" placeholder="Email" onChange={handleUserEmail}/>
+                                <input type="email" value = {userLoginEmail} class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="userLoginEmail" placeholder="Email" onChange={(event) => setUserLoginEmail(event.target.value)} />
                             </div>
                             <div class="mb-4 py-2 px-2">
-                                <label class="block text-gray-700 font-bold mb-2" for="userLoginPassword">Password</label>
-                                <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="userLoginPassword" type="password" placeholder="Password" onChange={handleUserPassword}/>
+                                <label class="block text-gray-700 font-bold mb-2"  for="userLoginPassword">Password</label>
+                                <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="userLoginPassword" type="password" value={userLoginPassword}  placeholder="Password" onChange={ (event) =>setUserLoginPassword(event.target.value)}/>
                             </div>
-                            <center><button type="submit" class="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded mb-1 text-uppercase" onClick={handleLoginNowBtn}><b>Login Now</b></button> </center>
+                            <center><button type="submit" class="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded mb-1 text-uppercase" ><b>Login Now</b></button> </center>
                         </form>
                         <p class="mt-4 text-center">Don't have an account yet? <span class="cursor-pointer text-yellow-500" onClick={handleForms}>Create an Account</span></p>
                     </div>
