@@ -255,101 +255,101 @@ const Login = (props) => {
 
     return (
       <div>
-                <div class="container-fluid py-5 bg-gray-100">
+                <div className="container-fluid py-5 bg-gray-100">
                     {isRegisterForm ?
                     
-                        <div class="bg-white shadow p-4 mx-auto sm:w-full md:w-1/2 lg:w-2/3">
-                            <h1 class="text-center text-2xl tracking-widest py-2  border-b-2 border-yellow-500 font-bold text-gray-800">Create an Account</h1>
+                        <div className="bg-white shadow p-4 mx-auto sm:w-full md:w-1/2 lg:w-2/3">
+                            <h1 className="text-center text-2xl tracking-widest py-2  border-b-2 border-yellow-500 font-bold text-gray-800">Create an Account</h1>
                             <br />
                             <form>
-                                <div class = "flex flex-row items-center px-1 py-1">
-                                <div class="form-item w-full mx-auto md:w-1/2">
-                                  <label class="block text-gray-700 font-bold mb-2" htmlFor="userFullName">Full Name</label>
-                                  <input type="text" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userName" placeholder="Full Name" onKeyUp={(e) => handleUserName(e.target.value)} />
+                                <div className = "flex flex-row items-center px-1 py-1">
+                                <div className="form-item w-full mx-auto md:w-1/2">
+                                  <label className="block text-gray-700 font-bold mb-2" htmlFor="userFullName">Full Name</label>
+                                  <input type="text" className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userName" placeholder="Full Name" onKeyUp={(e) => handleUserName(e.target.value)} />
                                 </div>
                                 </div><div>
-                                <div class = "flex flex-row items-center px-1 py-1"></div>
-                                    <div class="form-item w-full mx-auto md:w-1/2">
-                                        <label class="block text-gray-700 font-bold mb-2" htmlFor="userEmail">Email</label>
-                                        <input type="email" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userEmail" placeholder="Email" onKeyUp={(e) => handleUserEmail(e.target.value)} />
+                                <div className = "flex flex-row items-center px-1 py-1"></div>
+                                    <div className="form-item w-full mx-auto md:w-1/2">
+                                        <label className="block text-gray-700 font-bold mb-2" htmlFor="userEmail">Email</label>
+                                        <input type="email" className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userEmail" placeholder="Email" onKeyUp={(e) => handleUserEmail(e.target.value)} />
                                     </div>
                                 </div>
-                                <div class = "flex flex-row items-center px-1 py-1">
-                                    <div class="form-item w-full mx-auto md:w-1/2">
-                                        <label class="block text-gray-700 font-bold mb-2" htmlFor="userPassword">Password</label>
-                                        <input type="password" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userPassword" placeholder="Password" onKeyUp={(e) => handleUserPassword(e.target.value)} />
+                                <div className = "flex flex-row items-center px-1 py-1">
+                                    <div className="form-item w-full mx-auto md:w-1/2">
+                                        <label className="block text-gray-700 font-bold mb-2" htmlFor="userPassword">Password</label>
+                                        <input type="password" className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userPassword" placeholder="Password" onKeyUp={(e) => handleUserPassword(e.target.value)} />
                                     </div>
                                 </div><div>
-                                    <div class="form-item w-full mx-auto md:w-1/2 px-1 py-1">
-                                        <label class="block text-gray-700 font-bold mb-2" htmlFor="userConfirmPassword">Confirm Password</label>
-                                        <input type="password" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userConfirmPassword" placeholder="Password" onKeyUp={(e) => handleUserConfirmPassword(e.target.value)} />
+                                    <div className="form-item w-full mx-auto md:w-1/2 px-1 py-1">
+                                        <label className="block text-gray-700 font-bold mb-2" htmlFor="userConfirmPassword">Confirm Password</label>
+                                        <input type="password" className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userConfirmPassword" placeholder="Password" onKeyUp={(e) => handleUserConfirmPassword(e.target.value)} />
                                     </div>
                                 </div>
-                                <div class = "flex flex-row items-center px-1 py-1">
-                                    <div class="form-item w-full mx-auto md:w-1/2">
-                                        <label class="block text-gray-700 font-bold mb-2" htmlFor="userCity">City</label>
-                                        <input type="text" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userCity" onKeyUp={(e) => handleUserCity(e.target.value)} />
+                                <div className = "flex flex-row items-center px-1 py-1">
+                                    <div className="form-item w-full mx-auto md:w-1/2">
+                                        <label className="block text-gray-700 font-bold mb-2" htmlFor="userCity">City</label>
+                                        <input type="text" className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userCity" onKeyUp={(e) => handleUserCity(e.target.value)} />
                                     </div>
-                                </div><div class = "flex flex-row items-center px-1 py-1" >
+                                </div><div className = "flex flex-row items-center px-1 py-1" >
                                     <div class="form-item w-full mx-auto md:w-1/2">
-                                        <label class="block text-gray-700 font-bold mb-2" htmlFor="userCountry">Country</label>
-                                        <input type="text" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userCountry" onKeyUp={(e) => handleUserCountry(e.target.value)} />
+                                        <label className="block text-gray-700 font-bold mb-2" htmlFor="userCountry">Country</label>
+                                        <input type="text" className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userCountry" onKeyUp={(e) => handleUserCountry(e.target.value)} />
                                     </div>
                                 </div>
-                                <div class = "flex flex-row items-center px-1 py-1">
-                                    <div class="form-item w-full mx-auto md:w-1/2">
-                                        <label class="block text-gray-700 font-bold mb-2" htmlFor="userGender">Gender</label>
-                                        <select id="userGender" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" value={userGender} onChange={handleUserGender}>
+                                <div className = "flex flex-row items-center px-1 py-1">
+                                    <div className="form-item w-full mx-auto md:w-1/2">
+                                        <label className="block text-gray-700 font-bold mb-2" htmlFor="userGender">Gender</label>
+                                        <select id="userGender" className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" value={userGender} onChange={handleUserGender}>
                                             <option defaultValue>Male</option>
                                             <option>Female</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class = "flex flex-row items-center px-1 py-1">
-                                    <div class="form-item w-full mx-auto md:w-1/2">
-                                      <label class="block text-gray-700 font-bold mb-2" htmlFor="userAge" >Age</label>
-                                      <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userAge" onKeyUp={(e) => handleUserAge(e.target.value)} />
+                                <div className = "flex flex-row items-center px-1 py-1">
+                                    <div className="form-item w-full mx-auto md:w-1/2">
+                                      <label className="block text-gray-700 font-bold mb-2" htmlFor="userAge" >Age</label>
+                                      <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userAge" onKeyUp={(e) => handleUserAge(e.target.value)} />
                                     </div>
                                 </div>
 
-                                <div class = "flex flex-row items-center px-1 py-1">
-                                    <div class="form-item w-full mx-auto md:w-1/2">
-                                      <p class="block text-gray-700 font-bold mb-2">Profile Image</p>
-                                      <div class="relative border-2 border-gray-300 border-dashed rounded-md">
-                                        <input type="file" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userProfileImage" accept="image/*" onChange={handleUserProfileImage} />
+                                <div className = "flex flex-row items-center px-1 py-1">
+                                    <div className="form-item w-full mx-auto md:w-1/2">
+                                      <p className="block text-gray-700 font-bold mb-2">Profile Image</p>
+                                      <div className="relative border-2 border-gray-300 border-dashed rounded-md">
+                                        <input type="file" className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userProfileImage" accept="image/*" onChange={handleUserProfileImage} />
                                       </div>
                                     </div>
                                 </div>
-                                <div class = "flex flex-row items-center px-2 py-2">
-                                    <div class="form-item w-full mx-auto md:w-1/2">
-                                      <input type="checkbox" class="custom-control-input" id="userTNC" checked={userTNC} onChange={handleUserTNC} />
-                                      <label class="custom-control-label" for="userTNC">Accept Terms and Conditions</label>
+                                <div className = "flex flex-row items-center px-2 py-2">
+                                    <div className="form-item w-full mx-auto md:w-1/2">
+                                      <input type="checkbox" className="custom-control-input" id="userTNC" checked={userTNC} onChange={handleUserTNC} />
+                                      <label className="custom-control-label" for="userTNC">Accept Terms and Conditions</label>
                                     </div>
                                 </div>
-                                <div class = "flex flex-row items-center px-1 py-1">
-                                    <p class="form-item w-full mx-auto md:w-1/2 px-1 py-1 text-red-600">{showError ? registerFormError : null}</p>
+                                <div className = "flex flex-row items-center px-1 py-1">
+                                    <p className="form-item w-full mx-auto md:w-1/2 px-1 py-1 text-red-600">{showError ? registerFormError : null}</p>
                                 </div>                                
-                                    <center><button type="button" class=" cen-ter bg-yellow-500 text-white uppercase font-bold py-2 px-4 rounded mb-4" onClick={handleCreateAccountBtn}><b>Create an Account</b></button>
+                                    <center><button type="button" className=" cen-ter bg-yellow-500 text-white uppercase font-bold py-2 px-4 rounded mb-4" onClick={handleCreateAccountBtn}><b>Create an Account</b></button>
                                     </center>
                                 
                             </form>
-                            <center><p class="m-0 px-1 py-1">Already have an account? <span class="cursor-pointer text-yellow-500" onClick={handleForms}>Login Here</span></p>
+                            <center><p className="m-0 px-1 py-1">Already have an account? <span class="cursor-pointer text-yellow-500" onClick={handleForms}>Login Here</span></p>
                             </center>
                         </div> :
-                        <div class="bg-white shadow p-4 mx-auto sm:w-full md:w-1/2 lg:w-1/3">
-                        <h1 class="text-center text-2xl tracking-widest py-2  border-b-2 border-yellow-500 font-bold text-gray-800">Login Your Account</h1>
+                        <div className="bg-white shadow p-4 mx-auto sm:w-full md:w-1/2 lg:w-1/3">
+                        <h1 className="text-center text-2xl tracking-widest py-2  border-b-2 border-yellow-500 font-bold text-gray-800">Login Your Account</h1>
                         <form onSubmit={handleLoginNowBtn}>
-                            <div class="mb-4 px-2 py-2">
-                                <label class="block text-gray-700 font-bold mb-2" for="userLoginEmail">Email</label>
-                                <input type="email" value = {userLoginEmail} class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="userLoginEmail" placeholder="Email" onChange={(event) => setUserLoginEmail(event.target.value)} />
+                            <div className="mb-4 px-2 py-2">
+                                <label className="block text-gray-700 font-bold mb-2" htmlFor="userLoginEmail">Email</label>
+                                <input type="email" value = {userLoginEmail} className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="userLoginEmail" placeholder="Email" onChange={(event) => setUserLoginEmail(event.target.value)} />
                             </div>
-                            <div class="mb-4 py-2 px-2">
-                                <label class="block text-gray-700 font-bold mb-2"  for="userLoginPassword">Password</label>
-                                <input class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="userLoginPassword" type="password" value={userLoginPassword}  placeholder="Password" onChange={ (event) =>setUserLoginPassword(event.target.value)}/>
+                            <div className="mb-4 py-2 px-2">
+                                <label className="block text-gray-700 font-bold mb-2"  htmlFor="userLoginPassword">Password</label>
+                                <input className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="userLoginPassword" type="password" value={userLoginPassword}  placeholder="Password" onChange={ (event) =>setUserLoginPassword(event.target.value)}/>
                             </div>
-                            <center><button type="submit" class="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded mb-1 text-uppercase" ><b>Login Now</b></button> </center>
+                            <center><button type="submit" className="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded mb-1 text-uppercase" ><b>Login Now</b></button> </center>
                         </form>
-                        <p class="mt-4 text-center">Don't have an account yet? <span class="cursor-pointer text-yellow-500" onClick={handleForms}>Create an Account</span></p>
+                        <p className="mt-4 text-center">Don't have an account yet? <span class="cursor-pointer text-yellow-500" onClick={handleForms}>Create an Account</span></p>
                     </div>
                   }
                 </div>
