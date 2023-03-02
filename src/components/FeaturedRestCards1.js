@@ -14,7 +14,7 @@ function FeaturedRestCards1(props) {
           src={props.restImg}
           alt=""
         />
-        <div className="flex flex-col justify-between pl-40 leading-normal">
+        <div className="flex flex-col justify-between m-auto leading-normal">
           <h5 className="mb-1 text-2xl font-bold tracking-tight text-black-900 text-justify">
             {props.restName}
           </h5>
@@ -80,7 +80,7 @@ function FeaturedRestCards1(props) {
           </div>
 
           {/* Like Button */}
-          <div className="text-justify mt-8 space-x-14">
+          <div className="text-justify mt-6 space-x-14">
             <button onClick={() => setLike((like) => !like)}>
               <svg
                 width="24"
