@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function FeaturedRestCards1(props) {
+function FeaturedRestCardsForRestPage(props) {
   const [like, setLike] = useState(false);
 
   return (
@@ -14,7 +14,7 @@ function FeaturedRestCards1(props) {
           src={props.restImg}
           alt=""
         />
-        <div className="flex flex-col justify-between m-auto leading-normal">
+        <div className="flex flex-col justify-between leading-normal">
           <h5 className="mb-1 text-2xl font-bold tracking-tight text-black-900 text-justify">
             {props.restName}
           </h5>
@@ -106,4 +106,4 @@ function FeaturedRestCards1(props) {
   );
 }
 
-export default FeaturedRestCards1;
+export default FeaturedRestCardsForRestPage;

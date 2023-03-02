@@ -1,4 +1,4 @@
-import FeaturedRestCards1 from "./FeaturedRestCards1";
+import FeaturedRestCardsForRestPage from "./FeaturedRestCardsForRestPage";
 import { useState } from 'react';
 
 function RestList({dataTestId}) {
@@ -7,9 +7,9 @@ function RestList({dataTestId}) {
     const [navbar, setNavbar] = useState(false);
   return (
     <div className="container-fluid bg-slate-200">
-            <div className="container">
-                <div className="flex mx-auto flex-col md:flex-row lg:flex-row sm:space-x-0 md:space-x-4 lg:space-x-4 pt-10 pl-20 pb-10 ml-10">
-                <div className="md:hidden sticky top-0 -ml-12">
+            <div className="">
+                <div className="w-full flex mx-auto flex-col md:flex-row lg:flex-row sm:space-x-0 md:space-x-4 lg:space-x-4 pt-10 pb-10">
+                <div className="md:hidden sticky top-0 ">
                             <button
                                 className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
                                 onClick={() => setNavbar(!navbar)}
@@ -105,36 +105,36 @@ function RestList({dataTestId}) {
                             </ul>
                         </div>
                     </div>
-                    <div className="w-2/3 justify-center">
+                    <div className="w-full md:w-full lg:w-2/3 justify-center">
                     <h3 class="justify-center mb-4 font-bold text-gray-900 dark:text-white">Featured Restaurants</h3>
-                        <div className="flex items-center">
-                            <div className="grid w-10/12  grid-cols-1 md:grid-cols-1 lg:grid-cols-1">
-                            <FeaturedRestCards1
+                        <div className="">
+                            <div className="grid sm:w-full md:11/12 lg:w-10/12 grid-cols-1 md:grid-cols-1 lg:grid-cols-1">
+                            <FeaturedRestCardsForRestPage
                                 restImg={imgUrl}
                                 restName="Chefs"
                                 restDish="Egg Fry, Noodles, Pastry"
                             />
-                            <FeaturedRestCards1
+                            <FeaturedRestCardsForRestPage
                                 restImg={imgUrl}
                                 restName="Chefs"
                                 restDish="Egg Fry, Noodles, Pastry"
                             />
-                            <FeaturedRestCards1
+                            <FeaturedRestCardsForRestPage
                                 restImg={imgUrl}
                                 restName="Chefs"
                                 restDish="Egg Fry, Noodles, Pastry"
                             />
-                            <FeaturedRestCards1
+                            <FeaturedRestCardsForRestPage
                                 restImg={imgUrl}
                                 restName="Chefs"
                                 restDish="Egg Fry, Noodles, Pastry"
                             />
-                            <FeaturedRestCards1
+                            <FeaturedRestCardsForRestPage
                                 restImg={imgUrl}
                                 restName="Chefs"
                                 restDish="Egg Fry, Noodles, Pastry"
                             />
-                            <FeaturedRestCards1
+                            <FeaturedRestCardsForRestPage
                                 restImg={imgUrl}
                                 restName="Chefs"
                                 restDish="Egg Fry, Noodles, Pastry"
