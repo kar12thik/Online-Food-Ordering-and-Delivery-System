@@ -1,7 +1,7 @@
-import React, { useState,useEffect } from 'react';
-import Navbar from '../components/NavBar';
+import React, { useState } from 'react';
+//import Navbar from '../components/NavBar';
 /* import Navbar2 from '../components/Navbar2'; */
-import Footer from '../components/Footer'; 
+// import Footer from '../components/Footer'; 
 import {signUp, logIn} from '../config/firebase'; 
 import { useNavigate } from 'react-router-dom';
 
