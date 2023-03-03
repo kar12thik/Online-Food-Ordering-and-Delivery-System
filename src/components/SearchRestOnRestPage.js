@@ -1,16 +1,13 @@
 import React from "react";
 
-function SearchRest({ dataTestId }) {
+function SearchRestOnRestPage({ dataTestId }) {
   return (
     <div className="border" data-testid={dataTestId}>
-      <div className="flex h-screen bg-[url('https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1032&q=80')] bg-no-repeat bg-cover">
+      <div className="flex h-52 bg-orange-500 bg-no-repeat bg-cover">
         <form className="m-auto items-center">
           <label htmlFor="simple-search" className="sr-only">
             Search
           </label>
-          <h1 className="mb-4 items-center text-center text-4xl font-extrabold uppercase leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
-            Organic Fast Food <br /> Made <br /> Easy and Healthy
-          </h1>
           <div className="mx-auto flex w-auto content-center justify-center">
             <div className=" inset-y-0 flex items-center ">
               <svg
@@ -47,7 +44,7 @@ function SearchRest({ dataTestId }) {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  strokeLinecap="round"
+                  stroke-linecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
@@ -56,17 +53,10 @@ function SearchRest({ dataTestId }) {
               <span className="sr-only">Search</span>
             </button>
           </div>
-
-          <div className="grid sm:grid-cols-1 md:grid-cols-4 lg:grid-cols-4">
-            <div className="">Restaurants</div>
-            <div className="">Delivery</div>
-            <div className="">Reservations</div>
-            <div className="">Home Services</div>
-          </div>
         </form>
       </div>
     </div>
   );
 }
 
-export default SearchRest;
+export default SearchRestOnRestPage;
