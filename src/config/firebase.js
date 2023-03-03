@@ -1,7 +1,6 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
-import { useState } from "react";
 
 // #todo: Convert firebaseConfig to Environment Variables
 const firebaseConfig = {
@@ -97,7 +96,9 @@ function signUp(userDetails) {
         console.log("Error in Authentication", errorMessage);
         reject(errorMessage);
       });
-      
+  });
+}
+
 // async function logIn(userLoginDetails) {
 //   const { userLoginEmail, userLoginPassword } = userLoginDetails;
 //   console.log(userLoginEmail)
