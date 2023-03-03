@@ -159,21 +159,21 @@ const MenuDetails = (props) => {
           <div className="flex mx-auto flex-col md:flex-row lg:flex-row sm:space-x-0 md:space-x-4 lg:space-x-4 pt-10 pl-20 pb-10 ml-10">
             <div className="w-1/3 justify-center">
               <div>
-                <h3 className="mb-4 font-bold text-gray-900 dark:text-white">
+                <h3 className="mb-4 font-bold text-gray-900 dark:text-black">
                   Categories
                 </h3>
-                <ul className="w-60 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <ul className="w-60 h-48 p-3 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg">
                   <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                     <div className="flex items-center pl-3">
                       <input
                         id="vue-checkbox"
                         type="checkbox"
                         value=""
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500 text-black"
                       />
                       <label
                         htmlFor="vue-checkbox"
-                        className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-black"
                       >
                         Chicken
                       </label>
@@ -189,7 +189,7 @@ const MenuDetails = (props) => {
                       />
                       <label
                         htmlFor="react-checkbox"
-                        className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-black"
                       >
                         Burgers
                       </label>
@@ -205,7 +205,7 @@ const MenuDetails = (props) => {
                       />
                       <label
                         htmlFor="angular-checkbox"
-                        className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-black"
                       >
                         Pizza
                       </label>
@@ -221,7 +221,7 @@ const MenuDetails = (props) => {
                       />
                       <label
                         htmlFor="laravel-checkbox"
-                        className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-black"
                       >
                         Sauces
                       </label>
@@ -244,7 +244,14 @@ const MenuDetails = (props) => {
                   <Tab className="tab" label="Info" {...a11yProps(2)} />
                 </Tabs>
               </Box>
-              <TabPanel value={value} index={0}></TabPanel>
+              <TabPanel value={value} index={0}>
+                <div className="col-12 bg-white p-4">
+                  <div className="orange-box "></div>
+                  <strong>Natural food Iems</strong>
+                  <div> </div>
+                  <div>Dosa</div>
+                </div>
+              </TabPanel>
               <TabPanel value={value} index={1}>
                 <div className="col-12 bg-white p-4">
                   <p>
@@ -270,10 +277,10 @@ const MenuDetails = (props) => {
             </Box>
 
             <div className="w-1/3 justify-center">
-              <h3 className="mb-4 font-bold text-gray-900 dark:text-white">
+              <h3 className="mb-4 font-bold text-gray-900 dark:text-black">
                 Your Order
               </h3>
-              <div className="w-60 h-48 p-3 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+              <div className="w-60 h-48 p-3 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg">
                 {/* {cartItemsList.length > 0 ? */}
                 {cartItemsCount > 0 ? (
                   <div>
