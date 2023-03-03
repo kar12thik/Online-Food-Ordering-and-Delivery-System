@@ -291,7 +291,7 @@ const Login = (props) => {
                                         <input type="text" className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userCity" onKeyUp={(e) => handleUserCity(e.target.value)} />
                                     </div>
                                 </div><div className = "flex flex-row items-center px-1 py-1" >
-                                    <div class="form-item w-full mx-auto md:w-1/2">
+                                    <div className="form-item w-full mx-auto md:w-1/2">
                                         <label className="block text-gray-700 font-bold mb-2" htmlFor="userCountry">Country</label>
                                         <input type="text" className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none" id="userCountry" onKeyUp={(e) => handleUserCountry(e.target.value)} />
                                     </div>
@@ -333,7 +333,7 @@ const Login = (props) => {
                                     </center>
                                 
                             </form>
-                            <center><p className="m-0 px-1 py-1">Already have an account? <span class="cursor-pointer text-yellow-500" onClick={handleForms}>Login Here</span></p>
+                            <center><p className="m-0 px-1 py-1">Already have an account? <span className="cursor-pointer text-yellow-500" onClick={handleForms}>Login Here</span></p>
                             </center>
                         </div> :
                         <div className="bg-white shadow p-4 mx-auto sm:w-full md:w-1/2 lg:w-1/3">
@@ -349,7 +349,7 @@ const Login = (props) => {
                             </div>
                             <center><button type="submit" className="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded mb-1 text-uppercase" ><b>Login Now</b></button> </center>
                         </form>
-                        <p className="mt-4 text-center">Don't have an account yet? <span class="cursor-pointer text-yellow-500" onClick={handleForms}>Create an Account</span></p>
+                        <p className="mt-4 text-center">Don't have an account yet? <span className="cursor-pointer text-yellow-500" onClick={handleForms}>Create an Account</span></p>
                     </div>
                   }
                 </div>
