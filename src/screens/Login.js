@@ -2,12 +2,13 @@ import React, { useState } from "react";
 // import Navbar from '../components/Navbar';
 /* import Navbar2 from '../components/Navbar2'; */
 /* import Footer from '../components/Footer'; */
-/* import {signUp, logIn} from '../config/firebase'; */
+import { signUp, logIn } from "../config/firebase";
+import { useNavigate } from "react-router-dom";
 
-//import 'bootstrap/dist/css/bootstrap.css';
 import "../App.css";
 
 const Login = (props) => {
+  const navigate = useNavigate();
   const [isRegisterForm, setIsRegisterForm] = useState(false);
   const [registerFormError, setRegisterFormError] = useState("");
   const [setUserProfileImageLable] = useState("Choose image");
@@ -22,8 +23,8 @@ const Login = (props) => {
   const [userProfileImage, setUserProfileImage] = useState(null);
   const [userTNC, setUserTNC] = useState(false);
   const [showError, setShowError] = useState(false);
-  const [userLoginEmail] = useState("");
-  const [userLoginPassword] = useState("");
+  const [userLoginEmail, setUserLoginEmail] = useState("");
+  const [userLoginPassword, setUserLoginPassword] = useState("");
 
   const handleForms = () => {
     setIsRegisterForm(!isRegisterForm);
@@ -231,17 +232,40 @@ const Login = (props) => {
         propsHistory: props.history,
         typeOfFood: [],
       };
-      return userDetails;
+      try {
+        const signUpReturn = await signUp(userDetails);
+        //console.log(signUpReturn)
+        if (signUpReturn.success) {
+          // Redirect to the login page
+          props.history.push("/login");
+        }
+      } catch (error) {
+        console.log("Error in Sign up => ", error);
+      }
     }
   };
 
-  const handleLoginNowBtn = async () => {
+  const handleLoginNowBtn = async (event) => {
+    event.preventDefault();
+    console.log(props.history);
     const userLoginDetails = {
       userLoginEmail: userLoginEmail,
       userLoginPassword: userLoginPassword,
       propsHistory: props.history,
     };
-    return userLoginDetails;
+    try {
+      navigate("/");
+      const LoginReturn = await logIn(userLoginDetails);
+      //console.log(LoginReturn)
+      if (LoginReturn) {
+        //         // Redirect to the login page
+
+        console.log("You have successfully Logged in...");
+        // props.history.push("../screens/Home");
+      }
+    } catch (error) {
+      console.log("Error in Login => ", error);
+    }
   };
 
   return (
