@@ -2,12 +2,13 @@ import React, { useState } from "react";
 // import Navbar from '../components/Navbar';
 /* import Navbar2 from '../components/Navbar2'; */
 /* import Footer from '../components/Footer'; */
-/* import {signUp, logIn} from '../config/firebase'; */
+import { logIn } from "../config/firebase";
+import { useNavigate } from "react-router-dom";
 
-//import 'bootstrap/dist/css/bootstrap.css';
 import "../App.css";
 
 const Login = (props) => {
+  const navigate = useNavigate();
   const [isRegisterForm, setIsRegisterForm] = useState(false);
   const [registerFormError, setRegisterFormError] = useState("");
   const [setUserProfileImageLable] = useState("Choose image");
@@ -22,8 +23,8 @@ const Login = (props) => {
   const [userProfileImage, setUserProfileImage] = useState(null);
   const [userTNC, setUserTNC] = useState(false);
   const [showError, setShowError] = useState(false);
-  const [userLoginEmail] = useState("");
-  const [userLoginPassword] = useState("");
+  const [userLoginEmail, setUserLoginEmail] = useState("");
+  const [userLoginPassword, setUserLoginPassword] = useState("");
 
   const handleForms = () => {
     setIsRegisterForm(!isRegisterForm);
@@ -235,13 +236,27 @@ const Login = (props) => {
     }
   };
 
-  const handleLoginNowBtn = async () => {
+  const handleLoginNowBtn = async (event) => {
+    event.preventDefault();
+    console.log(props.history);
     const userLoginDetails = {
       userLoginEmail: userLoginEmail,
       userLoginPassword: userLoginPassword,
       propsHistory: props.history,
     };
-    return userLoginDetails;
+    try {
+      navigate("/");
+      const LoginReturn = await logIn(userLoginDetails);
+      //console.log(LoginReturn)
+      if (LoginReturn) {
+        //         // Redirect to the login page
+
+        console.log("You have successfully Logged in...");
+        // props.history.push("../screens/Home");
+      }
+    } catch (error) {
+      console.log("Error in Login => ", error);
+    }
   };
 
   return (
@@ -254,7 +269,7 @@ const Login = (props) => {
             </h1>
             <br />
             <form>
-              <div class="flex flex-row items-center px-1 py-1">
+              <div className="flex flex-row items-center px-1 py-1">
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <label
                     className="block text-gray-700 font-bold mb-2"
@@ -272,7 +287,7 @@ const Login = (props) => {
                 </div>
               </div>
               <div>
-                <div class="flex flex-row items-center px-1 py-1"></div>
+                <div className="flex flex-row items-center px-1 py-1"></div>
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <label
                     className="block text-gray-700 font-bold mb-2"
@@ -289,7 +304,7 @@ const Login = (props) => {
                   />
                 </div>
               </div>
-              <div class="flex flex-row items-center px-1 py-1">
+              <div className="flex flex-row items-center px-1 py-1">
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <label
                     className="block text-gray-700 font-bold mb-2"
@@ -323,7 +338,7 @@ const Login = (props) => {
                   />
                 </div>
               </div>
-              <div class="flex flex-row items-center px-1 py-1">
+              <div className="flex flex-row items-center px-1 py-1">
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <label
                     className="block text-gray-700 font-bold mb-2"
@@ -339,7 +354,7 @@ const Login = (props) => {
                   />
                 </div>
               </div>
-              <div class="flex flex-row items-center px-1 py-1">
+              <div className="flex flex-row items-center px-1 py-1">
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <label
                     className="block text-gray-700 font-bold mb-2"
@@ -355,7 +370,7 @@ const Login = (props) => {
                   />
                 </div>
               </div>
-              <div class="flex flex-row items-center px-1 py-1">
+              <div className="flex flex-row items-center px-1 py-1">
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <label
                     className="block text-gray-700 font-bold mb-2"
@@ -374,7 +389,7 @@ const Login = (props) => {
                   </select>
                 </div>
               </div>
-              <div class="flex flex-row items-center px-1 py-1">
+              <div className="flex flex-row items-center px-1 py-1">
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <label
                     className="block text-gray-700 font-bold mb-2"
@@ -390,7 +405,7 @@ const Login = (props) => {
                 </div>
               </div>
 
-              <div class="flex flex-row items-center px-1 py-1">
+              <div className="flex flex-row items-center px-1 py-1">
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <p className="block text-gray-700 font-bold mb-2">
                     Profile Image
@@ -406,7 +421,7 @@ const Login = (props) => {
                   </div>
                 </div>
               </div>
-              <div class="flex flex-row items-center px-2 py-2">
+              <div className="flex flex-row items-center px-2 py-2">
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <input
                     type="checkbox"
@@ -420,7 +435,7 @@ const Login = (props) => {
                   </label>
                 </div>
               </div>
-              <div class="flex flex-row items-center px-1 py-1">
+              <div className="flex flex-row items-center px-1 py-1">
                 <p className="form-item w-full mx-auto md:w-1/2 px-1 py-1 text-red-600">
                   {showError ? registerFormError : null}
                 </p>
