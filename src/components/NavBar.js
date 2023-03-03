@@ -1,9 +1,10 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import Logo from "../Display_Logo.png"
+import { useSelector, useDispatch } from 'react-redux';
+import { setNav } from '../actions/index.js';
 
 function NavBar() {
-    const [navbar, setNavbar] = useState(false);
+    const navbar = useSelector(state => state.navbar)
+    const dispatch = useDispatch()
 
     return (
         <nav className="w-full bg-black shadow">
@@ -17,7 +18,7 @@ function NavBar() {
                         <div className="md:hidden">
                             <button
                                 className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
-                                onClick={() => setNavbar(!navbar)}
+                                onClick = {() => dispatch(setNav())}
                             >
                                 {navbar ? (
                                     <svg
@@ -75,7 +76,7 @@ function renderHomeLinks() {
                 </li>
                 <li className="text-white">
                     <Link to='/register-restaurant'>
-                        <button type="button" className="btn bg-orange h-12 px-6">REGISTER RESTAURANT</button>
+                        <button type="button" className="btn rounded-lg bg-orange h-12 px-6">REGISTER RESTAURANT</button>
                     </Link>
                 </li>
             </ul>

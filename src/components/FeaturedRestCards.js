@@ -23,10 +23,10 @@ function FeaturedRestCards(props) {
           </p>
 
           {/* Rating Stars */}
-          <div class="flex items-center mt-1 mb-1">
+          <div className="flex items-center mt-1 mb-1">
             <svg
               aria-hidden="true"
-              class="w-5 h-5 text-yellow-300"
+              className="w-5 h-5 text-yellow-300"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +36,7 @@ function FeaturedRestCards(props) {
             </svg>
             <svg
               aria-hidden="true"
-              class="w-5 h-5 text-yellow-300"
+              className="w-5 h-5 text-yellow-300"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +46,7 @@ function FeaturedRestCards(props) {
             </svg>
             <svg
               aria-hidden="true"
-              class="w-5 h-5 text-yellow-300"
+              className="w-5 h-5 text-yellow-300"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +56,7 @@ function FeaturedRestCards(props) {
             </svg>
             <svg
               aria-hidden="true"
-              class="w-5 h-5 text-yellow-300"
+              className="w-5 h-5 text-yellow-300"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@ function FeaturedRestCards(props) {
             </svg>
             <svg
               aria-hidden="true"
-              class="w-5 h-5 text-yellow-300"
+              className="w-5 h-5 text-yellow-300"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,7 @@ function FeaturedRestCards(props) {
               <title>Fifth star</title>
               <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
             </svg>
-            <span class="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
+            <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
               5.0
             </span>
           </div>
@@ -86,8 +86,8 @@ function FeaturedRestCards(props) {
                 width="24"
                 height="24"
                 xmlns="http://www.w3.org/2000/svg"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
               >
                 {like ? (
                   <path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.148 12-15.809 0-4.011-3.095-6.181-6.274-6.181" />

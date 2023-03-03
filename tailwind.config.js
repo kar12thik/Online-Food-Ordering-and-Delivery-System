@@ -5,6 +5,9 @@ module.exports = {
     extend: {
       colors: {
         'orange': '#E18633',
+      },
+      backgroundImage: {
+        'restaurant-cover': "url('../src/assets/images/cover_image.png')",
       }
     },
   },
