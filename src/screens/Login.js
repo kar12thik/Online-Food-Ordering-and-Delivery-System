@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // import Navbar from '../components/Navbar';
 /* import Navbar2 from '../components/Navbar2'; */
 /* import Footer from '../components/Footer'; */
-import { signUp } from "../config/firebase";
+import { signUp, logIn } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
 
 import "../App.css";
@@ -253,7 +253,19 @@ const Login = (props) => {
       userLoginPassword: userLoginPassword,
       propsHistory: props.history,
     };
-    return userLoginDetails;
+    try {
+      navigate("/");
+      const LoginReturn = await logIn(userLoginDetails);
+      //console.log(LoginReturn)
+      if (LoginReturn) {
+        //         // Redirect to the login page
+
+        console.log("You have successfully Logged in...");
+        // props.history.push("../screens/Home");
+      }
+    } catch (error) {
+      console.log("Error in Login => ", error);
+    }
   };
 
   return (
