@@ -1,0 +1,25 @@
+.tabs {
+
+    width: 100% !important;
+    display: flex !important;
+    place-content: center !important;
+    /* "& .MuiTabs-indicator": {
+      backgroundColor: "#ff0000",
+    }, */
+  }
+.tab {
+    text-transform: capitalize !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    background: #3379E1 !important;
+    color:white !important;
+    /* "&:hover": {
+      color: "#ff0000",
+    }, */
+  }
+  .css-heg063-MuiTabs-flexContainer{
+    width: 100% !important;
+    display: flex !important;
+    place-content: center !important;
+    gap: 130px;
+  }
