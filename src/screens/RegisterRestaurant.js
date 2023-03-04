@@ -1,7 +1,7 @@
 import React from "react";
 import Login from "./Login";
 
-function Create() {
+function RegisterRestaurant() {
   return (
     <div>
       <Login restaurantProp={true} />
@@ -9,4 +9,4 @@ function Create() {
   );
 }
 
-export default Create;
+export default RegisterRestaurant;
