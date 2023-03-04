@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-// import { signUp } from "../config/firebase";
-// import { useNavigate } from "react-router-dom";
+import { signUp } from "../config/firebase";
+import { useNavigate } from "react-router-dom";
 
 import "../App.css";
 
 const RegisterRestaurant = (props) => {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [registerFormError, setRegisterFormError] = useState("");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
@@ -219,7 +219,19 @@ const RegisterRestaurant = (props) => {
         isRestaurant: true,
         typeOfFood: [],
       };
-      return userDetails;
+      try {
+        const signUpReturn = await signUp(userDetails);
+        console.log(signUpReturn);
+        if (signUpReturn.success) {
+          setMessage(false);
+          navigate("/order-requests");
+        } else {
+          setMessage(true);
+        }
+      } catch (error) {
+        setMessage(true);
+        console.log("Error in Register Restaurant => ", error);
+      }
     }
   };
 
