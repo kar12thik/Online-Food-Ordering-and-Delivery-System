@@ -9,6 +9,9 @@ import "../App.css";
 
 const Login = (props) => {
   const navigate = useNavigate();
+  let { restaurantProp } = props;
+  if (restaurantProp !== true) restaurantProp = false;
+  const [isRestaurantUser, setIsRestaurantUser] = useState(restaurantProp);
   const [isRegisterForm, setIsRegisterForm] = useState(false);
   const [registerFormError, setRegisterFormError] = useState("");
   const [setUserProfileImageLable] = useState("Choose image");
@@ -25,6 +28,7 @@ const Login = (props) => {
   const [showError, setShowError] = useState(false);
   const [userLoginEmail, setUserLoginEmail] = useState("");
   const [userLoginPassword, setUserLoginPassword] = useState("");
+  const [message, setMessage] = useState(false);
 
   const handleForms = () => {
     setIsRegisterForm(!isRegisterForm);
@@ -228,25 +232,35 @@ const Login = (props) => {
         userGender: userGender,
         userAge: userAge,
         userProfileImage: userProfileImage,
-        isRestaurant: false,
+        isRestaurant: isRestaurantUser,
         propsHistory: props.history,
         typeOfFood: [],
       };
       try {
         const signUpReturn = await signUp(userDetails);
-        //console.log(signUpReturn)
+        console.log(signUpReturn);
         if (signUpReturn.success) {
-          // Redirect to the login page
-          props.history.push("/login");
+          setMessage(false);
+          if (isRestaurantUser) {
+            navigate("/order-requests");
+          } else {
+            props.history.push("/login");
+          }
         }
       } catch (error) {
-        console.log("Error in Sign up => ", error);
+        setMessage(true);
+        if (isRestaurantUser) {
+          console.log("Error in Register Restaurant => ", error);
+        } else {
+          console.log("Error in Sign up => ", error);
+        }
       }
     }
   };
 
   const handleLoginNowBtn = async (event) => {
     event.preventDefault();
+    setIsRestaurantUser(false);
     console.log(props.history);
     const userLoginDetails = {
       userLoginEmail: userLoginEmail,
@@ -271,17 +285,17 @@ const Login = (props) => {
   return (
     <div>
       <div className="container-fluid py-5 bg-gray-100">
-        {isRegisterForm ? (
+        {isRegisterForm || isRestaurantUser ? (
           <div className="bg-white shadow p-4 mx-auto sm:w-full md:w-1/2 lg:w-2/3">
             <h1 className="text-center text-2xl tracking-widest py-2  border-b-2 border-yellow-500 font-bold text-gray-800">
-              Create an Account
+              {isRestaurantUser ? "Register Restaurant" : "Create an Account"}
             </h1>
             <br />
             <form>
               <div className="flex flex-row items-center px-1 py-1">
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <label
-                    className="block text-gray-700 font-bold mb-2"
+                    className="text-left block text-gray-700 font-bold mb-2"
                     htmlFor="userFullName"
                   >
                     Full Name
@@ -299,7 +313,7 @@ const Login = (props) => {
                 <div className="flex flex-row items-center px-1 py-1"></div>
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <label
-                    className="block text-gray-700 font-bold mb-2"
+                    className="text-left block text-gray-700 font-bold mb-2"
                     htmlFor="userEmail"
                   >
                     Email
@@ -316,7 +330,7 @@ const Login = (props) => {
               <div className="flex flex-row items-center px-1 py-1">
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <label
-                    className="block text-gray-700 font-bold mb-2"
+                    className="text-left block text-gray-700 font-bold mb-2"
                     htmlFor="userPassword"
                   >
                     Password
@@ -333,7 +347,7 @@ const Login = (props) => {
               <div>
                 <div className="form-item w-full mx-auto md:w-1/2 px-1 py-1">
                   <label
-                    className="block text-gray-700 font-bold mb-2"
+                    className="text-left block text-gray-700 font-bold mb-2"
                     htmlFor="userConfirmPassword"
                   >
                     Confirm Password
@@ -350,7 +364,7 @@ const Login = (props) => {
               <div className="flex flex-row items-center px-1 py-1">
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <label
-                    className="block text-gray-700 font-bold mb-2"
+                    className="text-left block text-gray-700 font-bold mb-2"
                     htmlFor="userCity"
                   >
                     City
@@ -366,7 +380,7 @@ const Login = (props) => {
               <div className="flex flex-row items-center px-1 py-1">
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <label
-                    className="block text-gray-700 font-bold mb-2"
+                    className="text-left block text-gray-700 font-bold mb-2"
                     htmlFor="userCountry"
                   >
                     Country
@@ -382,7 +396,7 @@ const Login = (props) => {
               <div className="flex flex-row items-center px-1 py-1">
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <label
-                    className="block text-gray-700 font-bold mb-2"
+                    className="text-left block text-gray-700 font-bold mb-2"
                     htmlFor="userGender"
                   >
                     Gender
@@ -401,7 +415,7 @@ const Login = (props) => {
               <div className="flex flex-row items-center px-1 py-1">
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <label
-                    className="block text-gray-700 font-bold mb-2"
+                    className="text-left block text-gray-700 font-bold mb-2"
                     htmlFor="userAge"
                   >
                     Age
@@ -416,7 +430,7 @@ const Login = (props) => {
 
               <div className="flex flex-row items-center px-1 py-1">
                 <div className="form-item w-full mx-auto md:w-1/2">
-                  <p className="block text-gray-700 font-bold mb-2">
+                  <p className="text-left block text-gray-700 font-bold mb-2">
                     Profile Image
                   </p>
                   <div className="relative border-2 border-gray-300 border-dashed rounded-md">
@@ -431,7 +445,7 @@ const Login = (props) => {
                 </div>
               </div>
               <div className="flex flex-row items-center px-2 py-2">
-                <div className="form-item w-full mx-auto md:w-1/2">
+                <div className="text-left form-item w-full mx-auto md:w-1/2">
                   <input
                     type="checkbox"
                     className="custom-control-input"
@@ -439,7 +453,10 @@ const Login = (props) => {
                     checked={userTNC}
                     onChange={handleUserTNC}
                   />
-                  <label className="custom-control-label" htmlFor="userTNC">
+                  <label
+                    className="text-left custom-control-label"
+                    htmlFor="userTNC"
+                  >
                     Accept Terms and Conditions
                   </label>
                 </div>
@@ -459,17 +476,38 @@ const Login = (props) => {
                 </button>
               </center>
             </form>
-            <center>
-              <p className="m-0 px-1 py-1">
-                Already have an account?{" "}
-                <span
-                  className="cursor-pointer text-yellow-500"
-                  onClick={handleForms}
-                >
-                  Login Here
-                </span>
-              </p>
-            </center>
+            {isRestaurantUser && message ? (
+              <div className="flex flex-row items-center px-1 py-1">
+                <div className="form-item w-full mx-auto md:w-1/2">
+                  <div
+                    className="flex flex-row  justify-center bg-blue-500 text-white text-sm font-bold px-4 py-3 w-full "
+                    role="alert"
+                  >
+                    <svg
+                      className="fill-current w-4 h-4 mr-2"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z" />
+                    </svg>
+                    <p>Email Address Already In Use.</p>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+            {isRestaurantUser ? null : (
+              <center>
+                <p className="m-0 px-1 py-1">
+                  Already have an account?{" "}
+                  <span
+                    className="cursor-pointer text-yellow-500"
+                    onClick={handleForms}
+                  >
+                    Login Here
+                  </span>
+                </p>
+              </center>
+            )}
           </div>
         ) : (
           <div className="bg-white shadow p-4 mx-auto sm:w-full md:w-1/2 lg:w-1/3">
@@ -479,7 +517,7 @@ const Login = (props) => {
             <form action=" ">
               <div className="mb-4 px-2 py-2">
                 <label
-                  className="block text-gray-700 font-bold mb-2"
+                  className="text-left block text-gray-700 font-bold mb-2"
                   htmlFor="userLoginEmail"
                 >
                   Email
@@ -494,7 +532,7 @@ const Login = (props) => {
               </div>
               <div className="mb-4 py-2 px-2">
                 <label
-                  className="block text-gray-700 font-bold mb-2"
+                  className="text-left block text-gray-700 font-bold mb-2"
                   htmlFor="userLoginPassword"
                 >
                   Password
