@@ -1,6 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
+import "firebase/compat/storage";
 
 // #todo: Convert firebaseConfig to Environment Variables
 const firebaseConfig = {
@@ -69,8 +70,9 @@ function signUp(userDetails) {
                 .doc(uid)
                 .set(userDetailsForDb)
                 .then((docRef) => {
+                  console.log(userDetailsForDb);
                   if (userDetailsForDb.isRestaurant) {
-                    userDetails.propsHistory.push("/Restaurants");
+                    userDetailsForDb.success = true;
                     resolve(userDetailsForDb);
                   } else {
                     userDetails.propsHistory.push("/");
@@ -78,6 +80,7 @@ function signUp(userDetails) {
                   }
                 })
                 .catch(function (error) {
+                  error.success = false;
                   console.error("Error adding document: ", error);
                   reject(error);
                 });
@@ -98,28 +101,6 @@ function signUp(userDetails) {
       });
   });
 }
-
-// async function logIn(userLoginDetails) {
-//   const { userLoginEmail, userLoginPassword } = userLoginDetails;
-//   console.log(userLoginEmail)
-//   console.log(userLoginPassword)
-
-//   try {
-//     userLoginDetails.propsHistory.push("/Restaurants");
-//     const success = await firebase.auth().signInWithEmailAndPassword(userLoginEmail, userLoginPassword);
-//     const snapshot = await db.collection('users').doc(success.user.uid).get();
-
-//     if(snapshot.data().isRestaurant) {
-//       userLoginDetails.propsHistory.push("/Restaurants");
-//     } else {
-//       userLoginDetails.propsHistory.push("/Restaurants");
-//     }
-
-//     return success;
-//   } catch (error) {
-//    return Promise.reject(error.message);
-//   }
-// }
 
 function logIn(userLoginDetails) {
   return new Promise((resolve, reject) => {
