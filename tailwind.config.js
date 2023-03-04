@@ -8,6 +8,7 @@ module.exports = {
       },
       backgroundImage: {
         'restaurant-cover': "url('../src/assets/images/cover_image.png')",
+        'order-now-background' : "url('../src/assets/images/order_now_background.jpg')"
       }
     },
   },
