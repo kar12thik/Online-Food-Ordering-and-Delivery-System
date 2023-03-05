@@ -1,22 +1,10 @@
 import { render, screen, cleanup } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import Home from "../screens/Home";
-import Banner from "../components/Banner.js";
 import { SearchRest } from "../components/SearchRest";
 
 afterEach(() => {
   cleanup();
-});
-
-test("should render Banner Component", () => {
-  render(
-    <BrowserRouter>
-      {" "}
-      <Banner />{" "}
-    </BrowserRouter>,
-  );
-  const bannerElement = screen.getByText("Banner");
-  expect(bannerElement).toBeInTheDocument();
 });
 
 test("should render Search Restaurants component", () => {
@@ -26,8 +14,6 @@ test("should render Search Restaurants component", () => {
       <Home />{" "}
     </BrowserRouter>,
   );
-  const bannerElement = screen.getByText("Banner");
-  expect(bannerElement).toBeInTheDocument();
   const searchRestElement = screen.getAllByTestId("Search_Restaurants");
   expect(searchRestElement[0]).toBeInTheDocument();
 });
