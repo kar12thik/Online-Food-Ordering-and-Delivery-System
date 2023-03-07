@@ -161,5 +161,53 @@ function logIn(userLoginDetails) {
   });
 }
 
+function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
+  console.log("Inside orderNow");
+  console.log("userDetails => ", userDetails);
+  console.log("resDetails => ", resDetails);
+  console.log("resDetails.id => ", resDetails.id);
+  return new Promise((resolve, reject) => {
+      let user = firebase.auth().currentUser;
+      var uid;
+      if (user != null) {
+          uid = user.uid;
+      };
+
+      console.log("User id", uid);
+      uid = 'TestUser3'
+
+      const myOrder = {
+          itemsList: cartItemsList,
+          totalPrice: totalPrice,
+          status: "PENDING",
+          ...resDetails,
+      }
+
+      const orderRequest = {
+          itemsList: cartItemsList,
+          totalPrice: totalPrice,
+          status: "PENDING",
+          ...userDetails,
+      }
+
+      console.log("myOrder => ", myOrder)
+      console.log("orderRequest => ", orderRequest)
+      db.collection("users").doc(uid).collection("myOrder").add(myOrder).then((docRef) => {
+          console.log("docRef.id", docRef.id)
+          db.collection("users").doc(resDetails.id).collection("orderRequest").doc(docRef.id).set(orderRequest).then((docRef) => {
+              // console.log("Document written with ID: ", docRef.id);
+              resolve('Successfully ordered')
+              // history.push("/my-orders");
+          }).catch(function (error) {
+              console.error("Error adding document: ", error.message);
+              reject(error.message)
+          })
+      }).catch(function (error) {
+          console.error("Error adding document: ", error.message);
+          reject(error.message)
+      })
+  })
+}
+
 export default firebase;
-export { signUp, logIn };
+export { signUp, logIn, orderNow };
