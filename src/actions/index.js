@@ -4,4 +4,9 @@ export const setNav = () =>{
     };
 };
 
+export const setLogIn = () =>{
+    return {
+        type : 'SIGN_IN'
+    }
+}
 
