@@ -110,34 +110,34 @@ function RestList({dataTestId}) {
                         <div className="">
                             <div className="grid sm:w-full md:11/12 lg:w-10/12 grid-cols-1 md:grid-cols-1 lg:grid-cols-1">
                             <FeaturedRestCardsForRestPage
-                                restImg={imgUrl}
-                                restName="Chefs"
-                                restDish="Egg Fry, Noodles, Pastry"
+                                restImg={require('../assets/images/mcdonald.png')}
+                                restName="McDonald's"
+                                restDish="Burgers, Fries, Drinks"
                             />
                             <FeaturedRestCardsForRestPage
-                                restImg={imgUrl}
-                                restName="Chefs"
-                                restDish="Egg Fry, Noodles, Pastry"
+                                restImg={require('../assets/images/melsdinner.png')}
+                                restName="Mel's Diner"
+                                restDish="Sandwiches, Breakfast Platters"
                             />
                             <FeaturedRestCardsForRestPage
-                                restImg={imgUrl}
-                                restName="Chefs"
-                                restDish="Egg Fry, Noodles, Pastry"
+                                restImg={require('../assets/images/AWcanada.jpg')}
+                                restName="A&W Canada"
+                                restDish="Burgers, Chicken"
                             />
                             <FeaturedRestCardsForRestPage
-                                restImg={imgUrl}
-                                restName="Chefs"
-                                restDish="Egg Fry, Noodles, Pastry"
+                                restImg={require('../assets/images/williams.jpeg')}
+                                restName="Williams Fresh Cafe"
+                                restDish="Sandwiches, Wraps, Coffee"
                             />
                             <FeaturedRestCardsForRestPage
-                                restImg={imgUrl}
-                                restName="Chefs"
-                                restDish="Egg Fry, Noodles, Pastry"
+                                restImg={require('../assets/images/hometaste.png')}
+                                restName="HomeTaste"
+                                restDish="Wraps, Curry"
                             />
                             <FeaturedRestCardsForRestPage
-                                restImg={imgUrl}
-                                restName="Chefs"
-                                restDish="Egg Fry, Noodles, Pastry"
+                                restImg={require('../assets/images/harveys.png')}
+                                restName="Harveys"
+                                restDish="Burgers, Poutines"
                             />
                         </div>
                         </div>
