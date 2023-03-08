@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { MdOutlineRestaurant } from "react-icons/md";
+import { MdReviews } from "react-icons/md";
+import { AiFillInfoCircle } from "react-icons/ai";
+import { BiSearch } from "react-icons/bi";
 
 function MenuDetails() {
     const [tab1, settab1] = useState("columns-2 text-center bg-white");
@@ -37,33 +41,49 @@ function MenuDetails() {
 
     return (
         <div>
-            <div className="flex">
-                <div className={tab1} onClick={() => handleTabs("tab1")}>
-                    <p className="res-details-tab-text">Menu</p>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div className="mr-20">
+            <div class="flex ">
+                <div class="tab1 cursor-pointer" onClick={() => handleTabs("tab1")}>
+                    <p class="res-details-tab-text">
+                        <button type="button" className="bg-white hover:bg-gray-200 text-black h-12 px-11 mb-0 mr-10">
+                        <span>Menu </span><div class="ml-3"><MdOutlineRestaurant/></div> 
+                        </button>
+                    </p>
                 </div>
-                <div className={tab2} onClick={() => handleTabs("tab2")}>
-                    <p className="res-details-tab-text">Reviews</p>
+                <div class="tab2 cursor-pointer" onClick={() => handleTabs("tab2")}>
+                    <p class="res-details-tab-text">
+                        <button type="button" className="bg-white hover:bg-gray-200 text-black h-12 px-9 mx-24">
+                            Reviews <div className="ml-5"><MdReviews/></div>
+                        </button>
+                    </p>
                 </div>
-                <div className={tab3} onClick={() => handleTabs("tab3")}>
-                    <p className="res-details-tab-text">Restaurant Info</p>
+                <div class="tab3 cursor-pointer" onClick={() => handleTabs("tab3")}>
+                    <p class="res-details-tab-text">
+                    <button type="button" className="bg-white hover:bg-gray-200 text-black h-12 px-11">
+                        Info <div className="ml-2"><AiFillInfoCircle/></div>
+                    </button>
+                    </p>
                 </div>
+            </div>    
+            </div>
             </div>
             {tab1Content &&
-                < div className="flex menu-section">
-                    <div className="col-12 bg-white p-4">
-                        <div className="input-group input-group-sm mb-4 mt-2">
-                            <input type="text" className="form-control search-menu-input" htmlFor="search-menu" placeholder="Search food item" />
-                            <div className="input-group-append">
-                                <span className="input-group-text search-menu-text" id="search-menu"></span>
-                            </div>
+                <div class="col-12 bg-white p-4 mr-2 pr-0 h-232 w-100 pl-17 ml-0">
+                <div class="flex items-center mb-2 mt-2">
+                    
+                        <input type="text" className="form-control search-menu-input" htmlFor="search-menu" placeholder="Search food item" />
+                        <div className="ml-2"><BiSearch/></div>
+                        <div className="input-group-append">
+                            <span className="input-group-text search-menu-text" id="search-menu"></span>
                         </div>
-                        <div>
-                            <h6 className="mb-4 text-warning">Best food items:</h6>
-                            {/* {this._renderMenuItemsList()} */}
-                            Menu items
-                        </div>
+                    
+                    <div>
+                       
                     </div>
                 </div>
+            </div> 
+                         
             }
             {tab2Content && <div className="row review-section">
                 <div className="col-12 bg-white p-4">
