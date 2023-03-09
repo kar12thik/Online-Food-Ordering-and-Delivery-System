@@ -1,11 +1,14 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 // import Navbar from '../components/Navbar';
 /* import Navbar2 from '../components/Navbar2'; */
 /* import Footer from '../components/Footer'; */
 // import { signUp, logIn } from "../config/firebase";
-import {  signInWithEmailAndPassword   } from 'firebase/auth';
-import { auth } from '../config/firebase'
 
+// firebase related imports
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { useSelector, useDispatch } from "react-redux";
+import { auth } from "../config/firebase";
+import { db } from "../config/firebase";
 
 import { useNavigate } from "react-router-dom";
 
@@ -29,7 +32,11 @@ const Login = (props) => {
   const [showError, setShowError] = useState(false);
   const [userLoginEmail, setUserLoginEmail] = useState("");
   const [userLoginPassword, setUserLoginPassword] = useState("");
-  const [noUserFound,setNoUserFound] = useState(false)
+  const [noUserFound, setNoUserFound] = useState(false);
+
+  // redux state
+  const loggedInUser = useSelector((state) => state.loggedInUser);
+  const dispatch = useDispatch();
 
   const handleForms = () => {
     setIsRegisterForm(!isRegisterForm);
@@ -60,7 +67,7 @@ const Login = (props) => {
     } else {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Please enter a valid email address."
+        "Invalid Input !! Please enter a valid email address.",
       );
       setUserEmail("");
     }
@@ -76,7 +83,7 @@ const Login = (props) => {
     } else {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Use alphanumeric, uppercase, lowercase & greater than 10 characters."
+        "Invalid Input !! Use alphanumeric, uppercase, lowercase & greater than 10 characters.",
       );
       setUserPassword("");
     }
@@ -91,7 +98,7 @@ const Login = (props) => {
     } else {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Confirmation password not matched."
+        "Invalid Input !! Confirmation password not matched.",
       );
       setUserConfirmPassword(false);
     }
@@ -121,7 +128,7 @@ const Login = (props) => {
     } else {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Please enter a valid country name."
+        "Invalid Input !! Please enter a valid country name.",
       );
       setUserCountry("");
     }
@@ -166,7 +173,7 @@ const Login = (props) => {
       setUserTNC(false);
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Please accept terms and conditions."
+        "Invalid Input !! Please accept terms and conditions.",
       );
     }
   };
@@ -185,19 +192,19 @@ const Login = (props) => {
     } else if (!userEmail.match(userEmailFormate)) {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Please enter a valid email address."
+        "Invalid Input !! Please enter a valid email address.",
       );
       setUserEmail("");
     } else if (!userPassword.match(userPasswordFormate)) {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Password !! Use alphanumeric, uppercase, lowercase & greater than 10 characters."
+        "Invalid Password !! Use alphanumeric, uppercase, lowercase & greater than 10 characters.",
       );
       setUserPassword("");
     } else if (!userConfirmPassword) {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Confirmation password not matched."
+        "Invalid Input !! Confirmation password not matched.",
       );
       setUserConfirmPassword(false);
     } else if (!userCity.match(userCityFormate)) {
@@ -207,7 +214,7 @@ const Login = (props) => {
     } else if (!userCountry.match(userCountryFormate)) {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Please enter a valid country name."
+        "Invalid Input !! Please enter a valid country name.",
       );
       setUserCountry("");
     } else if (!(userAge > 0 && userAge < 101)) {
@@ -248,10 +255,8 @@ const Login = (props) => {
       } catch (error) {
         console.log("Error in Sign up => ", error);
       }
-      
     }
   };
-
 
   const handleLoginNowBtn = async (event) => {
     event.preventDefault();
@@ -261,22 +266,39 @@ const Login = (props) => {
       propsHistory: props.history,
     };
     signInWithEmailAndPassword(auth, userLoginEmail, userLoginPassword)
-        .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            navigate("/")
-            if (user){
-              console.log(user);
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        navigate("/");
+        if (user) {
+          // get user name
+          const q = db.collection("users").doc(user.uid);
+
+          q.get().then((doc) => {
+            // console.log(doc);
+            if (doc.exists) {
+              dispatch({
+                type: "LOGGED_IN_USER",
+                payload: {
+                  userEmail: user.email,
+                  userId: user.uid,
+                  userName: doc.data().userName,
+                },
+              });
             }
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            if (errorCode == 'auth/user-not-found'){
-              setNoUserFound(true)
-            }
-        });
-    
+          });
+
+          // console.log(user);
+        }
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (errorCode == "auth/user-not-found") {
+          setNoUserFound(true);
+        }
+      });
+
     // try {
     //   navigate("/");
     //   // const LoginReturn = await logIn(userLoginDetails);
@@ -497,7 +519,6 @@ const Login = (props) => {
             </center>
           </div>
         ) : (
-
           // Login Form
           <div className="bg-white shadow p-4 mx-auto sm:w-full md:w-1/2 lg:w-1/3">
             <h1 className="text-center text-2xl tracking-widest py-2  border-b-2 border-yellow-500 font-bold text-gray-800">
@@ -541,10 +562,14 @@ const Login = (props) => {
                   onClick={handleLoginNowBtn}
                 >
                   <b>Login Now</b>
-                  
                 </button>{" "}
-                {noUserFound ? <p className="text-red-700">No user found - Signup / Re-Login </p> : '' }
-                
+                {noUserFound ? (
+                  <p className="text-red-700">
+                    No user found - Signup / Re-Login{" "}
+                  </p>
+                ) : (
+                  ""
+                )}
               </center>
             </form>
             <p className="mt-4 text-center">
