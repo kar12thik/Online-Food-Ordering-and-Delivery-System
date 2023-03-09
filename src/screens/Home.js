@@ -6,7 +6,7 @@ import OrderNow from "../components/OrderNow";
 
 function Home() {
   return (
-    <div className="App sm:w-screen md:w-screen lg:w-screen flex flex-col">
+    <div className="App">
       <SearchRest dataTestId="Search_Restaurants" />
       <ProcessInfo dataTestId="Howitworks" />
       <OrderNow dataTestId="OrderNow" />
