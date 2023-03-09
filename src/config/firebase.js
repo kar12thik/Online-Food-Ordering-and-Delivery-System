@@ -1,6 +1,8 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 // #todo: Convert firebaseConfig to Environment Variables
 const firebaseConfig = {
@@ -14,8 +16,12 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+const app = firebase.initializeApp(firebaseConfig);
+
+export const auth = getAuth(app);
+export const db = firebase.firestore(app);
+
+export default app;
 
 function signUp(userDetails) {
   return new Promise((resolve, reject) => {
@@ -35,7 +41,7 @@ function signUp(userDetails) {
       .auth()
       .createUserWithEmailAndPassword(
         userDetails.userEmail,
-        userDetails.userPassword
+        userDetails.userPassword,
       )
       .then((success) => {
         let user = firebase.auth().currentUser;
@@ -161,5 +167,5 @@ function logIn(userLoginDetails) {
   });
 }
 
-export default firebase;
+// export default firebase;
 export { signUp, logIn };
