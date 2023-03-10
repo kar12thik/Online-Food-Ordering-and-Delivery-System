@@ -42,7 +42,7 @@ export default function Modal() {
                       Delete account ?
                     </h4>
                     <p className="mt-2 text-[15px] leading-relaxed text-gray-500">
-                      Are you sure ?
+                      Are you suree ?
                     </p>
                     <div className="items-center gap-2 mt-3 sm:flex">
                       <button
