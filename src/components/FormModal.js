@@ -42,9 +42,7 @@ export default function Modal() {
                       Delete account ?
                     </h4>
                     <p className="mt-2 text-[15px] leading-relaxed text-gray-500">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua.
+                      Are you sure ?
                     </p>
                     <div className="items-center gap-2 mt-3 sm:flex">
                       <button
