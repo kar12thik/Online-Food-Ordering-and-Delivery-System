@@ -195,9 +195,7 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
       db.collection("users").doc(uid).collection("myOrder").add(myOrder).then((docRef) => {
           console.log("docRef.id", docRef.id)
           db.collection("users").doc(resDetails.id).collection("orderRequest").doc(docRef.id).set(orderRequest).then((docRef) => {
-              // console.log("Document written with ID: ", docRef.id);
               resolve('Successfully ordered')
-              // history.push("/my-orders");
           }).catch(function (error) {
               console.error("Error adding document: ", error.message);
               reject(error.message)

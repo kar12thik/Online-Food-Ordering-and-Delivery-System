@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { orderNow } from "../config/firebase";
 import { RxCross2 } from "react-icons/rx";
@@ -6,8 +6,6 @@ import Swal from 'sweetalert2'
 
 function Cart() {
     const navigate = useNavigate();
-    //const [userDetails, setuserDetails] = useState({});
-    //const [resDetails, setresDetails] = useState({});
     const cartItemsCount = 2;
     const cartItemsList = ['Chicken burger', 'Pizza'];
     const totalPrice = 24;
@@ -42,12 +40,6 @@ function Cart() {
             }
 
     function HandleConfirmOrderBtn() {
-        // console.log("Inside handleConfirmOrderBtn()");
-        // console.log("Cart items length", cartItemsList.length)
-        // console.log("userDetails => ", userDetails);
-        // console.log("userDetails.isRestaurant => ", userDetails.isRestaurant);
-        // console.log("resDetails => ", resDetails);
-        // console.log("resDetails.id => ", resDetails.id);
         if (userDetails) {
             if (!userDetails.isRestaurant) {
                 if (cartItemsList.length > 0) {
@@ -124,22 +116,6 @@ function Cart() {
             
         )
             
-        // if (cartItemsList) {
-        //     return Object.keys(cartItemsList).map((val) => {
-        //         return (
-        //             <li className="food-item border-bottom pb-2 mb-3" key={val}>
-        //                 <div className="flex">
-        //                     <div className="col-8 pr-0">
-        //                         <p className="mb-0">{cartItemsList[val].itemTitle}</p>
-        //                     </div>
-        //                     <div className="col-4 pl-0 text-right">
-        //                         <p className="mb-0"><span className="food-price">RS.{cartItemsList[val].itemPrice}</span><span onClick={() => this.removeCartItem(val)} className="remove-food-item"><FontAwesomeIcon icon="times" /></span></p>
-        //                     </div>
-        //                 </div>
-        //             </li>
-        //         )
-        //     })
-        // }
     }
 
     return (
