@@ -168,13 +168,13 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
   console.log("resDetails.id => ", resDetails.id);
   return new Promise((resolve, reject) => {
       let user = firebase.auth().currentUser;
-      var uid;
+      let uid;
       if (user != null) {
           uid = user.uid;
       };
 
       console.log("User id", uid);
-      uid = 'TestUser3'
+      uid = 'TestUser5'
 
       const myOrder = {
           itemsList: cartItemsList,
