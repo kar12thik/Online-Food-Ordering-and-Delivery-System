@@ -42,12 +42,12 @@ function Cart() {
             }
 
     function HandleConfirmOrderBtn() {
-        console.log("Inside handleConfirmOrderBtn()");
-        console.log("Cart items length", cartItemsList.length)
-        console.log("userDetails => ", userDetails);
-        console.log("userDetails.isRestaurant => ", userDetails.isRestaurant);
-        console.log("resDetails => ", resDetails);
-        console.log("resDetails.id => ", resDetails.id);
+        // console.log("Inside handleConfirmOrderBtn()");
+        // console.log("Cart items length", cartItemsList.length)
+        // console.log("userDetails => ", userDetails);
+        // console.log("userDetails.isRestaurant => ", userDetails.isRestaurant);
+        // console.log("resDetails => ", resDetails);
+        // console.log("resDetails.id => ", resDetails.id);
         if (userDetails) {
             if (!userDetails.isRestaurant) {
                 if (cartItemsList.length > 0) {
