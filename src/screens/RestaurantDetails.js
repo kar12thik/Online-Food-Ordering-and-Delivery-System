@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import MenuDetails from '../components/MenuDetails.js';
+
 import { RxCross2 } from "react-icons/rx";
 
 
@@ -123,8 +125,8 @@ const RestaurantDetails = (props) => {
                             </ul>
                         </div>
                     </div>
-                    <div className="w-1/3 justify-center">
-                        Menu Details Section
+                    <div className="w-2/3 justify-center">
+                        <MenuDetails />
                     </div>
                     <div className="w-1/3 justify-center">
                         <h3 className="mb-4 font-bold text-gray-900 dark:text-white">Your Order</h3>
