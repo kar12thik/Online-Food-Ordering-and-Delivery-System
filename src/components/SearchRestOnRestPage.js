@@ -3,7 +3,7 @@ import React from "react";
 function SearchRestOnRestPage({ dataTestId }) {
   return (
     <div className="border" data-testid={dataTestId}>
-      <div className="flex h-52 bg-orange-500 bg-no-repeat bg-cover">
+      <div className="flex h-52 bg-rest-page-bg1 bg-cover bg-no-repeat">
         <form className="m-auto items-center">
           <label htmlFor="simple-search" className="sr-only">
             Search
