@@ -1,46 +1,23 @@
 import FeaturedRestCardsForRestPage from "./FeaturedRestCardsForRestPage";
 import React, { useState } from "react";
-import Data from "../assets/images/data";
 
 function filterRest(filterItem) {
-    console.log("Inside handle method");
-    let restChecked = document.querySelectorAll(".filter-list input.check:checked");
-    console.log(restChecked);
-    // let results = Array.from(document.querySelectorAll('.filterRest > div'));
-    // console.log(results);
-    // Hide all results
-    // results.forEach(function(result) {
-    //     result.style.display = 'none';
-    // });
-    // Filter results to only those that meet ALL requirements:        
-    filterModelsOrProcessors(restChecked);
+    let restChecked = document.querySelectorAll(".filter-list input.check:checked");      
+    findCategory(restChecked);
 
-    function filterModelsOrProcessors(modelsOrProcessorsChecked) {
-        const array_list = []
-        let results = Array.from(modelsOrProcessorsChecked).reduce(function(sum, input) {
-            const attrib = input.getAttribute('value');
-            array_list.push(attrib)
-            console.log(attrib);
-            // filterItem(attrib);
-            // return sum.concat(results.filter(function(result) {
-            //     return result.classList.contains(attrib);
-            // }));
+    function findCategory(categoriesChecked) {
+        const category_list = []
+        Array.from(categoriesChecked).reduce(function(sum, input) {
+            const category = input.getAttribute('value');
+            category_list.push(category)
         }, []);
-        console.log(array_list);
-        filterItem(array_list);
+        filterItem(category_list);
     }
-    // Show those filtered results:
-    // results.forEach(function(result) {
-    //     result.style.display = 'block';
-    // });
 };
 
 function RestList({dataTestId,item, menuItems, filterItem, setItem}) {
   <></>
-  const imgUrl =
-    "https://react-quick-food.firebaseapp.com/static/media/listing-logo12.c9102623.png";
   const [navbar, setNavbar] = useState(false);
-  // const { renderRestaurantList, renderCategorizedRestaurants, renderSearchRestaurants, defaultSearchValue } = this.state;
     return (
         <div className="container-fluid bg-slate-200">
                 <div className="">
@@ -124,24 +101,6 @@ function RestList({dataTestId,item, menuItems, filterItem, setItem}) {
                                     </li>
                                     );
                                 })}
-                                    {/* <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                                        <div className="flex items-center pl-3">
-                                            <input id="react-checkbox" type="checkbox" value="" className="check w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" onChange={handleCategoriesCheckbox}/>
-                                            <label htmlFor="react-checkbox" className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Burgers</label>
-                                        </div>
-                                    </li>
-                                    <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                                        <div className="flex items-center pl-3">
-                                            <input id="angular-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
-                                            <label htmlFor="angular-checkbox" className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Pizza</label>
-                                        </div>
-                                    </li> */}
-                                    {/* <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
-                                        <div className="flex items-center pl-3">
-                                            <input id="laravel-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
-                                            <label htmlFor="laravel-checkbox" className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sauces</label>
-                                        </div>
-                                    </li> */}
                                 </ul>
                             </div>
                         </div>
