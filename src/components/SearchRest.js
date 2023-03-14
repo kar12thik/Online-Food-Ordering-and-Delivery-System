@@ -9,7 +9,7 @@ function SearchRest({ dataTestId }) {
             Search
           </label>
           <h2 className="mb-4 font-sans items-center text-center font-extrabold text-white uppercase leading-none tracking-tight text-gray-900 sm:text-4xl md:text-4xl lg:text-5xl">
-            Order your favorite meals, <br/> anytime, anywhere!
+            Order your favourite meals, <br/> anytime, anywhere!
           </h2>
           <div className="mx-auto flex w-auto content-center justify-center">
             <div className=" inset-y-0 flex items-center ">

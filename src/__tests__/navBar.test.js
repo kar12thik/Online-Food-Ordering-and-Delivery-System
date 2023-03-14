@@ -36,7 +36,7 @@ test("full app rendering/navigating to Restaurant page", async () => {
   const user = userEvent.setup();
 
   // verify page content for default route
-  expect(screen.getByText(/ORGANIC/i)).toBeInTheDocument();
+  expect(screen.getByText(/FAVOURITE/i)).toBeInTheDocument();
   expect(screen.queryByText("Featured Restaurants")).toBeNull();
 
   // verify page content for expected route after navigating

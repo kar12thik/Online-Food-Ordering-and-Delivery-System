@@ -6,7 +6,7 @@ import RestaurantImg from "../icons/restaurant.svg";
 
 function ProcessInfo({ dataTestId }) {
   return (
-    <div>
+    <div className="bg-slate-200">
       <div className="pt-10 pb-10" data-testid={dataTestId}>
         <h1 className="text-3xl uppercase font-bold underline">How it Works</h1>
       </div>
