@@ -1,34 +1,41 @@
 import FeaturedRestCardsForRestPage from "./FeaturedRestCardsForRestPage";
 import React, { useState } from "react";
+import Data from "../assets/images/data";
 
-function handleCategoriesCheckbox(event) {
+function filterRest(filterItem) {
     console.log("Inside handle method");
     let restChecked = document.querySelectorAll(".filter-list input.check:checked");
     console.log(restChecked);
-    let results = Array.from(document.querySelectorAll('.filterRest > div'));
-    console.log(results);
+    // let results = Array.from(document.querySelectorAll('.filterRest > div'));
+    // console.log(results);
     // Hide all results
-    results.forEach(function(result) {
-        result.style.display = 'none';
-    });
+    // results.forEach(function(result) {
+    //     result.style.display = 'none';
+    // });
     // Filter results to only those that meet ALL requirements:        
     filterModelsOrProcessors(restChecked);
 
     function filterModelsOrProcessors(modelsOrProcessorsChecked) {
-        results = Array.from(modelsOrProcessorsChecked).reduce(function(sum, input) {
-            const attrib = input.getAttribute('rel');
-            return sum.concat(results.filter(function(result) {
-                return result.classList.contains(attrib);
-            }));
+        const array_list = []
+        let results = Array.from(modelsOrProcessorsChecked).reduce(function(sum, input) {
+            const attrib = input.getAttribute('value');
+            array_list.push(attrib)
+            console.log(attrib);
+            // filterItem(attrib);
+            // return sum.concat(results.filter(function(result) {
+            //     return result.classList.contains(attrib);
+            // }));
         }, []);
+        console.log(array_list);
+        filterItem(array_list);
     }
     // Show those filtered results:
-    results.forEach(function(result) {
-        result.style.display = 'block';
-    });
+    // results.forEach(function(result) {
+    //     result.style.display = 'block';
+    // });
 };
 
-function RestList({dataTestId,item}) {
+function RestList({dataTestId,item, menuItems, filterItem, setItem}) {
   <></>
   const imgUrl =
     "https://react-quick-food.firebaseapp.com/static/media/listing-logo12.c9102623.png";
@@ -107,13 +114,17 @@ function RestList({dataTestId,item}) {
                             <div className="sticky top-0">
                                 <h3 className="mb-4 font-bold text-gray-900">Categories</h3>
                                 <ul className="filter-list w-60 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                                {menuItems.map((Val, id) => {
+                                    return(
                                     <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                         <div className="flex items-center pl-3">
-                                            <input id="vue-checkbox" type="checkbox" value="" className="check w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" rel="chicken" onChange={handleCategoriesCheckbox}/>
-                                            <label htmlFor="vue-checkbox" className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Chicken</label>
+                                            <input id={id} onClick={() => filterRest(filterItem)} type="checkbox" value={Val} className="check w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" rel="chicken"/>
+                                            <label htmlFor="vue-checkbox" className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{Val}</label>
                                         </div>
                                     </li>
-                                    <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                                    );
+                                })}
+                                    {/* <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                         <div className="flex items-center pl-3">
                                             <input id="react-checkbox" type="checkbox" value="" className="check w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" onChange={handleCategoriesCheckbox}/>
                                             <label htmlFor="react-checkbox" className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Burgers</label>
@@ -124,13 +135,13 @@ function RestList({dataTestId,item}) {
                                             <input id="angular-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
                                             <label htmlFor="angular-checkbox" className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Pizza</label>
                                         </div>
-                                    </li>
-                                    <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+                                    </li> */}
+                                    {/* <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                         <div className="flex items-center pl-3">
                                             <input id="laravel-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
                                             <label htmlFor="laravel-checkbox" className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sauces</label>
                                         </div>
-                                    </li>
+                                    </li> */}
                                 </ul>
                             </div>
                         </div>
@@ -138,46 +149,13 @@ function RestList({dataTestId,item}) {
                         <h3 className="justify-center mb-4 font-bold text-gray-900 dark:text-white">Featured Restaurants</h3>
                             <div className="">
                                 <div className="filterRest grid sm:w-full md:11/12 lg:w-10/12 grid-cols-1 md:grid-cols-1 lg:grid-cols-1">
-                                {/* <div className="chicken">
-                                <FeaturedRestCardsForRestPage
-                                    restImg={imgUrl}
-                                    restName="Chefs"
-                                    restDish="Egg Fry, Noodles, Pastry"
-                                />
-                                </div>
-                                <FeaturedRestCardsForRestPage
-                                    restImg={imgUrl}
-                                    restName="Chefs"
-                                    restDish="Egg Fry, Noodles, Pastry"
-                                />
-                                <FeaturedRestCardsForRestPage
-                                    restImg={imgUrl}
-                                    restName="Chefs"
-                                    restDish="Egg Fry, Noodles, Pastry"
-                                />
-                                <FeaturedRestCardsForRestPage
-                                    restImg={imgUrl}
-                                    restName="Chefs"
-                                    restDish="Egg Fry, Noodles, Pastry"
-                                />
-                                <FeaturedRestCardsForRestPage
-                                    restImg={imgUrl}
-                                    restName="Chefs"
-                                    restDish="Egg Fry, Noodles, Pastry"
-                                />
-                                <FeaturedRestCardsForRestPage
-                                    restImg={imgUrl}
-                                    restName="Chefs"
-                                    restDish="Egg Fry, Noodles, Pastry"
-                                />
-                            </div> */}
-                            {item.map((Val) => {
-                                return(
-                                    <FeaturedRestCardsForRestPage
-                                    restImg={Val.img}
-                                    restName={Val.title}
-                                    restDish={Val.category}
-                                />
+                                    {item.map((Val) => {
+                                        return(
+                                        <FeaturedRestCardsForRestPage
+                                            restImg={Val.img}
+                                            restName={Val.title}
+                                            restDish={Val.category}
+                                        />
                                 );
                             })};
                             </div>

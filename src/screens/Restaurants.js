@@ -6,6 +6,14 @@ import { useState } from 'react';
 
 function Restaurants() {
   const [item, setItem] = useState(Data);
+  const menuItems = [...new Set(Data.map((Val) => Val.category))];
+
+   function filterItem(filterCategory) {
+    const newItem = Data.filter((newVal) => {
+      return filterCategory.includes(newVal.category);
+    });
+    setItem(newItem);
+  };
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
@@ -13,7 +21,7 @@ function Restaurants() {
   return (
     <div>
       <SearchRestOnRestPage dataTestId="Search_Restaurants_On_RestPage"></SearchRestOnRestPage>
-      <RestList dataTestId="Featured_Restaurants" item={item}></RestList>
+      <RestList dataTestId="Featured_Restaurants" item={item} menuItems={menuItems} setItem={setItem} filterItem={filterItem}></RestList>
     </div>
   );
 }
