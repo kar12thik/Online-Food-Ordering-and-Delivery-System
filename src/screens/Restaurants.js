@@ -23,7 +23,7 @@ function Restaurants() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
-  const [navbar, setNavbar] = useState(false);
+  const [categorybar, setCategorybar] = useState(false);
   return (
     <div>
       <SearchRestOnRestPage dataTestId="Search_Restaurants_On_RestPage"></SearchRestOnRestPage>
@@ -31,11 +31,11 @@ function Restaurants() {
         <div className="container-fluid bg-slate-200 w-full flex mx-auto flex-col md:flex-row lg:flex-row sm:space-x-0 md:space-x-4 lg:space-x-4 pt-10 pb-10">
           <div className="w-1/3 justify-center md:block">
             <div className="sticky top-0">
-      <RestCategories item={item} navbar={navbar} setNavbar={setNavbar} menuItems={menuItems} setItem={setItem} filterItem={filterItem}></RestCategories>
+      <RestCategories categorybar={categorybar} setCategorybar={setCategorybar} menuItems={menuItems} filterItem={filterItem}></RestCategories>
           </div>
         </div>
         <div className="w-full md:w-full lg:w-2/3 justify-center">
-          <RestList dataTestId="Featured_Restaurants" item={item} menuItems={menuItems} setItem={setItem} filterItem={filterItem}></RestList>
+          <RestList dataTestId="Featured_Restaurants" item={item}></RestList>
         </div>
       </div>
     </div>

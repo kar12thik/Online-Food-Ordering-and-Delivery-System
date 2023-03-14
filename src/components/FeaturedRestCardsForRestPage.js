@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function FeaturedRestCardsForRestPage(props) {
   const [like, setLike] = useState(false);
 
   return (
     <div className="">
+      <Link to="/restaurant-details">
       <a
         href="/"
         className="m-1 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:h-44 lg:h-56 md:max-w-xl lg:max-w-xl hover:bg-gray-100 dark:border-gray-700 bg-white-800"
@@ -102,6 +104,7 @@ function FeaturedRestCardsForRestPage(props) {
           </div>
         </div>
       </a>
+      </Link>
       </div>
   );
 }

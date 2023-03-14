@@ -1,24 +1,7 @@
 import FeaturedRestCardsForRestPage from "./FeaturedRestCardsForRestPage";
-import RestCategories from "./RestCategories";
-import React, { useState } from "react";
 
-function filterRest(filterItem) {
-    let restChecked = document.querySelectorAll(".filter-list input.check:checked");      
-    findCategory(restChecked);
-
-    function findCategory(categoriesChecked) {
-        const category_list = []
-        Array.from(categoriesChecked).reduce(function(sum, input) {
-            const category = input.getAttribute('value');
-            category_list.push(category)
-        }, []);
-        filterItem(category_list);
-    }
-};
-
-function RestList({dataTestId,item, menuItems, filterItem, setItem}) {
+function RestList({item}) {
   <></>
-  const [navbar, setNavbar] = useState(false);
     return (
         <div className="">
                         <h3 className="justify-center mb-4 font-bold text-gray-900 dark:text-white">Featured Restaurants</h3>
@@ -32,7 +15,7 @@ function RestList({dataTestId,item, menuItems, filterItem, setItem}) {
                                             restDish={Val.category}
                                         />
                                 );
-                            })};
+                            })}
                             </div>
                             </div>
                         </div>
