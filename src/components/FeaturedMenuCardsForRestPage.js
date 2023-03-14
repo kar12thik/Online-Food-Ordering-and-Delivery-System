@@ -18,8 +18,11 @@ function FeaturedMenuCardsForRestPage(props) {
           <h5 className="mb-1 text-2xl font-bold tracking-tight text-black-900 text-justify">
             {props.restName}
           </h5>
+          <p className="mb-1 text-sm text-gray-700 dark:text-gray-400 text-justify">
+            {props.restDetail}
+          </p>
           <p className="mb-1 font-normal text-gray-700 dark:text-gray-400 text-justify">
-            {props.restDish}
+            {props.restPrice}
           </p>
         </div>
       </a>

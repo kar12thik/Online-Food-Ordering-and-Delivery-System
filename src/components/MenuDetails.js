@@ -4,6 +4,8 @@ import { MdReviews } from "react-icons/md";
 import { AiFillInfoCircle } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
 import FeaturedMenuCardsForRestPage from "./FeaturedMenuCardsForRestPage";
+import SearchRestOnRestPage from "./SearchRestOnRestPage";
+
 
 function MenuDetails() {
   const [tab1, settab1] = useState("columns-2 text-center bg-white");
@@ -51,7 +53,7 @@ function MenuDetails() {
               <p className="res-details-tab-text">
                 <button
                   type="button"
-                  className="bg-white hover:bg-gray-200 text-black h-12 px-11 mb-0 mr-10"
+                  className="bg-white hover:bg-gray-200 text-black h-12 px-11 mb-0 mr-12"
                 >
                   <span>Menu </span>
                   <div className="ml-3">
@@ -64,8 +66,7 @@ function MenuDetails() {
               <p className="res-details-tab-text">
                 <button
                   type="button"
-                  className="bg-white hover:bg-gray-200 text-black h-12 px-9 mx-24"
-                >
+                  className="bg-white hover:bg-gray-200 text-black h-12 px-9 mx-24">
                   Reviews{" "}
                   <div className="ml-5">
                     <MdReviews />
@@ -77,7 +78,7 @@ function MenuDetails() {
               <p className="res-details-tab-text">
                 <button
                   type="button"
-                  className="bg-white hover:bg-gray-200 text-black h-12 px-11"
+                  className="bg-white hover:bg-gray-200 text-black h-12 px-11 ml-7"
                 >
                   Info{" "}
                   <div className="ml-2">
@@ -91,7 +92,7 @@ function MenuDetails() {
       </div>
       {tab1Content && (
         <div>
-          <div className="m-1 flex flex-col items-center bg-white md:flex-row md:max-w-xl  bg-white-800 ml-9">
+          <div className="m-1 flex flex-col items-center bg-white md:flex-row md:max-w-xl  bg-white-800 ml-4">
           <div className="ml-3">
                 <BiSearch />
               </div>
@@ -113,21 +114,26 @@ function MenuDetails() {
               <div></div>
             </div>
           </div>
-          <div className="ml-8">
+
+          
+          <div className="ml-3">
             <FeaturedMenuCardsForRestPage
               restImg={imgUrl}
               restName="Pavbhaji"
-              restDish="$15"
+              restDetail="A thick vegetable curry served with a soft bread roll." 
+              restPrice="$15"
             />
             <FeaturedMenuCardsForRestPage
               restImg={imgUrl}
               restName="Dosa"
-              restDish="$10"
+              restDetail="A thin, crispy dish served with chutney and sambar." 
+              restPrice="$10"
             />
             <FeaturedMenuCardsForRestPage
               restImg={imgUrl}
               restName="Biryani"
-              restDish="$20"
+              restDetail="Aromatic and flavorful with a variety of spices." 
+              restPrice="$20"
             />
           </div>
         </div>
