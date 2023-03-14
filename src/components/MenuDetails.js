@@ -5,6 +5,7 @@ import { AiFillInfoCircle } from "react-icons/ai";
 import { BiSearch } from "react-icons/bi";
 import FeaturedMenuCardsForRestPage from "./FeaturedMenuCardsForRestPage";
 import SearchRestOnRestPage from "./SearchRestOnRestPage";
+import SearchMenuOnRestDetail from "./SearchMenuOnRestDetail";
 
 
 function MenuDetails() {
@@ -92,28 +93,9 @@ function MenuDetails() {
       </div>
       {tab1Content && (
         <div>
-          <div className="m-1 flex flex-col items-center bg-white md:flex-row md:max-w-xl  bg-white-800 ml-4">
-          <div className="ml-3">
-                <BiSearch />
-              </div>
-            <div className="flex items-center mb-2 mt-2">
-              <input
-                type="text"
-                className="form-control search-menu-input"
-                htmlFor="search-menu"
-                placeholder="   Search food item"
-              />
-             
-              <div className="input-group-append">
-                <span
-                  className="input-group-text search-menu-text"
-                  id="search-menu"
-                ></span>
-              </div>
-
-              <div></div>
-            </div>
-          </div>
+         <div>
+          <SearchMenuOnRestDetail/>
+        </div>
 
           
           <div className="ml-3">
