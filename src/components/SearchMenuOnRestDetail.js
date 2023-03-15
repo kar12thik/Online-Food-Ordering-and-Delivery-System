@@ -26,8 +26,7 @@ function SearchMenuOnRestDetail({ dataTestId }) {
               <input
                 type="text"
                 id="simple-search"
-                className="block sm:w-auto md:w-100 lg:w-96 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-                
+                className="block sm:w-auto md:w-96 lg:w-100 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 w-96 sm:w-auto md:w-96 lg:w-100"
                 placeholder="Search Menu Items..."
                 required
               />
