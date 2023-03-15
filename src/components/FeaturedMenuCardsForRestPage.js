@@ -4,10 +4,10 @@ function FeaturedMenuCardsForRestPage(props) {
   const [like, setLike] = useState(false);
 
   return (
-    <div className="">
+    <div className="w-full">
       <a
         href="/"
-        className="m-1 flex flex-col items-center bg-white shadow md:flex-row md:max-w-xl lg:max-w-xl hover:bg-gray-100 dark:border-gray-700 bg-white-800"
+        className="m-1 flex flex-col items-center bg-white shadow md:flex-row  hover:bg-gray-100 dark:border-gray-700 bg-white-800"
       >
         <img
           className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
@@ -22,8 +22,10 @@ function FeaturedMenuCardsForRestPage(props) {
             {props.restDetail}
           </p>
           <p className="flex items-center font-normal text-gray-700 dark:text-gray-400 text-justify">
-          {props.restPrice}
-          <button type="button" className="ml-2"><BsPlusCircle/></button>
+            {props.restPrice}
+            <button type="button" className="ml-2">
+              <BsPlusCircle />
+            </button>
           </p>
         </div>
       </a>
