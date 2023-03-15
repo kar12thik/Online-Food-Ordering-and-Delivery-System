@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setNav } from "../actions/index.js";
-
+//import { logout } from '../redux/actions/authActions';
 
 function NavBar() {
   const navbar = useSelector((state) => state.navbar);
@@ -69,31 +69,160 @@ function NavBar() {
   );
 }
 
+const handleLogout = () => {
+    Navigate("/login"); // Redirect to login page
+};
+
+
 function RenderHomeLinks() {
   const isLoggedIn = useSelector((state) => state.loggedInUser.loggedIn);
   const userName = useSelector((state) => state.loggedInUser.userName);
+
   return (
     <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
       <li className="text-white">
         <Link to="/restaurants">RESTAURANTS</Link>
       </li>
+      {isLoggedIn && userName.isRestaurant ? (
+        <>
+        <li className="text-white">
+          <Link to="/restaurants">ADD FOODS</Link>
+        </li>
+        <li className="text-white">
+          <Link to="/restaurants">MY FOODS</Link>
+        </li>
+        <li className="text-white">
+          <Link to="/restaurants">ORDER REQUESTS</Link>
+        </li>
+        </>
+      ) : (
+        // Render customer links and register restaurant button
+        <>
+          {!isLoggedIn && (
+            <li className="text-white">
+              <Link to="/register-restaurant">
+                <button type="button" className="btn rounded-lg bg-orange h-12 px-6">
+                  REGISTER RESTAURANT
+                </button>
+              </Link>
+            </li>
+          )}
+          {isLoggedIn && !userName.isRestaurant && (
+            <li className="text-white">
+            <Link to="/restaurants">MY ORDERS</Link>
+          </li>
+          )}
+        </>
+      )}
       <li className="text-white">
         {isLoggedIn ? (
-          <Link> {userName} </Link>
+          <>
+            <Link>{userName}    </Link>
+            <button type="button" className="btn rounded-lg bg-orange h-12 px-6" onclick= {handleLogout} >
+              LOGOUT
+            </button>
+          </>
         ) : (
           <Link to="/login">LOGIN/REGISTER</Link>
         )}
-        {/* <Link to="/login">LOGIN/REGISTER</Link> */}
-      </li>
-      <li className="text-white">
-        <Link to="/register-restaurant">
-          <button type="button" className="btn rounded-lg bg-orange h-12 px-6">
-            REGISTER RESTAURANT
-          </button>
-        </Link>
       </li>
     </ul>
   );
+
+  // Already There.. Below..
+  // return (
+  //   <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+  //     <li className="text-white">
+  //       <Link to="/restaurants">RESTAURANTS</Link>
+  //     </li>
+  //     <li className="text-white">
+  //       {isLoggedIn ? (
+  //         <Link> {userName} </Link>
+  //       ) : (
+  //         <Link to="/login">LOGIN/REGISTER</Link>
+  //       )}
+  //       {/* <Link to="/login">LOGIN/REGISTER</Link> */}
+  //     </li>
+  //     <li className="text-white">
+  //       <Link to="/register-restaurant">
+  //         <button type="button" className="btn rounded-lg bg-orange h-12 px-6">
+  //           REGISTER RESTAURANT
+  //         </button>
+  //       </Link>
+  //     </li>
+  //   </ul>
+  // );
+  // // Already There.. Above..
+
+
+  ////////////////////////////////////////////////////////////
+  // // Added by Dax.
+  // if (isLoggedIn) {
+  //   if (userName.isRestaurant) {
+  //     // render restaurant links
+  //     return (
+  //       <ul className="navbar-nav ml-auto">
+  //         <li className="nav-item">
+  //           <span className="nav-link active text-uppercase mr-2"><Link to="/add-menu-items">Add Foods</Link></span>
+  //         </li>
+  //         <li className="nav-item">
+  //           <span className="nav-link active text-uppercase mr-2"><Link to="/my-foods">My Foods</Link></span>
+  //         </li>
+  //         <li className="nav-item">
+  //           <span className="nav-link active text-uppercase mr-2"><Link to="/order-requests">Order Requests</Link></span>
+  //         </li>
+  //         <li className="nav-item">
+  //           <span className="nav-link active text-uppercase mr-2">{userName.userName}</span>
+  //         </li>
+  //         <li className="nav-item">
+  //           <button type="button" className="btn btn-warning btn-sm text-uppercase mr-2 mr-1 px-3" onClick={() => this.handleLogOutBtn()}>Log Out</button>
+  //         </li>
+  //       </ul>
+  //     )
+  //   } else {
+  //     // render customer links
+  //     return (
+  //       <ul className="navbar-nav ml-auto">
+  //         <li className="nav-item">
+  //           <span className="nav-link active text-uppercase mr-2"><Link to="/restaurants">Restaurants</Link></span>
+  //         </li>
+  //         <li className="nav-item">
+  //           <span className="nav-link active text-uppercase mr-2"><Link to="/my-orders">My Orders</Link></span>
+  //         </li>
+  //         <li className="nav-item">
+  //           <span className="nav-link active text-uppercase mr-2">{userName.userName}</span>
+  //         </li>
+  //         <li className="nav-item">
+  //           <button type="button" className="btn btn-warning btn-sm text-uppercase mr-2 mr-1 px-3" onClick={() => this.handleLogOutBtn()}>Log Out</button>
+  //         </li>
+  //       </ul>
+  //     )
+  //   }
+  // } else if (!userName.isRestaurant) {
+  //   // render register restaurant button
+  //   <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+  //   <li className="text-white">
+  //       <Link to="/register-restaurant">
+  //         <button type="button" className="btn rounded-lg bg-orange h-12 px-6">
+  //           REGISTER RESTAURANT
+  //         </button>
+  //       </Link>
+  //     </li>
+  //   </ul>
+  // } else {
+  //   // render login/register button
+  //   <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+  //   <li className="text-white">
+  //       {isLoggedIn ? (
+  //         <Link> {userName} </Link>
+  //       ) : (
+  //         <Link to="/login">LOGIN/REGISTER</Link>
+  //       )}
+  //       {/* <Link to="/login">LOGIN/REGISTER</Link> */}
+  //     </li>
+  //     </ul>
+  // }
+  ///////////////////////////////////////////////////////////////////////////////////////////
 }
 
 function renderUserAccountLinks() {
