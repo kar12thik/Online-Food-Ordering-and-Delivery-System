@@ -283,7 +283,9 @@ const Login = (props) => {
                   <label
                     className="block text-gray-700 font-bold mb-2"
                     htmlFor="userFullName"
-                  >Full Name</label>
+                  >
+                    Full Name
+                  </label>
                   <input
                     type="text"
                     data-testid="fullname-input"
