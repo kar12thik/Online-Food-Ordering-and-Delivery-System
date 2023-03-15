@@ -98,8 +98,6 @@ function MenuDetails() {
           <SearchMenuOnRestDetail/>
           </div>
         </div>
-
-          
           <div className="ml-3">
             <FeaturedMenuCardsForRestPage
               restImg={imgUrl}

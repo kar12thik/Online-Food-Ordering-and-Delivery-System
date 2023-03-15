@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { AiOutlinePlusCircle } from "react-icons/ai";
 function FeaturedMenuCardsForRestPage(props) {
   const [like, setLike] = useState(false);
 
@@ -21,8 +21,9 @@ function FeaturedMenuCardsForRestPage(props) {
           <p className="mb-1 text-sm text-gray-700 dark:text-gray-400 text-justify">
             {props.restDetail}
           </p>
-          <p className="mb-1 font-normal text-gray-700 dark:text-gray-400 text-justify">
-            {props.restPrice}
+          <p className="flex items-center font-normal text-gray-700 dark:text-gray-400 text-justify">
+          {props.restPrice}
+          <button type="button" className="ml-2"><AiOutlinePlusCircle/></button>
           </p>
         </div>
       </a>
