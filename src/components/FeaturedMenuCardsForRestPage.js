@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AiOutlinePlusCircle } from "react-icons/ai";
+import { BsPlusCircle } from "react-icons/bs";
 function FeaturedMenuCardsForRestPage(props) {
   const [like, setLike] = useState(false);
 
@@ -23,7 +23,7 @@ function FeaturedMenuCardsForRestPage(props) {
           </p>
           <p className="flex items-center font-normal text-gray-700 dark:text-gray-400 text-justify">
           {props.restPrice}
-          <button type="button" className="ml-2"><AiOutlinePlusCircle/></button>
+          <button type="button" className="ml-2"><BsPlusCircle/></button>
           </p>
         </div>
       </a>
