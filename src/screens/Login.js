@@ -269,7 +269,7 @@ const Login = (props) => {
   };
 
   return (
-    <div data-testid="my-test-id">
+    <div>
       <div className="container-fluid py-5 bg-gray-100">
         {isRegisterForm ? (
           <div className="bg-white shadow p-4 mx-auto sm:w-full md:w-1/2 lg:w-2/3">
