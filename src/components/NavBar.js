@@ -7,17 +7,17 @@ function NavBar() {
     const dispatch = useDispatch()
 
     return (
-        <nav className="w-full bg-black shadow">
+        <nav className="w-full bg-slate-200 shadow">
             <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
                 <div>
                     <div className="flex items-center justify-between py-3 md:py-5 md:block">
                         <Link className="nav-logo" to='/'>
-                            <h1 className='text-white'>Quick Food</h1>
+                            <h1 className='text-black font-bold'>Quick Food</h1>
                             {/* <img src={Logo}/> */}
                         </Link>
                         <div className="md:hidden">
                             <button
-                                className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
+                                className="p-2 text-gray-800 rounded-md outline-none focus:border-black focus:border"
                                 onClick = {() => dispatch(setNav())}
                             >
                                 {navbar ? (
@@ -68,13 +68,13 @@ function renderHomeLinks() {
     return (
         
             <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                <li className="text-white">
+                <li className="text-black font-bold">
                     <Link to='/restaurants'>RESTAURANTS</Link>
                 </li>
-                <li className="text-white">
+                <li className="text-black font-bold">
                     <Link to='/login'>LOGIN/REGISTER</Link>
                 </li>
-                <li className="text-white">
+                <li className="text-black font-bold">
                     <Link to='/register-restaurant'>
                         <button type="button" className="btn rounded-lg bg-orange h-12 px-6">REGISTER RESTAURANT</button>
                     </Link>
