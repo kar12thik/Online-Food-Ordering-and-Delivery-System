@@ -94,7 +94,9 @@ function MenuDetails() {
       {tab1Content && (
         <div>
          <div>
+         <div className="ml-4">
           <SearchMenuOnRestDetail/>
+          </div>
         </div>
 
           

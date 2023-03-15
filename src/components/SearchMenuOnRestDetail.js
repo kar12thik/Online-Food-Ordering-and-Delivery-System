@@ -3,7 +3,7 @@ import React from "react";
 function SearchMenuOnRestDetail({ dataTestId }) {
   return (
     <div className="border" data-testid={dataTestId}>
-      <div className="flex h-52 w-80 bg-orange-500 bg-no-repeat bg-cover">
+      
         <form className="">
           <label htmlFor="simple-search" className="sr-only">
             Search Menu Items
@@ -26,7 +26,7 @@ function SearchMenuOnRestDetail({ dataTestId }) {
               <input
                 type="text"
                 id="simple-search"
-                className="block sm:w-auto md:w-80 lg:w-96 rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+                className="block sm:w-auto md:w-80 lg:w-96 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
                 
                 placeholder="Search Menu Items..."
                 required
@@ -56,7 +56,7 @@ function SearchMenuOnRestDetail({ dataTestId }) {
           </div>
         </form>
       </div>
-    </div>
+    
   );
 }
 
