@@ -44,6 +44,11 @@ function MenuDetails() {
   return (
     <div className="w-full">
       {/* Tabs */}
+      
+            <div className="mr-24">
+              
+              
+           
       <div className="flex space-x-1 justify-between mb-4">
         <div className="" onClick={() => handleTabs("tab1")}>
           <button
@@ -147,6 +152,7 @@ function MenuDetails() {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 }
