@@ -180,7 +180,7 @@ const RestaurantDetails = (props) => {
                 </ul>
               </div>
             </div>
-            <div className="w-3/4 justify-center">
+            <div className="w-2/4 justify-center">
               <MenuDetails />
             </div>
             <div className="w-1/4 justify-center sticky top-0">

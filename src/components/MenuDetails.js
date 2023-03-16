@@ -115,12 +115,9 @@ function MenuDetails() {
         <div className="row review-section">
           <div className="flex space-x-1 justify-between mb-4 bg-white p-4 my-2">
             {/* <h5>Customer Reviews For {resDetails.userName}</h5> */}
-            <h5>Customer Reviews For Olive Garden</h5>
+            
             <div className="row p-5">
-              <div className="col-6 text-right">
-                {/* <img alt="Review Icon" src={require("../assets/images/icon-review.png")} /> */}
-              </div>
-              <div className="col-6 pl-0">
+              <div className="pl-0">
                 <p className="mb-0">
                   <strong>Write your own reviews</strong>
                 </p>
@@ -136,13 +133,17 @@ function MenuDetails() {
         <div className="row info-section">
           <div className="flex space-x-1 justify-between mb-4 bg-white p-4 my-2">
             {/* <h5>Overview {resDetails.userName}</h5> */}
-            <h5>Overview Olive Garden</h5>
-            <p>
+            
+            <div className="row p-5">
+              <div className="pl-0">
+                <p className="mb-0">
               Base prepared fresh daily. Extra toppings are available in choose
-              extra Choose you sauce: Go for BBQ sauce or piri piri sauce on
+              extra Choose your sauce: Go for BBQ sauce or piri piri sauce on
               your pizza base for no extra cost. Choose your cut: Triangular,
               square, fingers or Un cut on any size pizza
             </p>
+            </div>
+            </div>
           </div>
         </div>
       )}
