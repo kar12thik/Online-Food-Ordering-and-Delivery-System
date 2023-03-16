@@ -44,14 +44,14 @@ function MenuDetails() {
   return (
     <div className="w-full">
       {/* Tabs */}
-      <div className="flex space-x-1">
+      <div className="flex space-x-1 justify-between mb-4">
         <div className="" onClick={() => handleTabs("tab1")}>
           <button
             type="button"
             className="bg-white hover:bg-gray-200 text-black h-12 px-11"
           >
             <span>Menu </span>
-            <div className="">
+            <div className="px-5">
               <MdOutlineRestaurant />
             </div>
           </button>
@@ -63,7 +63,7 @@ function MenuDetails() {
             className="bg-white hover:bg-gray-200 text-black h-12 px-11"
           >
             Reviews
-            <div className="">
+            <div className="px-5">
               <MdReviews />
             </div>
           </button>
@@ -76,7 +76,7 @@ function MenuDetails() {
               className="bg-white hover:bg-gray-200 text-black h-12 px-11"
             >
               Info
-              <div className="">
+              <div className="px-5">
                 <AiFillInfoCircle />
               </div>
             </button>
