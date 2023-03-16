@@ -113,7 +113,7 @@ function MenuDetails() {
       )}
       {tab2Content && (
         <div className="row review-section">
-          <div className="w-11/12 bg-white p-4 my-2">
+          <div className="flex space-x-1 justify-between mb-4 bg-white p-4 my-2">
             {/* <h5>Customer Reviews For {resDetails.userName}</h5> */}
             <h5>Customer Reviews For Olive Garden</h5>
             <div className="row p-5">
@@ -134,7 +134,7 @@ function MenuDetails() {
       )}
       {tab3Content && (
         <div className="row info-section">
-          <div className="w-11/12 bg-white p-4 my-2">
+          <div className="flex space-x-1 justify-between mb-4 bg-white p-4 my-2">
             {/* <h5>Overview {resDetails.userName}</h5> */}
             <h5>Overview Olive Garden</h5>
             <p>
