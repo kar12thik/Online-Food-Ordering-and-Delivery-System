@@ -55,7 +55,7 @@ const Login = (props) => {
     } else {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Please enter a valid email address."
+        "Invalid Input !! Please enter a valid email address.",
       );
       setUserEmail("");
     }
@@ -71,7 +71,7 @@ const Login = (props) => {
     } else {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Use alphanumeric, uppercase, lowercase & greater than 10 characters."
+        "Invalid Input !! Use alphanumeric, uppercase, lowercase & greater than 10 characters.",
       );
       setUserPassword("");
     }
@@ -86,7 +86,7 @@ const Login = (props) => {
     } else {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Confirmation password not matched."
+        "Invalid Input !! Confirmation password not matched.",
       );
       setUserConfirmPassword(false);
     }
@@ -116,7 +116,7 @@ const Login = (props) => {
     } else {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Please enter a valid country name."
+        "Invalid Input !! Please enter a valid country name.",
       );
       setUserCountry("");
     }
@@ -161,7 +161,7 @@ const Login = (props) => {
       setUserTNC(false);
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Please accept terms and conditions."
+        "Invalid Input !! Please accept terms and conditions.",
       );
     }
   };
@@ -180,19 +180,19 @@ const Login = (props) => {
     } else if (!userEmail.match(userEmailFormate)) {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Please enter a valid email address."
+        "Invalid Input !! Please enter a valid email address.",
       );
       setUserEmail("");
     } else if (!userPassword.match(userPasswordFormate)) {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Password !! Use alphanumeric, uppercase, lowercase & greater than 10 characters."
+        "Invalid Password !! Use alphanumeric, uppercase, lowercase & greater than 10 characters.",
       );
       setUserPassword("");
     } else if (!userConfirmPassword) {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Confirmation password not matched."
+        "Invalid Input !! Confirmation password not matched.",
       );
       setUserConfirmPassword(false);
     } else if (!userCity.match(userCityFormate)) {
@@ -202,7 +202,7 @@ const Login = (props) => {
     } else if (!userCountry.match(userCountryFormate)) {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Please enter a valid country name."
+        "Invalid Input !! Please enter a valid country name.",
       );
       setUserCountry("");
     } else if (!(userAge > 0 && userAge < 101)) {
@@ -490,6 +490,7 @@ const Login = (props) => {
                   id="userLoginEmail"
                   placeholder="Email"
                   onChange={handleUserEmail}
+                  data-testid="login-email"
                 />
               </div>
               <div className="mb-4 py-2 px-2">
@@ -505,6 +506,7 @@ const Login = (props) => {
                   type="password"
                   placeholder="Password"
                   onChange={handleUserPassword}
+                  data-testid="login-password"
                 />
               </div>
               <center>
