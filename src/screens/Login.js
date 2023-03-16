@@ -288,6 +288,7 @@ const Login = (props) => {
                   </label>
                   <input
                     type="text"
+                    data-testid="fullname-input"
                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
                     id="userName"
                     placeholder="Full Name"
@@ -306,6 +307,7 @@ const Login = (props) => {
                   </label>
                   <input
                     type="email"
+                    data-testid="email-input"
                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
                     id="userEmail"
                     placeholder="Email"
@@ -323,6 +325,7 @@ const Login = (props) => {
                   </label>
                   <input
                     type="password"
+                    data-testid="password-input"
                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
                     id="userPassword"
                     placeholder="Password"
@@ -340,6 +343,7 @@ const Login = (props) => {
                   </label>
                   <input
                     type="password"
+                    data-testid="confirmpassword-input"
                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
                     id="userConfirmPassword"
                     placeholder="Password"
@@ -357,6 +361,7 @@ const Login = (props) => {
                   </label>
                   <input
                     type="text"
+                    data-testid="city-input"
                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
                     id="userCity"
                     onKeyUp={(e) => handleUserCity(e.target.value)}
@@ -373,6 +378,7 @@ const Login = (props) => {
                   </label>
                   <input
                     type="text"
+                    data-testid="country-input"
                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
                     id="userCountry"
                     onKeyUp={(e) => handleUserCountry(e.target.value)}
@@ -407,6 +413,7 @@ const Login = (props) => {
                     Age
                   </label>
                   <input
+                    data-testid="age-input"
                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
                     id="userAge"
                     onKeyUp={(e) => handleUserAge(e.target.value)}
