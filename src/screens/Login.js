@@ -6,7 +6,8 @@ import React, { useState } from "react";
 
 // firebase related imports
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useSelector, useDispatch } from "react-redux";
+//import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { auth } from "../config/firebase";
 import { db } from "../config/firebase";
 
@@ -35,7 +36,7 @@ const Login = (props) => {
   const [noUserFound, setNoUserFound] = useState(false);
 
   // redux state
-  const loggedInUser = useSelector((state) => state.loggedInUser);
+  //const loggedInUser = useSelector((state) => state.loggedInUser);
   const dispatch = useDispatch();
 
   const handleForms = () => {
@@ -246,6 +247,7 @@ const Login = (props) => {
       };
       try {
         navigate("/");
+        console.log(userDetails);
         // const signUpReturn = await signUp(userDetails);
         // if (signUpReturn.success) {
         //   // Redirect to the login page
@@ -283,18 +285,19 @@ const Login = (props) => {
                   userEmail: user.email,
                   userId: user.uid,
                   userName: doc.data().userName,
+                  isRestaurant:doc.data().isRestaurant
                 },
               });
             }
           });
-
+          console.log(userLoginDetails);
           // console.log(user);
         }
       })
       .catch((error) => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        if (errorCode == "auth/user-not-found") {
+        //const errorMessage = error.message;
+        if (errorCode === "auth/user-not-found") {
           setNoUserFound(true);
         }
       });

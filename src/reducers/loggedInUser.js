@@ -1,6 +1,7 @@
 const initialState = {
   loading: false,
-  loggedIn : false,
+  isRestaurant: false,
+  loggedIn: false,
   userId: null, // for user object
   userEmail: null, // for storing the JWT
   userName: null,
@@ -13,11 +14,14 @@ const loggedInUser = (state = initialState, action) => {
     case "LOGGED_IN_USER":
       return {
         ...state,
-        loggedIn:true,
+        loggedIn: true,
         userEmail: action.payload.userEmail,
         userId: action.payload.userId,
         userName: action.payload.userName,
+        isRestaurant: action.payload.isRestaurant
       };
+    case "LOG_OUT_USER":
+      return initialState
     default:
       return state;
   }

@@ -15,3 +15,16 @@ export const setLoggedInUser = () => {
     type: "LOGGED_IN_USER",
   };
 };
+
+export const logOutUser = () => {
+  return {
+      type: "LOG_OUT_USER"
+  }
+} 
+
+// export const LOGOUT_USER = "LOGOUT_USER";
+// export const logoutUser = () => {
+//   return {
+//     type: LOGOUT_USER,
+//   };
+// };
