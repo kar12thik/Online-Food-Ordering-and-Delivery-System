@@ -30,7 +30,7 @@ test("should show error message when all the fields are not entered", async () =
     <Login />{" "}
   </BrowserRouter>);
   const buttonElement = screen.getByRole("button");
-  userEvent.click(buttonElement);
+  await userEvent.click(buttonElement);
 });
 
 test("should render Create an Account form title", () => {
@@ -42,12 +42,12 @@ test("should render Create an Account form title", () => {
   expect(formElement).toBeInTheDocument();
 });
 
-test("Should render all labels", () => {
+test("Should render all labels", async () => {
   render(<BrowserRouter>
     {" "}
     <Login />{" "}
   </BrowserRouter>);
-  fireEvent.click(screen.getByText("Create an Account"));
+  await fireEvent.click(screen.getByText("Create an Account"));
   expect(screen.getByText("Full Name")).toBeInTheDocument();
   expect(screen.getByText("Email")).toBeInTheDocument();
   expect(screen.getByText("Password")).toBeInTheDocument();
@@ -64,7 +64,7 @@ test("Should render Terms and Conditions label", async () => {
     {" "}
     <Login />{" "}
   </BrowserRouter>);
-  fireEvent.click(screen.getByText("Create an Account"));
+  await fireEvent.click(screen.getByText("Create an Account"));
   expect(screen.getByText("Accept Terms and Conditions")).toBeInTheDocument();
 });
 
@@ -73,7 +73,7 @@ test("Should render Login here link", async () => {
     {" "}
     <Login />{" "}
   </BrowserRouter>);
-  fireEvent.click(screen.getByText("Create an Account"));
+  await fireEvent.click(screen.getByText("Create an Account"));
   expect(screen.getByText("Login Here")).toBeInTheDocument();
 });
 
@@ -82,7 +82,7 @@ test("Should render full name input field", async () => {
     {" "}
     <Login />{" "}
   </BrowserRouter>);
-  fireEvent.click(screen.getByText("Create an Account"));
+  await fireEvent.click(screen.getByText("Create an Account"));
   const inputEl = screen.getByTestId("fullname-input");
   expect(inputEl).toBeInTheDocument();
   expect(inputEl).toHaveAttribute("type", "text");
@@ -93,7 +93,7 @@ test("Should render email input field", async () => {
     {" "}
     <Login />{" "}
   </BrowserRouter>);
-  fireEvent.click(screen.getByText("Create an Account"));
+  await fireEvent.click(screen.getByText("Create an Account"));
 
   const inputEmail = screen.getByTestId("email-input");
   expect(inputEmail).toBeInTheDocument();
@@ -106,7 +106,7 @@ test("Should render password input fields", async () => {
     {" "}
     <Login />{" "}
   </BrowserRouter>);
-  fireEvent.click(screen.getByText("Create an Account"));
+  await fireEvent.click(screen.getByText("Create an Account"));
 
   const inputPassword = screen.getByTestId("password-input");
   expect(inputPassword).toBeInTheDocument();
@@ -122,7 +122,7 @@ test("Should render city, country and age input fields", async () => {
     {" "}
     <Login />{" "}
   </BrowserRouter>);
-  fireEvent.click(screen.getByText("Create an Account"));
+  await fireEvent.click(screen.getByText("Create an Account"));
 
   const inputCity = screen.getByTestId("city-input");
   expect(inputCity).toBeInTheDocument();
@@ -135,6 +135,18 @@ test("Should render city, country and age input fields", async () => {
   const ageCountry = screen.getByTestId("age-input");
   expect(ageCountry).toBeInTheDocument();
 
+});
+
+test('validates the form fields', async () => {
+  render(<BrowserRouter>
+    {" "}
+    <Login />{" "}
+  </BrowserRouter>);
+  await fireEvent.click(screen.getByText("Create an Account"));
+  const submitButton = screen.queryAllByText("Create an Account");
+  await fireEvent.click(submitButton[1]);
+  const usernameError = screen.getByText("Invalid Input !! Please enter a valid name.");
+  expect(usernameError).toBeInTheDocument();
 });
 
 
