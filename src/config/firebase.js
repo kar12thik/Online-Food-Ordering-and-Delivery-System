@@ -20,7 +20,7 @@ const app = firebase.initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = firebase.firestore(app);
 
-//export default app;
+export default app;
 
 
 function signUp(userDetails) {
@@ -213,5 +213,5 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
   })
 }
 
-export default firebase;
+//export default firebase;
 export { signUp, logIn, orderNow };

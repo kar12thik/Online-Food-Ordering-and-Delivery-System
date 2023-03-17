@@ -7,10 +7,9 @@ import { setNav } from "../actions/index.js";
 //import { logout } from '../redux/actions/authActions';
 
 function NavBar() {
-  const navbar = useSelector(state => state.navbar)
-  const dispatch = useDispatch()
+  const navbar = useSelector(state => state.navbar);
+  const dispatch = useDispatch();
   
-
   return (
     <nav className="w-full bg-slate-200 shadow">
       <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
@@ -60,7 +59,7 @@ function NavBar() {
         </div>
         <div>
           <div className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${navbar ? "block" : "hidden"}`}>
-            {renderHomeLinks()}
+            {RenderHomeLinks()}
           </div>
         </div>
       </div>
@@ -68,7 +67,7 @@ function NavBar() {
   );
 }
 
-function renderHomeLinks() {
+function RenderHomeLinks() {
 
   const isLoggedIn = useSelector((state) => state.loggedInUser.loggedIn);
   const userName = useSelector((state) => state.loggedInUser.userName);
