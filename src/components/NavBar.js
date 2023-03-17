@@ -9,6 +9,7 @@ import { setNav } from "../actions/index.js";
 function NavBar() {
   const navbar = useSelector(state => state.navbar)
   const dispatch = useDispatch()
+  
 
   return (
     <nav className="w-full bg-slate-200 shadow">
@@ -71,7 +72,7 @@ function renderHomeLinks() {
 
   const isLoggedIn = useSelector((state) => state.loggedInUser.loggedIn);
   const userName = useSelector((state) => state.loggedInUser.userName);
-  const isRestuarant = useSelector((state) => state.loggedInUser.isRestaurant)
+  const isRestuarant = useSelector((state) => state.loggedInUser.isRestaurant);
   const dispatch = useDispatch();
   // const history = useHistory();
   // const handleLogout = () => {
