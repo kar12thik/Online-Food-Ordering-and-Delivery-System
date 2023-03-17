@@ -10,8 +10,8 @@ function RestList({item}) {
                                     {item.map((Val) => {
                                         return(
                                         <FeaturedRestCardsForRestPage
-                                            restImg={Val.img}
-                                            restName={Val.title}
+                                            restImg={Val.userProfileImageUrl}
+                                            restName={Val.userName}
                                             restDish={Val.category}
                                         />
                                 );

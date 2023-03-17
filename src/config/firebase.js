@@ -207,5 +207,22 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
   })
 }
 
+function restaurant_list(){
+  return new Promise((resolve, reject) => {
+    let restaurantList = [];
+    db.collection('users').get().then((querySnapshot) => {
+      querySnapshot.forEach(doc => {
+        if (doc.data().isRestaurant) {
+          const obj = { id: doc.id, ...doc.data() }
+          restaurantList.push(obj);
+        }
+      })
+      resolve(restaurantList);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
+}
+
 export default firebase;
-export { signUp, logIn, orderNow };
+export { signUp, logIn, orderNow, restaurant_list };
