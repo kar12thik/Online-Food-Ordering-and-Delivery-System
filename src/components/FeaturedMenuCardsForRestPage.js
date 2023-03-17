@@ -14,7 +14,7 @@ function FeaturedMenuCardsForRestPage(props) {
           src={props.restImg}
           alt=""
         />
-        <div className="flex flex-col justify-between leading-normal">
+        <div className="flex flex-col justify-between leading-normal px-2">
           <h5 className="mb-1 text-2xl font-bold tracking-tight text-black-900 text-justify">
             {props.restName}
           </h5>
