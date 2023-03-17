@@ -1,11 +1,9 @@
 import { useEffect, React } from "react";
 import SearchRestOnRestPage from "../components/SearchRestOnRestPage";
 import RestList from "../components/RestList";
-import Data from "../assets/images/data";
 import { useState } from 'react';
 import RestCategories from "../components/RestCategories";
 import { restaurant_list } from "../config/firebase";
-import { connect } from "react-redux";
 
 function Restaurants() {
   const [restaurantList, setRestaurantList] = useState([]);
@@ -16,7 +14,7 @@ function Restaurants() {
   function filterItem(filterCategory) {
     if (filterCategory.length > 0) {
       const newItem = restaurantList.filter((newVal) => {
-        return filterCategory.includes(newVal.category);
+        return filterCategory.includes(newVal.category.toLowerCase());
       });
       setItem(newItem);
     }
@@ -28,7 +26,7 @@ function Restaurants() {
   useEffect(() => {
     restaurant_list().then((result) => {
       setRestaurantList(result);
-      const menuItems = [...new Set(result.map((Val) => Val.category))];
+      let menuItems = [...new Set(result.map((Val) => Val.category.toLowerCase() ))];
       setMenuItems(menuItems);
     }).catch((error) => {
       console.error('Error:', error);
@@ -43,7 +41,6 @@ function Restaurants() {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
-  console.log(restaurantList);
   return (
     <div>
       <SearchRestOnRestPage dataTestId="Search_Restaurants_On_RestPage"></SearchRestOnRestPage>

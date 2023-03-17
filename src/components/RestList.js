@@ -1,7 +1,6 @@
 import FeaturedRestCardsForRestPage from "./FeaturedRestCardsForRestPage";
 
 function RestList({item}) {
-  <></>
     return (
         <div className="">
                         <h3 className="justify-center mb-4 font-bold text-gray-900 dark:text-white">Featured Restaurants</h3>
@@ -12,7 +11,7 @@ function RestList({item}) {
                                         <FeaturedRestCardsForRestPage
                                             restImg={Val.userProfileImageUrl}
                                             restName={Val.userName}
-                                            restDish={Val.category}
+                                            restDish={Val.category.charAt(0).toUpperCase() + Val.category.slice(1)}
                                         />
                                 );
                             })}

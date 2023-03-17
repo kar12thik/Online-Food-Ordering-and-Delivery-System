@@ -10,6 +10,7 @@ function filterRest(filterItem) {
         Array.from(categoriesChecked).reduce(function(sum, input) {
             const category = input.getAttribute('value');
             category_list.push(category)
+            return category_list;
         }, []);
         filterItem(category_list);
     }
@@ -63,7 +64,7 @@ function RestCategories({menuItems, filterItem, categorybar, setCategorybar}) {
                             <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
                                 <div className="flex items-center pl-3">
                                     <input id={id} onClick={() => filterRest(filterItem)} type="checkbox" value={Val} className="check w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2" rel="chicken"/>
-                                    <label htmlFor="vue-checkbox" className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{Val}</label>
+                                    <label htmlFor="vue-checkbox" className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{Val.charAt(0).toUpperCase() + Val.slice(1)}</label>
                                 </div>
                             </li>
                         );
