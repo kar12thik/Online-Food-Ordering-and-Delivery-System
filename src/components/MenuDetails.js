@@ -49,10 +49,10 @@ function MenuDetails() {
               
               
            
-      <div className="flex space-x-1 justify-between mb-4">
+      <div className="flex space-x-1 justify-between mb-1">
         
-<ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-<div className="" onClick={() => handleTabs("tab1")}>
+      <ul class="w-full flex mx-auto flex-col md:flex-row lg:flex-row center sm:space-x-3 md:space-x-4 lg:space-x-7 pt-10 pb-10">
+        <div className="" onClick={() => handleTabs("tab1")}>
           <button
             type="button"
             className="bg-white hover:bg-gray-200 text-black h-12 px-11"
