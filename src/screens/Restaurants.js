@@ -45,7 +45,7 @@ function Restaurants() {
     <div>
       <SearchRestOnRestPage dataTestId="Search_Restaurants_On_RestPage"></SearchRestOnRestPage>
       <div className="">
-        <div className="container-fluid bg-slate-200 w-full flex mx-auto flex-col md:flex-row lg:flex-row sm:space-x-0 md:space-x-4 lg:space-x-4 pt-10 pb-10">
+        <div className="container-fluid bg-slate-200 w-full flex mx-auto flex-col md:flex-row lg:flex-row sm:space-x-0 md:space-x-4 lg:space-x-4 pt-10 pb-10 px-3">
           <div className="w-1/3 justify-center md:block">
             <div className="sticky top-0">
               <RestCategories categorybar={categorybar} setCategorybar={setCategorybar} menuItems={menuItems} filterItem={filterItem}></RestCategories>
