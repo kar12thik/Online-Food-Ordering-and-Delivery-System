@@ -50,7 +50,9 @@ function MenuDetails() {
               
            
       <div className="flex space-x-1 justify-between mb-4">
-        <div className="" onClick={() => handleTabs("tab1")}>
+        
+<ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+<div className="" onClick={() => handleTabs("tab1")}>
           <button
             type="button"
             className="bg-white hover:bg-gray-200 text-black h-12 px-11"
@@ -61,7 +63,6 @@ function MenuDetails() {
             </div>
           </button>
         </div>
-
         <div className="tab2 cursor-pointer" onClick={() => handleTabs("tab2")}>
           <button
             type="button"
@@ -73,7 +74,6 @@ function MenuDetails() {
             </div>
           </button>
         </div>
-
         <div className="tab3 cursor-pointer" onClick={() => handleTabs("tab3")}>
           <p className="res-details-tab-text">
             <button
@@ -87,7 +87,10 @@ function MenuDetails() {
             </button>
           </p>
         </div>
-      </div>
+       
+    </ul>
+
+    </div>
 
       {/* List */}
       {tab1Content && (
