@@ -59,7 +59,7 @@ function NavBar() {
         </div>
         <div>
           <div className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${navbar ? "block" : "hidden"}`}>
-            {RenderHomeLinks()}
+            { RenderHomeLinks()}
           </div>
         </div>
       </div>
@@ -69,9 +69,12 @@ function NavBar() {
 
 function RenderHomeLinks() {
 
-  const isLoggedIn = useSelector((state) => state.loggedInUser.loggedIn);
-  const userName = useSelector((state) => state.loggedInUser.userName);
-  const isRestuarant = useSelector((state) => state.loggedInUser.isRestaurant);
+  const isLoggedIn = useSelector((state) => state.loggedInUser);
+  //const isLoggedIn = useSelector((state) => state.loggedInUser.loggedIn);
+  const userName = useSelector((state) => state.loggedInUser);
+  //const userName = useSelector((state) => state.loggedInUser.userName);
+  const isRestaurant = useSelector((state) => state.loggedInUser);
+  //const isRestaurant = useSelector((state) => state.loggedInUser.isRestaurant);
   const dispatch = useDispatch();
   // const history = useHistory();
   // const handleLogout = () => {
@@ -84,7 +87,7 @@ function RenderHomeLinks() {
       <li className="text-black font-bold">
         <Link to="/restaurants">RESTAURANTS</Link>
       </li>
-      {(isLoggedIn && isRestuarant) ? (
+      {(isLoggedIn && isRestaurant) ? (
         <>
           <li className="text-black font-bold">
             <Link to="/restaurants">ADD FOODS</Link>
@@ -162,3 +165,4 @@ function renderUserAccountLinks() {
 }
 
 export default NavBar;
+

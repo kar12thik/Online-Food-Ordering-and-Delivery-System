@@ -3,7 +3,7 @@ import React, { useState } from "react";
 /* import Navbar2 from '../components/Navbar2'; */
 /* import Footer from '../components/Footer'; */
 // import { signUp, logIn } from "../config/firebase";
-
+ 
 // firebase related imports
 import { signInWithEmailAndPassword } from "firebase/auth";
 //import { useSelector } from "react-redux";
