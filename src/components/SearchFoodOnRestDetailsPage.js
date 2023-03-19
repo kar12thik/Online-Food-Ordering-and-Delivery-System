@@ -2,7 +2,7 @@ function SearchFoodOnRestDetails() {
   return (
     <div className="border w-full">
       <form className="flex items-center w-full">
-        <label for="simple-search" className="sr-only">
+        <label htmlFor="simple-search" className="sr-only">
           Search
         </label>
         <div className="relative w-full">
