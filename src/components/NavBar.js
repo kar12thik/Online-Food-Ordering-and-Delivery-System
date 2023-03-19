@@ -87,6 +87,26 @@ function RenderHomeLinks() {
       <li className="text-black font-bold">
         <Link to="/restaurants">RESTAURANTS</Link>
       </li>
+      <li className="text-black font-bold space-x-4">
+        {isLoggedIn ? (
+          <>
+            <Link className="text-black-700 font-bold hover:text-white-700">{userName}    </Link>
+
+            <button
+              type="button"
+              className="btn rounded-lg bg-orange h-12 px-6"
+              onClick={() => {
+                dispatch(logOutUser());
+                signOut(auth);
+                Navigate("/login");
+              }}>
+              LOGOUT
+            </button>
+          </>
+        ) : (
+          <Link to="/login">LOGIN/REGISTER</Link>
+        )}
+      </li>
       {(isLoggedIn && isRestaurant) ? (
         <>
           <li className="text-black font-bold">
@@ -118,51 +138,30 @@ function RenderHomeLinks() {
           )}
         </>
       )}
-      <li className="text-black font-bold space-x-4">
-        {isLoggedIn ? (
-          <>
-            <Link className="text-black-700 font-bold hover:text-white-700">{userName}    </Link>
-
-            <button
-              type="button"
-              className="btn rounded-lg bg-orange h-12 px-6"
-              onClick={() => {
-                dispatch(logOutUser());
-                signOut(auth);
-                Navigate("/login");
-              }}>
-              LOGOUT
-            </button>
-          </>
-        ) : (
-          <Link to="/login">LOGIN/REGISTER</Link>
-        )}
-      </li>
     </ul>
   );
 }
 
-function renderUserAccountLinks() {
-  return (
+// function renderUserAccountLinks() {
+//   return (
 
-    <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-      <li className="text-white">
-        <Link to='/restaurants'>RESTAURANTS</Link>
-      </li>
-      <li className="text-white">
-        <Link to='/orders'>MY ORDERS</Link>
-      </li>
-      <li className="hidden md:flex text-white">
-        Firstname Lastname
-      </li>
-      <li className="text-white">
-        <Link to='/'>
-          <button type="button" className="btn bg-orange h-12 px-6">LOG OUT</button>
-        </Link>
-      </li>
-    </ul>
-  );
-}
+//     <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+//       <li className="text-white">
+//         <Link to='/restaurants'>RESTAURANTS</Link>
+//       </li>
+//       <li className="text-white">
+//         <Link to='/orders'>MY ORDERS</Link>
+//       </li>
+//       <li className="hidden md:flex text-white">
+//         Firstname Lastname
+//       </li>
+//       <li className="text-white">
+//         <Link to='/'>
+//           <button type="button" className="btn bg-orange h-12 px-6">LOG OUT</button>
+//         </Link>
+//       </li>
+//     </ul>
+//   );
+// }
 
 export default NavBar;
-
