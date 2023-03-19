@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { MdOutlineRestaurant } from "react-icons/md";
-import { MdReviews } from "react-icons/md";
+import { MdOutlineRateReview } from "react-icons/md";
 import { AiFillInfoCircle } from "react-icons/ai";
-import { BiSearch } from "react-icons/bi";
 import FeaturedMenuCardsForRestPage from "./FeaturedMenuCardsForRestPage";
 import SearchFoodOnRestDetailsPage from "./SearchFoodOnRestDetailsPage";
 
@@ -44,57 +43,40 @@ function MenuDetails() {
   return (
     <div className="w-full">
       {/* Tabs */}
+      <div className="w-full mr-6">  
+      <ul class="w-full flex mx-auto flex-col md:flex-row lg: flex justify item-center sm:space-x-3 md:space-x-4 lg:flex space-x-1 justify-between mb-1 pt-10 pb-1">
       
-            <div className="mr-24">
-              
-              
-           
-      
-        
-      <ul class="w-full flex mx-auto flex-col md:flex-row lg: flex row  justify center sm:space-x-2 md:space-x-4 lg:space-x-8 mb-1 pt-10 pb-1">
-        <div className="" onClick={() => handleTabs("tab1")}>
-          <button
-            type="button"
-            className="bg-white hover:bg-gray-200 text-black h-12 px-11"
-          >
-            <span>Menu </span>
-            <div className="px-5">
-              <MdOutlineRestaurant />
-            </div>
+      <div className="" onClick={() => handleTabs("tab1")}>
+      <button type="button" className="w-full bg-white hover:bg-gray-200 text-black h-12 px-11 flex justify-center items-center">
+        <span>Menu </span>
+        <div className = "ml-1">
+          <MdOutlineRestaurant />
+        </div>
+      </button>
+      </div>
+      <div className="tab2 cursor-pointer" onClick={() => handleTabs("tab2")}>
+        <button type="button" className="w-full bg-white hover:bg-gray-200 text-black h-12 px-11 flex justify-center items-center">
+        <span>Reviews </span>
+          <div className = "ml-1">
+          <MdOutlineRateReview />
+          </div>
           </button>
         </div>
-        <div className="tab2 cursor-pointer" onClick={() => handleTabs("tab2")}>
-          <button
-            type="button"
-            className="bg-white hover:bg-gray-200 text-black h-12 px-11"
-          >
-            Reviews
-            <div className="px-5">
-              <MdReviews />
-            </div>
+        <div className="tab2 cursor-pointer" onClick={() => handleTabs("tab3")}>
+        <button type="button" className="w-full bg-white hover:bg-gray-200 text-black h-12 px-11 flex justify-center items-center">
+        <span>Info </span>
+          <div className = "ml-1">
+          <AiFillInfoCircle />
+          </div>
           </button>
         </div>
-        <div className="tab3 cursor-pointer" onClick={() => handleTabs("tab3")}>
-          <p className="res-details-tab-text">
-            <button
-              type="button"
-              className="bg-white hover:bg-gray-200 text-black h-12 px-11"
-            >
-              Info
-              <div className="px-5">
-                <AiFillInfoCircle />
-              </div>
-            </button>
-          </p>
-        </div>
-       
     </ul>
 
     
 
       {/* List */}
       {tab1Content && (
-        <div className="w-full">
+        <div className="">
           <SearchFoodOnRestDetailsPage />
 
           <div className="">
@@ -121,7 +103,7 @@ function MenuDetails() {
       )}
       {tab2Content && (
         <div className="row review-section">
-          <div className="flex space-x-1 justify-between mb-4 bg-white p-4 my-2">
+          <div className="w-full flex space-x-1 justify-between mb-4 bg-white p-4 my-2">
             {/* <h5>Customer Reviews For {resDetails.userName}</h5> */}
             
             <div className="row p-5">

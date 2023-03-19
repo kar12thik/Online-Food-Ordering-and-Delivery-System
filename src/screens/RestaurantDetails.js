@@ -34,7 +34,7 @@ const RestaurantDetails = (props) => {
                     <div className="w-1/3 justify-center">
                         <FoodCategories />
                     </div>
-                    <div className="w-2/4 justify-center">
+                    <div className="w-2/3 flex justify-center">
                         <MenuDetails />
                     </div>
                     <div className="w-1/3 justify-center">
