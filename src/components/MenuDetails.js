@@ -41,10 +41,10 @@ function MenuDetails() {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full mr-24">
       {/* Tabs */}
       <div className="w-full mr-6">  
-      <ul class="w-full flex mx-auto flex-col md:flex-row lg: flex justify item-center sm:space-x-3 md:space-x-4 lg:flex space-x-1 justify-between mb-1 pt-10 pb-1">
+      <ul class="w-full flex mx-auto flex-col md:flex-row lg: flex justify item-center sm:space-x-3 md:space-x-4 lg:flex space-x-1 justify-between mb-1 pt-10">
       
       <div className="" onClick={() => handleTabs("tab1")}>
       <button type="button" className="w-full bg-white hover:bg-gray-200 text-black h-12 px-11 flex justify-center items-center">
