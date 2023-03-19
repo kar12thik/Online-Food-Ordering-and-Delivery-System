@@ -4,6 +4,9 @@ import Login from "../screens/Login";
 import React from "react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
+import { configureStore } from "@reduxjs/toolkit";
+import rootReducer from "../reducers/index";
+import { Provider } from "react-redux";
 
 window.scrollTo = jest.fn();
 
@@ -15,12 +18,16 @@ afterAll(() => {
   jest.clearAllMocks();
 });
 
+const store = configureStore({ reducer: rootReducer });
+
 test("Should render Login form title", () => {
   render(
-    <BrowserRouter>
-      {" "}
-      <Login />{" "}
-    </BrowserRouter>,
+    <Provider store={store}>
+      <BrowserRouter>
+        {" "}
+        <Login />{" "}
+      </BrowserRouter>
+    </Provider>
   );
   const formElement = screen.getByText("Login Your Account");
   expect(formElement).toBeInTheDocument();
@@ -28,10 +35,12 @@ test("Should render Login form title", () => {
 
 test("Should render User Email input fields", async () => {
   render(
-    <BrowserRouter>
-      {" "}
-      <Login />{" "}
-    </BrowserRouter>,
+    <Provider store={store}>
+      <BrowserRouter>
+        {" "}
+        <Login />{" "}
+      </BrowserRouter>
+    </Provider>
   );
 
   const inputPassword = screen.getByTestId("login-email");
@@ -40,10 +49,12 @@ test("Should render User Email input fields", async () => {
 
 test("Should render password input fields and make sure field is of type password", async () => {
   render(
-    <BrowserRouter>
-      {" "}
-      <Login />{" "}
-    </BrowserRouter>,
+    <Provider store={store}>
+      <BrowserRouter>
+        {" "}
+        <Login />{" "}
+      </BrowserRouter>
+    </Provider>
   );
 
   const inputPassword = screen.getByTestId("login-password");
@@ -53,10 +64,12 @@ test("Should render password input fields and make sure field is of type passwor
 
 test("Should render Create account link if you don't have account", () => {
   render(
-    <BrowserRouter>
-      {" "}
-      <Login />{" "}
-    </BrowserRouter>,
+    <Provider store={store}>
+      <BrowserRouter>
+        {" "}
+        <Login />{" "}
+      </BrowserRouter>
+    </Provider>
   );
   const formElement = screen.getByText("Create an Account");
   expect(formElement).toBeInTheDocument();
