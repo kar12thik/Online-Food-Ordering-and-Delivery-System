@@ -1,15 +1,15 @@
 function SearchFoodOnRestDetails() {
   return (
     <div className="border w-full">
-      <form class="flex items-center w-full">
+      <form className="flex items-center w-full">
         <label for="simple-search" class="sr-only">
           Search
         </label>
-        <div class="relative w-full">
-          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+        <div className="relative w-full">
+          <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg
               aria-hidden="true"
-              class="w-5 h-5 text-gray-500"
+              className="w-5 h-5 text-gray-500"
               fill="currentColor"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
@@ -24,17 +24,17 @@ function SearchFoodOnRestDetails() {
           <input
             type="text"
             id="simple-search"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange  block w-full pl-10 p-2.5 "
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange  block w-full pl-10 p-2.5 "
             placeholder="Search"
             required
           />
         </div>
         <button
           type="submit"
-          class="p-2.5 ml-2 text-sm font-medium text-white bg-orange rounded-lg border border-blue-700 hover:bg-orange focus:ring-4 focus:outline-none"
+          className="p-2.5 ml-2 text-sm font-medium text-white bg-orange rounded-lg border border-blue-700 hover:bg-orange focus:ring-4 focus:outline-none"
         >
           <svg
-            class="w-5 h-5"
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -47,7 +47,7 @@ function SearchFoodOnRestDetails() {
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             ></path>
           </svg>
-          <span class="sr-only">Search</span>
+          <span className="sr-only">Search</span>
         </button>
       </form>
     </div>
