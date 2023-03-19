@@ -540,7 +540,7 @@ const Login = (props) => {
                   className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id="userLoginEmail"
                   placeholder="Email"
-                  onChange={(e) => setUserLoginEmail(e.target.value) && handleUserEmail}
+                  onChange={(e) => setUserLoginEmail(e.target.value)}
                   data-testid="login-email" 
                 />
               </div>
@@ -556,7 +556,7 @@ const Login = (props) => {
                   id="userLoginPassword"
                   type="password"
                   placeholder="Password"
-                  onChange={(e) => setUserLoginPassword(e.target.value) && handleUserPassword}
+                  onChange={(e) => setUserLoginPassword(e.target.value)}
                   data-testid="login-password"
                 />
               </div>
