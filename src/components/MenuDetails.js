@@ -49,9 +49,9 @@ function MenuDetails() {
               
               
            
-      <div className="flex space-x-1 justify-between mb-1">
+      
         
-      <ul class="w-full flex mx-auto flex-col md:flex-row lg:flex-row center sm:space-x-3 md:space-x-4 lg:space-x-7 pt-10 pb-10">
+      <ul class="w-full flex mx-auto flex-col md:flex-row lg: flex row  justify center sm:space-x-2 md:space-x-4 lg:space-x-8 mb-1 pt-10 pb-1">
         <div className="" onClick={() => handleTabs("tab1")}>
           <button
             type="button"
@@ -90,7 +90,7 @@ function MenuDetails() {
        
     </ul>
 
-    </div>
+    
 
       {/* List */}
       {tab1Content && (
@@ -143,8 +143,8 @@ function MenuDetails() {
             {/* <h5>Overview {resDetails.userName}</h5> */}
             
             <div className="row p-5">
-              <div className="pl-0">
-                <p className="mb-0">
+            <div className="text-sm md:text-base">
+              <p className="mb-4">
               Base prepared fresh daily. Extra toppings are available in choose
               extra Choose your sauce: Go for BBQ sauce or piri piri sauce on
               your pizza base for no extra cost. Choose your cut: Triangular,
