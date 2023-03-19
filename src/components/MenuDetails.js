@@ -44,10 +44,10 @@ function MenuDetails() {
     <div className="w-full mr-24">
       {/* Tabs */}
       <div className="w-full mr-6">  
-      <ul class="w-full flex mx-auto flex-col md:flex-row lg: flex justify item-center sm:space-x-3 md:space-x-4 lg:flex space-x-1 justify-between mb-1 pt-10">
+      <ul class="w-full flex mx-auto flex-col md:flex-row lg: flex justify item-center sm:space-x-0 md:space-x-4 lg:flex space-x-1 justify-between mb-1 pt-10">
       
-      <div className="" onClick={() => handleTabs("tab1")}>
-      <button type="button" className="w-full bg-white hover:bg-gray-200 text-black h-12 px-11 flex justify-center items-center">
+      <div className="tab1 cursor-pointer" onClick={() => handleTabs("tab1")}>
+      <button type="button" className="w-full flex mx-auto bg-white hover:bg-gray-200 text-black h-12 px-11 flex justify-center items-center">
         <span>Menu </span>
         <div className = "ml-1">
           <MdOutlineRestaurant />
@@ -55,15 +55,15 @@ function MenuDetails() {
       </button>
       </div>
       <div className="tab2 cursor-pointer" onClick={() => handleTabs("tab2")}>
-        <button type="button" className="w-full bg-white hover:bg-gray-200 text-black h-12 px-11 flex justify-center items-center">
+      <button type="button" className="w-full flex mx-auto bg-white hover:bg-gray-200 text-black h-12 px-11 flex justify-center items-center">
         <span>Reviews </span>
           <div className = "ml-1">
           <MdOutlineRateReview />
           </div>
           </button>
         </div>
-        <div className="tab2 cursor-pointer" onClick={() => handleTabs("tab3")}>
-        <button type="button" className="w-full bg-white hover:bg-gray-200 text-black h-12 px-11 flex justify-center items-center">
+        <div className="tab3 cursor-pointer" onClick={() => handleTabs("tab3")}>
+        <button type="button" className="w-full flex mx-auto bg-white hover:bg-gray-200 text-black h-12 px-11 flex justify-center items-center">
         <span>Info </span>
           <div className = "ml-1">
           <AiFillInfoCircle />
