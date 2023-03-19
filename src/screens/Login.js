@@ -3,7 +3,7 @@ import React, { useState } from "react";
 /* import Navbar2 from '../components/Navbar2'; */
 /* import Footer from '../components/Footer'; */
 // import { signUp, logIn } from "../config/firebase";
- 
+
 // firebase related imports
 import { signInWithEmailAndPassword } from "firebase/auth";
 //import { useSelector } from "react-redux";
@@ -107,7 +107,7 @@ const Login = (props) => {
 
   const handleUserCity = (e) => {
     const userCity = e;
-    const userCityFormate = /^([A-Za-z.\s_-]).{5,}$/;
+    const userCityFormate = /^([A-Za-z.\s_-]).*$/;
     if (userCity.match(userCityFormate)) {
       setShowError(false);
       setRegisterFormError("");
@@ -121,7 +121,7 @@ const Login = (props) => {
 
   const handleUserCountry = (e) => {
     const userCountry = e;
-    const userCountryFormate = /^([A-Za-z.\s_-]).{5,}$/;
+    const userCountryFormate = /^([A-Za-z.\s_-]).*$/;
     if (userCountry.match(userCountryFormate)) {
       setShowError(false);
       setRegisterFormError("");
@@ -153,17 +153,22 @@ const Login = (props) => {
   };
 
   const handleUserProfileImage = (e) => {
-    if (e.target.files[0] != null) {
+    const file = e.target.files[0];
+    const allowedTypes = ['image/png', 'image/jpeg'];
+    if (file && allowedTypes.includes(file.type)) {
+      // handle the valid file
       setUserProfileImage(e.target.files[0]);
       setShowError(false);
       setRegisterFormError("");
     } else {
+      // handle invalid file type
       setShowError(true);
-      setRegisterFormError("Invalid Input !! Please select a profile image.");
+      setRegisterFormError("Invalid Input !! Please select a profile image in jpg or jpeg format.");
       setUserProfileImageLable("Choose image...");
       setUserProfileImage("");
     }
   };
+
 
   const handleUserTNC = () => {
     if (!userTNC) {
@@ -184,8 +189,8 @@ const Login = (props) => {
     const userEmailFormate =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     const userPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;
-    const userCountryFormate = /^([A-Za-z.\s_-]).{5,}$/;
-    const userCityFormate = /^([A-Za-z.\s_-]).{5,}$/;
+    const userCountryFormate = /^([A-Za-z.\s_-]).*$/;
+    const userCityFormate = /^([A-Za-z.\s_-]).*$/;
 
     if (!userName.match(userNameFormate)) {
       setShowError(true);
@@ -285,7 +290,7 @@ const Login = (props) => {
                   userEmail: user.email,
                   userId: user.uid,
                   userName: doc.data().userName,
-                  isRestaurant:doc.data().isRestaurant
+                  isRestaurant: doc.data().isRestaurant
                 },
               });
             }
@@ -480,7 +485,7 @@ const Login = (props) => {
                       type="file"
                       className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
                       id="userProfileImage"
-                      accept="image/*"
+                      accept="image/png, image/jpeg"
                       onChange={handleUserProfileImage}
                     />
                   </div>
@@ -510,7 +515,7 @@ const Login = (props) => {
                   type="button"
                   className=" cen-ter bg-yellow-500 text-white uppercase font-bold py-2 px-4 rounded mb-4"
                   onClick={handleCreateAccountBtn}
-                  //onClick={handleForms}
+                //onClick={handleForms}
                 >
                   <b>Create an Account</b>
                 </button>
@@ -548,7 +553,7 @@ const Login = (props) => {
                   id="userLoginEmail"
                   placeholder="Email"
                   onChange={(e) => setUserLoginEmail(e.target.value)}
-                  data-testid="login-email" 
+                  data-testid="login-email"
                 />
               </div>
               <div className="mb-4 py-2 px-2">
