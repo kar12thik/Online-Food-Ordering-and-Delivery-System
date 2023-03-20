@@ -1,6 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
+import "firebase/compat/storage";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
@@ -102,30 +103,9 @@ function signUp(userDetails) {
         console.log("Error in Authentication", errorMessage);
         reject(errorMessage);
       });
+    
   });
 }
-
-// async function logIn(userLoginDetails) {
-//   const { userLoginEmail, userLoginPassword } = userLoginDetails;
-//   console.log(userLoginEmail)
-//   console.log(userLoginPassword)
-
-//   try {
-//     userLoginDetails.propsHistory.push("/Restaurants");
-//     const success = await firebase.auth().signInWithEmailAndPassword(userLoginEmail, userLoginPassword);
-//     const snapshot = await db.collection('users').doc(success.user.uid).get();
-
-//     if(snapshot.data().isRestaurant) {
-//       userLoginDetails.propsHistory.push("/Restaurants");
-//     } else {
-//       userLoginDetails.propsHistory.push("/Restaurants");
-//     }
-
-//     return success;
-//   } catch (error) {
-//    return Promise.reject(error.message);
-//   }
-// }
 
 function logIn(userLoginDetails) {
   return new Promise((resolve, reject) => {
@@ -213,5 +193,22 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
   })
 }
 
-//export default firebase;
-export { signUp, logIn, orderNow };
+function restaurant_list(){
+  return new Promise((resolve, reject) => {
+    let restaurantList = [];
+    db.collection('users').get().then((querySnapshot) => {
+      querySnapshot.forEach(doc => {
+        if (doc.data().isRestaurant) {
+          const obj = { id: doc.id, ...doc.data() }
+          restaurantList.push(obj);
+        }
+      })
+      resolve(restaurantList);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
+}
+
+// export default firebase;
+export { signUp, logIn, orderNow, restaurant_list };

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 /* import Navbar2 from '../components/Navbar2'; */
 /* import Footer from '../components/Footer'; */
 import { signUp } from "../config/firebase";
+import Swal from 'sweetalert2';
 
 // firebase related imports
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -52,8 +53,8 @@ const Login = (props) => {
       setUserName(userName);
     } else {
       setShowError(true);
-      setRegisterFormError("Invalid Input !! Please enter a valid name.");
-      setUserName("");
+      //setRegisterFormError("Invalid Input !! Please enter a valid name.");
+      setUserName(" ");
     }
   };
 
@@ -67,9 +68,6 @@ const Login = (props) => {
       setUserEmail(userEmail);
     } else {
       setShowError(true);
-      setRegisterFormError(
-        "Invalid Input !! Please enter a valid email address.",
-      );
       setUserEmail("");
     }
   };
@@ -83,9 +81,6 @@ const Login = (props) => {
       setUserPassword(userPassword);
     } else {
       setShowError(true);
-      setRegisterFormError(
-        "Invalid Input !! Use alphanumeric, uppercase, lowercase & greater than 10 characters.",
-      );
       setUserPassword("");
     }
   };
@@ -98,9 +93,6 @@ const Login = (props) => {
       setUserConfirmPassword(true);
     } else {
       setShowError(true);
-      setRegisterFormError(
-        "Invalid Input !! Confirmation password not matched.",
-      );
       setUserConfirmPassword(false);
     }
   };
@@ -114,7 +106,6 @@ const Login = (props) => {
       setUserCity(userCity);
     } else {
       setShowError(true);
-      setRegisterFormError("Invalid Input !! Please enter a valid city name.");
       setUserCity("");
     }
   };
@@ -128,9 +119,6 @@ const Login = (props) => {
       setUserCountry(userCountry);
     } else {
       setShowError(true);
-      setRegisterFormError(
-        "Invalid Input !! Please enter a valid country name.",
-      );
       setUserCountry("");
     }
   };
@@ -147,7 +135,6 @@ const Login = (props) => {
       setUserAge(userAge);
     } else {
       setShowError(true);
-      setRegisterFormError("Invalid Input !! Please enter a valid age.");
       setUserAge("");
     }
   };
@@ -163,7 +150,6 @@ const Login = (props) => {
     } else {
       // handle invalid file type
       setShowError(true);
-      setRegisterFormError("Invalid Input !! Please select a profile image in jpg or jpeg format.");
       setUserProfileImageLable("Choose image...");
       setUserProfileImage("");
     }
@@ -178,9 +164,6 @@ const Login = (props) => {
     } else {
       setUserTNC(false);
       setShowError(true);
-      setRegisterFormError(
-        "Invalid Input !! Please accept terms and conditions.",
-      );
     }
   };
 
@@ -194,48 +177,49 @@ const Login = (props) => {
 
     if (!userName.match(userNameFormate)) {
       setShowError(true);
-      setRegisterFormError("Invalid Input !! Please enter a valid name.");
+      //setRegisterFormError("Invalid Input !! Please enter a valid name.");
+      window.alert("Invalid Input !! Please enter a valid name.",);
     } else if (!userEmail.match(userEmailFormate)) {
       setShowError(true);
-      setRegisterFormError(
+      window.alert(
         "Invalid Input !! Please enter a valid email address.",
       );
       setUserEmail("");
     } else if (!userPassword.match(userPasswordFormate)) {
       setShowError(true);
-      setRegisterFormError(
+      window.alert(
         "Invalid Password !! Use alphanumeric, uppercase, lowercase & greater than 10 characters.",
       );
       setUserPassword("");
     } else if (!userConfirmPassword) {
       setShowError(true);
-      setRegisterFormError(
+      window.alert(
         "Invalid Input !! Confirmation password not matched.",
       );
       setUserConfirmPassword(false);
     } else if (!userCity.match(userCityFormate)) {
       setShowError(true);
-      setRegisterFormError("Invalid Input !! Please enter a valid city name.");
+      window.alert("Invalid Input !! Please enter a valid city name.");
       setUserCity("");
     } else if (!userCountry.match(userCountryFormate)) {
       setShowError(true);
-      setRegisterFormError(
+      window.alert(
         "Invalid Input !! Please enter a valid country name.",
       );
       setUserCountry("");
     } else if (!(userAge > 0 && userAge < 101)) {
       setShowError(true);
-      setRegisterFormError("Invalid Input !! Please enter a valid age.");
+      window.alert("Invalid Input !! Please enter a valid age.");
       setUserAge("");
     } else if (userProfileImage === null) {
       setShowError(true);
-      setRegisterFormError("Invalid Input !! Please select a profile image.");
+      window.alert("Invalid Input !! Please select a profile image in JPG or JPEG Format.");
       setUserProfileImageLable("Choose image...");
       setUserProfileImage("");
     } else if (!userTNC) {
       setUserTNC(false);
       setShowError(true);
-      setRegisterFormError("Please accept terms and conditions.");
+      window.alert("Please accept terms and conditions.");
     } else {
       let userDetails = {
         userName: userName,
@@ -252,7 +236,35 @@ const Login = (props) => {
       };
       try {
         navigate("/");
+        Swal.fire({
+          title: 'Sign-up Successfully',
+          html: 'Please <a class="text-blue-500 hover:text-red-500" href="#" id="login-link">Login</a> to the system',
+          icon: 'success',
+          timer: 5000,
+          timerProgressBar: true,
+          showConfirmButton: false,
+          allowOutsideClick: false,
+          allowEscapeKey: false,
+          allowEnterKey: false,
+        }).then((result) => {
+          if (result.isDismissed) {
+            // Do nothing
+          } else if (result.isConfirmed) {
+            navigate('/');
+            window.scrollTo(0, 0);
+          }
+        });
+        
+        document.querySelector('#login-link').addEventListener('click', () => {
+          Swal.close();
+        });
+        
+        document.getElementById('login-link').addEventListener('click', () => {
+          navigate('/Login');
+          window.scrollTo(0, 0);
+        });
         console.log(userDetails);
+        // Sign-up Fix 
         const signUpReturn = await signUp(userDetails);
         if (signUpReturn.success) {
           // Redirect to the login page
@@ -301,25 +313,12 @@ const Login = (props) => {
       })
       .catch((error) => {
         const errorCode = error.code;
+        window.alert("User Not Found, Please try again with Valid Email & Password");
         //const errorMessage = error.message;
         if (errorCode === "auth/user-not-found") {
           setNoUserFound(true);
         }
       });
-
-    // try {
-    //   navigate("/");
-    //   // const LoginReturn = await logIn(userLoginDetails);
-    //   // //console.log(LoginReturn)
-    //   // if (LoginReturn) {
-    //   //   //         // Redirect to the login page
-
-    //   //   console.log("You have successfully Logged in...");
-    //   //   // props.history.push("../screens/Home");
-    //   // }
-    // } catch (error) {
-    //   console.log("Error in Login => ", error);
-    // }
   };
 
   return (
