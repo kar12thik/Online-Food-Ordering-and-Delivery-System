@@ -10,7 +10,6 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
-    "bootstrap": "^5.2.3",
     "env-cmd": "^10.1.0",
     "firebase": "^9.17.1",
     "ionicons": "^6.1.1",
@@ -37,7 +36,8 @@
     "build:qa": "env-cmd -f .env.qa react-scripts build",
     "build:prod": "env-cmd -e .env.production react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -58,6 +58,9 @@
     ]
   },
   "devDependencies": {
-    "tailwindcss": "^3.2.6"
+    "@testing-library/cypress": "^9.0.0",
+    "cypress": "^12.8.1",
+    "tailwindcss": "^3.2.6",
+    "unfetch": "^5.0.0"
   }
 }

@@ -8,6 +8,8 @@ import RegisterRestaurants from "./screens/RegisterRestaurant";
 import RestaurantDetails from "./screens/RestaurantDetails";
 import Orders from "./screens/Orders";
 import Footer from "./components/Footer";
+import AddMenuItems from "./screens/AddMenuItems";
+import ContactForm from "./screens/TestScreen";
 
 function App() {
   return (
@@ -19,8 +21,11 @@ function App() {
         <Route path="/restaurants" element={<Restaurants />} />
         <Route path="/register-restaurant" element={<RegisterRestaurants />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/restaurant-details" element ={ <RestaurantDetails/>} />
-      </Routes>
+        <Route path="/restaurant-details" element={<RestaurantDetails />} />
+      </Routes>{" "}
+      */}
+      {/* <AddMenuItems />
+      {/* <ContactForm /> */}
       <Footer />
     </div>
   );

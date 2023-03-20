@@ -48,30 +48,33 @@ const Login = (props) => {
     const userEmail = e;
     const userEmailFormate =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (userEmail.match(userEmailFormate)) {
+    if (String(userEmail).match(String(userEmailFormate))) {
       setShowError(false);
       setRegisterFormError("");
       setUserEmail(userEmail);
     } else {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Please enter a valid email address.",
+        "Invalid Input !! Please enter a valid email address."
       );
       setUserEmail("");
     }
+    // setShowError(false);
+    // setRegisterFormError("");
+    // setUserEmail(userEmail);
   };
 
   const handleUserPassword = (e) => {
     const userPassword = e;
-    const userPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;
-    if (userPassword.match(userPasswordFormate)) {
+    const userPasswordFormate = "/(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{10,}/";
+    if (String(userPassword).match(userPasswordFormate)) {
       setShowError(false);
       setRegisterFormError("");
       setUserPassword(userPassword);
     } else {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Use alphanumeric, uppercase, lowercase & greater than 10 characters.",
+        "Invalid Input !! Use alphanumeric, uppercase, lowercase & greater than 10 characters."
       );
       setUserPassword("");
     }
@@ -86,7 +89,7 @@ const Login = (props) => {
     } else {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Confirmation password not matched.",
+        "Invalid Input !! Confirmation password not matched."
       );
       setUserConfirmPassword(false);
     }
@@ -116,7 +119,7 @@ const Login = (props) => {
     } else {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Please enter a valid country name.",
+        "Invalid Input !! Please enter a valid country name."
       );
       setUserCountry("");
     }
@@ -161,7 +164,7 @@ const Login = (props) => {
       setUserTNC(false);
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Please accept terms and conditions.",
+        "Invalid Input !! Please accept terms and conditions."
       );
     }
   };
@@ -180,19 +183,19 @@ const Login = (props) => {
     } else if (!userEmail.match(userEmailFormate)) {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Please enter a valid email address.",
+        "Invalid Input !! Please enter a valid email address."
       );
       setUserEmail("");
     } else if (!userPassword.match(userPasswordFormate)) {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Password !! Use alphanumeric, uppercase, lowercase & greater than 10 characters.",
+        "Invalid Password !! Use alphanumeric, uppercase, lowercase & greater than 10 characters."
       );
       setUserPassword("");
     } else if (!userConfirmPassword) {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Confirmation password not matched.",
+        "Invalid Input !! Confirmation password not matched."
       );
       setUserConfirmPassword(false);
     } else if (!userCity.match(userCityFormate)) {
@@ -202,7 +205,7 @@ const Login = (props) => {
     } else if (!userCountry.match(userCountryFormate)) {
       setShowError(true);
       setRegisterFormError(
-        "Invalid Input !! Please enter a valid country name.",
+        "Invalid Input !! Please enter a valid country name."
       );
       setUserCountry("");
     } else if (!(userAge > 0 && userAge < 101)) {

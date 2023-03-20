@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="C:\Karthik\Waterloo\ECE 651\OFODS\develop\ofods-app\src\__tests__\homescreen.test.js">
+    <testCase name="should render Banner Component" duration="31"/>
+    <testCase name="should render Search Restaurants component" duration="72"/>
+    <testCase name="should render How it works component" duration="44"/>
+    <testCase name="should render Order Now component" duration="37"/>
+    <testCase name="should render Featured Restaurants component" duration="40"/>
+  </file>
+</testExecutions>
