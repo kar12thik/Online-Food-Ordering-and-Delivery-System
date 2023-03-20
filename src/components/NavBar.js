@@ -1,22 +1,22 @@
-import { auth } from "../config/firebase"
+import { auth } from "../config/firebase";
 import { signOut } from "firebase/auth";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logOutUser } from "../actions/index";
 import { setNav } from "../actions/index.js";
 //import { logout } from '../redux/actions/authActions';
 
 function NavBar() {
-  const navbar = useSelector(state => state.navbar);
+  const navbar = useSelector((state) => state.navbar);
   const dispatch = useDispatch();
-  
+
   return (
     <nav className="w-full bg-slate-200 shadow">
       <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
-            <Link className="nav-logo" to='/'>
-              <h1 className='text-black font-bold'>Quick Food</h1>
+            <Link className="nav-logo" to="/">
+              <h1 className="text-black font-bold">Quick Food</h1>
               {/* <img src={Logo}/> */}
             </Link>
             <div className="md:hidden">
@@ -58,8 +58,12 @@ function NavBar() {
           </div>
         </div>
         <div>
-          <div className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${navbar ? "block" : "hidden"}`}>
-            { RenderHomeLinks()}
+          <div
+            className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
+              navbar ? "block" : "hidden"
+            }`}
+          >
+            {RenderHomeLinks()}
           </div>
         </div>
       </div>
@@ -68,13 +72,9 @@ function NavBar() {
 }
 
 function RenderHomeLinks() {
-
-  const isLoggedIn = useSelector((state) => state.loggedInUser);
-  //const isLoggedIn = useSelector((state) => state.loggedInUser.loggedIn);
-  const userName = useSelector((state) => state.loggedInUser);
-  //const userName = useSelector((state) => state.loggedInUser.userName);
-  const isRestaurant = useSelector((state) => state.loggedInUser);
-  //const isRestaurant = useSelector((state) => state.loggedInUser.isRestaurant);
+  const isLoggedIn = useSelector((state) => state.loggedInUser.loggedIn);
+  const userName = useSelector((state) => state.loggedInUser.userName);
+  const isRestaurant = useSelector((state) => state.loggedInUser.isRestaurant);
   const dispatch = useDispatch();
   // const history = useHistory();
   // const handleLogout = () => {
@@ -90,24 +90,29 @@ function RenderHomeLinks() {
       <li className="text-black font-bold space-x-4">
         {isLoggedIn ? (
           <>
-            <Link className="text-black-700 font-bold hover:text-white-700">{userName}    </Link>
+            <Link className="text-black-700 font-bold hover:text-white-700">
+              {userName}{" "}
+            </Link>
 
-            <button
-              type="button"
-              className="btn rounded-lg bg-orange h-12 px-6"
-              onClick={() => {
-                dispatch(logOutUser());
-                signOut(auth);
-                Navigate("/login");
-              }}>
-              LOGOUT
-            </button>
+            <Link to="/login">
+              <button
+                type="button"
+                className="btn rounded-lg bg-orange h-12 px-6"
+                onClick={(event) => {
+                  event.preventDefault();
+                  dispatch(logOutUser());
+                  signOut(auth);
+                }}
+              >
+                LOGOUT
+              </button>
+            </Link>
           </>
         ) : (
           <Link to="/login">LOGIN/REGISTER</Link>
         )}
       </li>
-      {(isLoggedIn && isRestaurant) ? (
+      {isLoggedIn && isRestaurant ? (
         <>
           <li className="text-black font-bold">
             <Link to="/restaurants">ADD FOODS</Link>
@@ -125,7 +130,10 @@ function RenderHomeLinks() {
           {!isLoggedIn && (
             <li className="text-black font-bold">
               <Link to="/register-restaurant">
-                <button type="button" className="btn rounded-lg bg-orange h-12 px-6">
+                <button
+                  type="button"
+                  className="btn rounded-lg bg-orange h-12 px-6"
+                >
                   REGISTER RESTAURANT
                 </button>
               </Link>
