@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // import Navbar from '../components/Navbar';
 /* import Navbar2 from '../components/Navbar2'; */
 /* import Footer from '../components/Footer'; */
-// import { signUp, logIn } from "../config/firebase";
+import { signUp } from "../config/firebase";
 
 // firebase related imports
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -253,12 +253,12 @@ const Login = (props) => {
       try {
         navigate("/");
         console.log(userDetails);
-        // const signUpReturn = await signUp(userDetails);
-        // if (signUpReturn.success) {
-        //   // Redirect to the login page
-        //   navigate("/login");
-        //   //window.location.href = "/login";
-        // }
+        const signUpReturn = await signUp(userDetails);
+        if (signUpReturn.success) {
+          // Redirect to the login page
+           navigate("/");
+           //window.location.href = "/login";
+        }
       } catch (error) {
         console.log("Error in Sign up => ", error);
       }
