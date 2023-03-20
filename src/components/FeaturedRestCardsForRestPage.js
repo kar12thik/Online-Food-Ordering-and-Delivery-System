@@ -1,16 +1,18 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function FeaturedRestCardsForRestPage(props) {
   const [like, setLike] = useState(false);
 
   return (
     <div className="">
+      <Link to="/restaurant-details">
       <a
         href="/"
         className="m-1 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:h-44 lg:h-56 md:max-w-xl lg:max-w-xl hover:bg-gray-100 dark:border-gray-700 bg-white-800"
       >
         <img
-          className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+          className=" py-2 w-full h-full object-fit rounded-t-lg md:w-48 md:rounded-none md:rounded-l-lg"
           src={props.restImg}
           alt=""
         />
@@ -102,6 +104,7 @@ function FeaturedRestCardsForRestPage(props) {
           </div>
         </div>
       </a>
+      </Link>
       </div>
   );
 }
