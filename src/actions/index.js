@@ -18,9 +18,9 @@ export const setLoggedInUser = () => {
 
 export const logOutUser = () => {
   return {
-      type: "LOG_OUT_USER"
-  }
-} 
+    type: "LOG_OUT_USER",
+  };
+};
 
 // export const LOGOUT_USER = "LOGOUT_USER";
 // export const logoutUser = () => {
