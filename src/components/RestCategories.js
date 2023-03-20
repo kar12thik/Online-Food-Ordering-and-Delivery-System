@@ -7,7 +7,7 @@ function filterRest(filterItem) {
 
     function findCategory(categoriesChecked) {
         const category_list = []
-        Array.from(categoriesChecked).reduce(function(sum, input) {
+        const category_reduce = Array.from(categoriesChecked).reduce(function(sum, input) {
             const category = input.getAttribute('value');
             category_list.push(category)
             return category_list;
