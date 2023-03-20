@@ -230,5 +230,5 @@ function restaurant_list(){
   });
 }
 
-export default firebase;
+// export default firebase;
 export { signUp, logIn, orderNow, restaurant_list };
