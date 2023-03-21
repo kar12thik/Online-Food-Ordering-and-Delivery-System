@@ -183,6 +183,7 @@ test("Should render city, country and age input fields", async () => {
 });
 
 test('validates the form fields', async () => {
+  window.alert = jest.fn();
   render(
     <Provider store={store}>
       <BrowserRouter>
@@ -194,8 +195,7 @@ test('validates the form fields', async () => {
   await fireEvent.click(screen.getByText("Create an Account"));
   const submitButton = screen.queryAllByText("Create an Account");
   await fireEvent.click(submitButton[1]);
-  const usernameError = screen.getByText("Invalid Input !! Please enter a valid name.");
-  expect(usernameError).toBeInTheDocument();
+  expect(window.alert).toBeCalledWith('Invalid Input !! Please enter a valid name.');
 });
 
 
