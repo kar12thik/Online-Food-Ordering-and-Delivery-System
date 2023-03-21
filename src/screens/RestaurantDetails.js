@@ -3,11 +3,14 @@ import RestDetailsCover from '../components/RestDetailsCover';
 import FoodCategories from '../components/FoodCategories';
 import MenuDetails from '../components/MenuDetails';
 import Cart from '../components/Cart';
+import { Link, useLocation } from 'react-router-dom';
 
 const RestaurantDetails = (props) => {
     const [cartItemsList, setcartItemsList] = useState([]);
     const [totalPrice, settotalPrice] = useState(0);
     const [showCartList, setshowCartList] = useState(false);
+    const location = useLocation();
+    const {data} = location.state;
 
     const addToCart = (item) => {
         if (item) {
