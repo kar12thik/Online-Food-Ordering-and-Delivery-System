@@ -3,7 +3,7 @@ import React, { useState } from "react";
 /* import Navbar2 from '../components/Navbar2'; */
 /* import Footer from '../components/Footer'; */
 // import { signUp, logIn } from "../config/firebase";
- 
+
 // firebase related imports
 import { signInWithEmailAndPassword } from "firebase/auth";
 //import { useSelector } from "react-redux";
@@ -277,7 +277,6 @@ const Login = (props) => {
           const q = db.collection("users").doc(user.uid);
 
           q.get().then((doc) => {
-            // console.log(doc);
             if (doc.exists) {
               dispatch({
                 type: "LOGGED_IN_USER",
@@ -285,13 +284,31 @@ const Login = (props) => {
                   userEmail: user.email,
                   userId: user.uid,
                   userName: doc.data().userName,
-                  isRestaurant:doc.data().isRestaurant
+                  isRestaurant: doc.data().isRestaurant,
                 },
               });
             }
           });
-          console.log(userLoginDetails);
-          // console.log(user);
+
+          const myOrdersQuery = db
+            .collection("users")
+            .doc(user.uid)
+            .collection("myOrder");
+
+          myOrdersQuery.get().then((querySnapshot) => {
+            const myOrders = [];
+            querySnapshot.forEach((doc) => {
+              myOrders.push(doc.data());
+            });
+            dispatch({
+              type:"SET_ORDER",
+              payload:{
+                userEmail: user.email,
+                userId: user.uid,
+                orders:myOrders,
+              }
+            })
+          });
         }
       })
       .catch((error) => {
@@ -548,7 +565,7 @@ const Login = (props) => {
                   id="userLoginEmail"
                   placeholder="Email"
                   onChange={(e) => setUserLoginEmail(e.target.value)}
-                  data-testid="login-email" 
+                  data-testid="login-email"
                 />
               </div>
               <div className="mb-4 py-2 px-2">
