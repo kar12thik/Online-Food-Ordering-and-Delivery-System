@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logOutUser } from "../actions/index";
 import { setNav } from "../actions/index.js";
+import { useNavigate } from 'react-router-dom';
 //import { logout } from '../redux/actions/authActions';
 
 function NavBar() {
+  const navigate = useNavigate();
   const navbar = useSelector((state) => state.navbar);
   const dispatch = useDispatch();
 
@@ -136,6 +138,7 @@ function RenderHomeLinks() {
                   event.preventDefault();
                   dispatch(logOutUser());
                   signOut(auth);
+                  navigate("/");
                 }}
               >
                 LOGOUT
