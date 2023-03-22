@@ -22,7 +22,6 @@ export const db = firebase.firestore(app);
 
 export default app;
 
-
 function signUp(userDetails) {
   return new Promise((resolve, reject) => {
     const {
@@ -37,6 +36,9 @@ function signUp(userDetails) {
       isRestaurant,
       typeOfFood,
     } = userDetails;
+    console.log("Yes");
+    console.log(userDetails.userEmail);
+    console.log(userDetails.userPassword);
     firebase
       .auth()
       .createUserWithEmailAndPassword(
@@ -48,6 +50,7 @@ function signUp(userDetails) {
         var uid;
         if (user != null) {
           uid = user.uid;
+          console.log("User created", uid);
         }
         firebase
           .storage()
@@ -173,60 +176,74 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
   console.log("resDetails => ", resDetails);
   console.log("resDetails.id => ", resDetails.id);
   return new Promise((resolve, reject) => {
-      let user = firebase.auth().currentUser;
-      let uid;
-      if (user != null) {
-          uid = user.uid;
-      };
+    let user = firebase.auth().currentUser;
+    let uid;
+    if (user != null) {
+      uid = user.uid;
+    }
 
-      console.log("User id", uid);
-      uid = 'TestUser5'
+    console.log("User id", uid);
+    uid = "TestUser5";
 
-      const myOrder = {
-          itemsList: cartItemsList,
-          totalPrice: totalPrice,
-          status: "PENDING",
-          ...resDetails,
-      }
+    const myOrder = {
+      itemsList: cartItemsList,
+      totalPrice: totalPrice,
+      status: "PENDING",
+      ...resDetails,
+    };
 
-      const orderRequest = {
-          itemsList: cartItemsList,
-          totalPrice: totalPrice,
-          status: "PENDING",
-          ...userDetails,
-      }
+    const orderRequest = {
+      itemsList: cartItemsList,
+      totalPrice: totalPrice,
+      status: "PENDING",
+      ...userDetails,
+    };
 
-      console.log("myOrder => ", myOrder)
-      console.log("orderRequest => ", orderRequest)
-      db.collection("users").doc(uid).collection("myOrder").add(myOrder).then((docRef) => {
-          console.log("docRef.id", docRef.id)
-          db.collection("users").doc(resDetails.id).collection("orderRequest").doc(docRef.id).set(orderRequest).then((docRef) => {
-              resolve('Successfully ordered')
-          }).catch(function (error) {
-              console.error("Error adding document: ", error.message);
-              reject(error.message)
+    console.log("myOrder => ", myOrder);
+    console.log("orderRequest => ", orderRequest);
+    db.collection("users")
+      .doc(uid)
+      .collection("myOrder")
+      .add(myOrder)
+      .then((docRef) => {
+        console.log("docRef.id", docRef.id);
+        db.collection("users")
+          .doc(resDetails.id)
+          .collection("orderRequest")
+          .doc(docRef.id)
+          .set(orderRequest)
+          .then((docRef) => {
+            resolve("Successfully ordered");
           })
-      }).catch(function (error) {
-          console.error("Error adding document: ", error.message);
-          reject(error.message)
+          .catch(function (error) {
+            console.error("Error adding document: ", error.message);
+            reject(error.message);
+          });
       })
-  })
+      .catch(function (error) {
+        console.error("Error adding document: ", error.message);
+        reject(error.message);
+      });
+  });
 }
 
-function restaurant_list(){
+function restaurant_list() {
   return new Promise((resolve, reject) => {
     let restaurantList = [];
-    db.collection('users').get().then((querySnapshot) => {
-      querySnapshot.forEach(doc => {
-        if (doc.data().isRestaurant) {
-          const obj = { id: doc.id, ...doc.data() }
-          restaurantList.push(obj);
-        }
+    db.collection("users")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (doc.data().isRestaurant) {
+            const obj = { id: doc.id, ...doc.data() };
+            restaurantList.push(obj);
+          }
+        });
+        resolve(restaurantList);
       })
-      resolve(restaurantList);
-    }).catch((error) => {
-      reject(error);
-    });
+      .catch((error) => {
+        reject(error);
+      });
   });
 }
 
