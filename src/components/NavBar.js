@@ -121,7 +121,7 @@ function RenderHomeLinks() {
             <Link to="/restaurants">MY FOODS</Link>
           </li>
           <li className="text-black font-bold">
-            <Link to="/restaurants">ORDER REQUESTS</Link>
+            <Link to="/order-requests">ORDER REQUESTS</Link>
           </li>
         </>
       ) : (
