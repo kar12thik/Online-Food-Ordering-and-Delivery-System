@@ -1,6 +1,9 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
+import "firebase/compat/storage";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
 
 // #todo: Convert firebaseConfig to Environment Variables
 const firebaseConfig = {
@@ -14,8 +17,12 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+const app = firebase.initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = firebase.firestore(app);
+
+export default app;
+
 
 function signUp(userDetails) {
   return new Promise((resolve, reject) => {
@@ -96,30 +103,9 @@ function signUp(userDetails) {
         console.log("Error in Authentication", errorMessage);
         reject(errorMessage);
       });
+    
   });
 }
-
-// async function logIn(userLoginDetails) {
-//   const { userLoginEmail, userLoginPassword } = userLoginDetails;
-//   console.log(userLoginEmail)
-//   console.log(userLoginPassword)
-
-//   try {
-//     userLoginDetails.propsHistory.push("/Restaurants");
-//     const success = await firebase.auth().signInWithEmailAndPassword(userLoginEmail, userLoginPassword);
-//     const snapshot = await db.collection('users').doc(success.user.uid).get();
-
-//     if(snapshot.data().isRestaurant) {
-//       userLoginDetails.propsHistory.push("/Restaurants");
-//     } else {
-//       userLoginDetails.propsHistory.push("/Restaurants");
-//     }
-
-//     return success;
-//   } catch (error) {
-//    return Promise.reject(error.message);
-//   }
-// }
 
 function logIn(userLoginDetails) {
   return new Promise((resolve, reject) => {
@@ -161,5 +147,68 @@ function logIn(userLoginDetails) {
   });
 }
 
-export default firebase;
-export { signUp, logIn };
+function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
+  console.log("Inside orderNow");
+  console.log("userDetails => ", userDetails);
+  console.log("resDetails => ", resDetails);
+  console.log("resDetails.id => ", resDetails.id);
+  return new Promise((resolve, reject) => {
+      let user = firebase.auth().currentUser;
+      let uid;
+      if (user != null) {
+          uid = user.uid;
+      };
+
+      console.log("User id", uid);
+      uid = 'TestUser5'
+
+      const myOrder = {
+          itemsList: cartItemsList,
+          totalPrice: totalPrice,
+          status: "PENDING",
+          ...resDetails,
+      }
+
+      const orderRequest = {
+          itemsList: cartItemsList,
+          totalPrice: totalPrice,
+          status: "PENDING",
+          ...userDetails,
+      }
+
+      console.log("myOrder => ", myOrder)
+      console.log("orderRequest => ", orderRequest)
+      db.collection("users").doc(uid).collection("myOrder").add(myOrder).then((docRef) => {
+          console.log("docRef.id", docRef.id)
+          db.collection("users").doc(resDetails.id).collection("orderRequest").doc(docRef.id).set(orderRequest).then((docRef) => {
+              resolve('Successfully ordered')
+          }).catch(function (error) {
+              console.error("Error adding document: ", error.message);
+              reject(error.message)
+          })
+      }).catch(function (error) {
+          console.error("Error adding document: ", error.message);
+          reject(error.message)
+      })
+  })
+}
+
+function restaurant_list(){
+  return new Promise((resolve, reject) => {
+    let restaurantList = [];
+    db.collection('users').get().then((querySnapshot) => {
+      querySnapshot.forEach(doc => {
+        if (doc.data().isRestaurant) {
+          const obj = { id: doc.id, ...doc.data() }
+          restaurantList.push(obj);
+        }
+      })
+      resolve(restaurantList);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
+}
+
+// export default firebase;
+export { signUp, logIn, orderNow, restaurant_list };
