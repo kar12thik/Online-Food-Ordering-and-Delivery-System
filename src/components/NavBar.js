@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 //import { logout } from '../redux/actions/authActions';
 
 function NavBar() {
-  const navigate = useNavigate();
   const navbar = useSelector((state) => state.navbar);
   const dispatch = useDispatch();
 
@@ -74,6 +73,7 @@ function NavBar() {
 }
 
 function RenderHomeLinks() {
+  const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.loggedInUser.loggedIn);
   const userName = useSelector((state) => state.loggedInUser.userName);
   const isRestaurant = useSelector((state) => state.loggedInUser.isRestaurant);
