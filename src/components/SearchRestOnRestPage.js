@@ -3,7 +3,7 @@ import React from "react";
 function SearchRestOnRestPage({ dataTestId }) {
   return (
     <div className="border" data-testid={dataTestId}>
-      <div className="flex h-52 bg-orange-500 bg-no-repeat bg-cover">
+      <div className="flex h-52 bg-rest-page-bg1 bg-cover bg-no-repeat">
         <form className="m-auto items-center">
           <label htmlFor="simple-search" className="sr-only">
             Search
@@ -44,7 +44,7 @@ function SearchRestOnRestPage({ dataTestId }) {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  stroke-linecap="round"
+                  strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth="2"
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
