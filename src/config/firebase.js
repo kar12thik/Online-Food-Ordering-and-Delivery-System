@@ -3,7 +3,8 @@ import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { GoogleAuthProvider,getAuth,signInWithPopup,signInWithEmailAndPassword,createUserWithEmailAndPassword,sendPasswordResetEmail,signOut,} from "firebase/auth";
+import { getFirestore,query,getDocs,collection,where,addDoc,} from "firebase/firestore";
 
 // #todo: Convert firebaseConfig to Environment Variables
 const firebaseConfig = {
@@ -23,6 +24,95 @@ export const db = firebase.firestore(app);
 
 export default app;
 
+// Added for Sign-in-with google 
+function signInWithGoogle() {
+  return new Promise((resolve, reject) => {
+    const provider = new GoogleAuthProvider();
+   signInWithPopup(auth, provider)
+       .then((result) => {
+         // This gives you a Google Access Token. You can use it to access the Google API.
+         const credential = GoogleAuthProvider.credentialFromResult(result);
+         const token = credential.accessToken;
+         // The signed-in user info.
+         const user = result.user;
+         // IdP data available using getAdditionalUserInfo(result)
+         // ...
+       }).catch((error) => {
+         // Handle Errors here.
+         const errorCode = error.code;
+         const errorMessage = error.message;
+         // The email of the user's account used.
+         const email = error.customData.email;
+         // The AuthCredential type that was used.
+         const credential = GoogleAuthProvider.credentialFromError(error);
+         // ...
+       });
+   });
+}
+
+// export const signInWithGoogle = () => {
+//   const provider = new GoogleAuthProvider();
+//   return signInWithPopup(auth, provider);
+// };
+
+// const signInButton = () => {
+//   const provider = new GoogleAuthProvider();
+//   const signInButton = document.getElementById("google-sign-in-button");
+//   //const signInButton = document.getElementById('sign-in-button');
+//   signInButton.addEventListener('click', () => {
+//     signInWithPopup(auth, provider)
+//       .then((result) => {
+//         // This gives you a Google Access Token. You can use it to access the Google API.
+//         const credential = GoogleAuthProvider.credentialFromResult(result);
+//         const token = credential.accessToken;
+//         // The signed-in user info.
+//         const user = result.user;
+//         // IdP data available using getAdditionalUserInfo(result)
+//         // ...
+//       }).catch((error) => {
+//         // Handle Errors here.
+//         const errorCode = error.code;
+//         const errorMessage = error.message;
+//         // The email of the user's account used.
+//         const email = error.customData.email;
+//         // The AuthCredential type that was used.
+//         const credential = GoogleAuthProvider.credentialFromError(error);
+//         // ...
+//       });
+//   });
+// };
+// const googleProvider = new GoogleAuthProvider();
+// const signInWithGoogle = async () => {
+//   try {
+//     const res = await signInWithPopup(auth, googleProvider);
+//     const user = res.user;
+//     const q = query(collection(db, "users"), where("uid", "==", user.uid));
+//     const docs = await getDocs(q);
+//     if (docs.docs.length === 0) {
+//       await addDoc(collection(db, "users"), {
+//         uid: user.uid,
+//         name: user.displayName,
+//         authProvider: "google",
+//         email: user.email,
+//       });
+//     }
+//   } catch (err) {
+//     console.error(err);
+//     alert(err.message);
+//   }
+// };
+
+const sendPasswordReset = async (email) => {
+  try {
+    await sendPasswordResetEmail(auth, email);
+    alert("Password reset link sent!");
+  } catch (err) {
+    console.error(err);
+    alert(err.message);
+  }
+};
+
+// Added for Sign-in-with google
 
 function signUp(userDetails) {
   return new Promise((resolve, reject) => {
@@ -211,4 +301,4 @@ function restaurant_list(){
 }
 
 // export default firebase;
-export { signUp, logIn, orderNow, restaurant_list };
+export { signUp, logIn, orderNow, restaurant_list , signInWithPopup, signInWithGoogle};

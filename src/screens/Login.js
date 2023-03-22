@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // import Navbar from '../components/Navbar';
 /* import Navbar2 from '../components/Navbar2'; */
 /* import Footer from '../components/Footer'; */
-import { signUp } from "../config/firebase";
+import { signUp, signInWithPopup, signInWithGoogle } from "../config/firebase";
 import Swal from 'sweetalert2';
 
 // firebase related imports
@@ -254,11 +254,11 @@ const Login = (props) => {
             window.scrollTo(0, 0);
           }
         });
-        
+
         document.querySelector('#login-link').addEventListener('click', () => {
           Swal.close();
         });
-        
+
         document.getElementById('login-link').addEventListener('click', () => {
           navigate('/Login');
           window.scrollTo(0, 0);
@@ -268,12 +268,23 @@ const Login = (props) => {
         const signUpReturn = await signUp(userDetails);
         if (signUpReturn.success) {
           // Redirect to the login page
-           navigate("/");
-           //window.location.href = "/login";
+          navigate("/");
+          //window.location.href = "/login";
         }
       } catch (error) {
         console.log("Error in Sign up => ", error);
       }
+    }
+  };
+
+  const handleSignInWithGoogle = async () => {
+    try {
+      const result = await signInWithGoogle();
+      // Handle successful sign-in
+      console.log(result.user);
+    } catch (error) {
+      // Handle sign-in error
+      console.error(error);
     }
   };
 
@@ -518,6 +529,31 @@ const Login = (props) => {
                 >
                   <b>Create an Account</b>
                 </button>
+                <div className="mt-4">
+                  <div className="flex items-center justify-center mb-4 relative">
+                    <div className="bg-gray-400 h-px flex-grow"></div>
+                    <div className="mx-3 text-black-600 font-bold text-sm z-10">OR sign-up with</div>
+                    <div className="bg-gray-400 h-px flex-grow"></div>
+                    <div className="absolute inset-0 flex items-center justify-center z-0">
+                      <div className="bg-white px-2">-</div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col items-center">
+                    <div className="flex space-x-4">
+                      <button className="bg-blue-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out">
+                        <i className="far fa-envelope mr-2"></i> Google
+                      </button>
+                      <button className="bg-blue-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out">
+                        <i className="fab fa-github mr-2"></i>GitHub
+                      </button>
+                      <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out">
+                        <i className="fab fa-facebook-f mr-2"></i>Facebook
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
               </center>
             </form>
             <center>
@@ -570,6 +606,12 @@ const Login = (props) => {
                   onChange={(e) => setUserLoginPassword(e.target.value)}
                   data-testid="login-password"
                 />
+                <p
+                  className="text-sm text-black font-bold mt-4 mr-2 cursor-pointer hover:text-gray-800 text-right"
+                //onClick={() => handleForgotPassword()}
+                >
+                  Forgot Password?
+                </p>
               </div>
               <center>
                 <button
@@ -586,9 +628,40 @@ const Login = (props) => {
                 ) : (
                   ""
                 )}
+                <div className="mt-4">
+                  <div className="flex items-center justify-center mb-4 relative">
+                    <div className="bg-gray-400 h-px flex-grow"></div>
+                    <div className="mx-3 text-black-600 font-bold text-sm z-10">OR sign-in with</div>
+                    <div className="bg-gray-400 h-px flex-grow"></div>
+                    <div className="absolute inset-0 flex items-center justify-center z-0">
+                      <div className="bg-white px-2">-</div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col items-center">
+                    <div className="flex space-x-4">
+                      <button
+                        id="google-sign-in-button"
+                        className="bg-blue-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out"
+                        onClick={handleSignInWithGoogle}
+                      >
+                        <i className="far fa-envelope mr-2"></i> Google
+                      </button>
+                      <button className="bg-blue-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out">
+                        <i className="fab fa-github mr-2"></i>GitHub
+                      </button>
+                      <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out">
+                        <i className="fab fa-facebook-f mr-2"></i>Facebook
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+
+
               </center>
             </form>
-            <p className="mt-4 text-center">
+            <p className="mt-4 text-center ">
               Don't have an account yet?{" "}
               <span
                 className="cursor-pointer text-yellow-500"
