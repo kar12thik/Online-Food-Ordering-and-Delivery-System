@@ -10,7 +10,6 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
-    "bootstrap": "^5.2.3",
     "env-cmd": "^10.1.0",
     "firebase": "^9.17.1",
     "ionicons": "^6.1.1",

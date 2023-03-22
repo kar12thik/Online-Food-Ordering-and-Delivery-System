@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logOutUser } from "../actions/index";
 import { setNav } from "../actions/index.js";
+import { useNavigate } from 'react-router-dom';
 //import { logout } from '../redux/actions/authActions';
 
 function NavBar() {
@@ -72,6 +73,7 @@ function NavBar() {
 }
 
 function RenderHomeLinks() {
+  const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.loggedInUser.loggedIn);
   const userName = useSelector((state) => state.loggedInUser.userName);
   const isRestaurant = useSelector((state) => state.loggedInUser.isRestaurant);
@@ -86,31 +88,6 @@ function RenderHomeLinks() {
     <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
       <li className="text-black font-bold">
         <Link to="/restaurants">RESTAURANTS</Link>
-      </li>
-      <li className="text-black font-bold space-x-4">
-        {isLoggedIn ? (
-          <>
-            <Link className="text-black-700 font-bold hover:text-white-700">
-              {userName}{" "}
-            </Link>
-
-            <Link to="/login">
-              <button
-                type="button"
-                className="btn rounded-lg bg-orange h-12 px-6"
-                onClick={(event) => {
-                  event.preventDefault();
-                  dispatch(logOutUser());
-                  signOut(auth);
-                }}
-              >
-                LOGOUT
-              </button>
-            </Link>
-          </>
-        ) : (
-          <Link to="/login">LOGIN/REGISTER</Link>
-        )}
       </li>
       {isLoggedIn && isRestaurant ? (
         <>
@@ -132,7 +109,7 @@ function RenderHomeLinks() {
               <Link to="/register-restaurant">
                 <button
                   type="button"
-                  className="btn rounded-lg bg-orange h-12 px-6"
+                  className="btn h-12 px-6"
                 >
                   REGISTER RESTAURANT
                 </button>
@@ -146,6 +123,39 @@ function RenderHomeLinks() {
           )}
         </>
       )}
+      <li className="text-black font-bold space-x-4">
+        {isLoggedIn ? (
+          <>
+            <Link className="bg-gradient-to-r from-blue-400 via-yellow-500 to-pink-500 text-black py-2 px-4 rounded-full">
+              {userName}{" "}
+            </Link>
+
+            <Link to="/login">
+              <button
+                type="button"
+                className="btn rounded-lg bg-orange h-12 px-6"
+                onClick={(event) => {
+                  event.preventDefault();
+                  dispatch(logOutUser());
+                  signOut(auth);
+                  navigate("/");
+                }}
+              >
+                LOGOUT
+              </button>
+            </Link>
+          </>
+        ) : (
+          <Link to="/login">
+            <button
+                type="button"
+                className="btn rounded-lg bg-orange h-12 px-6"
+              >
+                 LOGIN/REGISTER
+              </button>            
+          </Link>
+        )}
+      </li>
     </ul>
   );
 }
