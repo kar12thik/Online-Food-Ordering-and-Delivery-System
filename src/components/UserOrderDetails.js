@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { useSelector } from "react-redux";
 
@@ -11,9 +11,9 @@ function UserOrderDetails() {
 
   const ordersList = useSelector((state) => state.myOrders.orders);
 
-  useEffect(() => {
-    console.log(ordersList);
-  }, [ordersList]);
+  let pendingOrders = ordersList.filter((o) => o.status === "PENDING");
+  let inProgressOrders = ordersList.filter((o) => o.status === "IN_PROGRESS");
+  let deliveredOrders = ordersList.filter((o) => o.status === "DELIVERED");
 
   function handleTabs(e) {
     if (e === "tab1") {
@@ -91,10 +91,9 @@ function UserOrderDetails() {
 
         {/* List */}
         {tab1Content && (
-          <div className=" flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2">
-            {ordersList
-              .filter((o) => o.status === "PENDING")
-              .map((order) => {
+          <div className="w-full flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2">
+            {pendingOrders.length !== 0 ? (
+              pendingOrders.map((order) => {
                 return (
                   <SingleUserOrderDetail
                     key={order.id}
@@ -105,14 +104,17 @@ function UserOrderDetails() {
                     order_status_color="text-red-500"
                   />
                 );
-              })}
+              })
+            ) : (
+              <h1 className="ml-1/2 text-xl font-black">No Pending Orders</h1>
+            )}
           </div>
         )}
+
         {tab2Content && (
           <div className=" flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2">
-            {ordersList
-              .filter((o) => o.status === "IN PROGRESS")
-              .map((order) => {
+            {inProgressOrders.length !== 0 ? (
+              inProgressOrders.map((order) => {
                 return (
                   <SingleUserOrderDetail
                     key={order.id}
@@ -123,14 +125,16 @@ function UserOrderDetails() {
                     order_status_color="text-yellow-500"
                   />
                 );
-              })}
+              })
+            ) : (
+              <h1 className="text-xl font-black">No In Progress Orders</h1>
+            )}
           </div>
         )}
         {tab3Content && (
           <div className=" flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2">
-            {ordersList
-              .filter((o) => o.status === "DELIVERED")
-              .map((order) => {
+            {deliveredOrders.length !== 0 ? (
+              deliveredOrders.map((order) => {
                 return (
                   <SingleUserOrderDetail
                     key={order.id}
@@ -141,7 +145,10 @@ function UserOrderDetails() {
                     order_status_color="text-green-500"
                   />
                 );
-              })}
+              })
+            ) : (
+              <h1 className="text-xl font-black">No Delivered Orders</h1>
+            )}
           </div>
         )}
       </div>

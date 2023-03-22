@@ -10,7 +10,7 @@ export default function SingleUserOrderDetail({
   return (
     <div>
       <div className="flex">
-        <h1 className="text-base font-medium">{restaurant_name}</h1>
+        <h1 className="text-lg font-black">{restaurant_name}</h1>
         <h1 className={`ml-auto uppercase font-bold ${order_status_color}`}>
           {order_status}
         </h1>
