@@ -18,14 +18,15 @@ export default function SingleUserOrderDetail({
 
       {/* Single order list Card */}
       {orderItemList.map((item) => {
+        console.log(item);
         return (
           <div className="mt-6 w-full h-16 flex">
             <div className="w-24 h-24 ml-0 p-1">
               <img src={item.itemImageUrl} alt="items" />
             </div>
             <div className="flex flex-col ml-8">
-              <span className="">{item.itemTitle}</span>{" "}
-              <span className="">{item.Ingredients}</span>
+              <span className="text-lg font-black">{item.itemTitle}</span>{" "}
+              <span className="">{item.itemIngredients}</span>
             </div>
             <div className="ml-auto">${item.itemPrice} 20</div>
           </div>
