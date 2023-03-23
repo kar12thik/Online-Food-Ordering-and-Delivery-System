@@ -302,7 +302,9 @@ const Login = (props) => {
                   userEmail: user.email,
                   userId: user.uid,
                   userName: doc.data().userName,
-                  isRestaurant: doc.data().isRestaurant
+                  isRestaurant: doc.data().isRestaurant,
+                  typeOfFood: doc.data().typeOfFood,
+                  userProfileImageUrl: doc.data().userProfileImageUrl
                 },
               });
             }

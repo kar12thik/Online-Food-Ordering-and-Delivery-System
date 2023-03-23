@@ -8,6 +8,7 @@ import RegisterRestaurants from "./screens/RegisterRestaurant";
 import RestaurantDetails from "./screens/RestaurantDetails";
 import Orders from "./screens/Orders";
 import Footer from "./components/Footer";
+import MyFoods from "./screens/MyFoods";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/register-restaurant" element={<RegisterRestaurants />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/restaurant-details" element ={ <RestaurantDetails/>} />
+        <Route path="/my-foods" element ={ <MyFoods/>} />
       </Routes>
       <Footer />
     </div>
