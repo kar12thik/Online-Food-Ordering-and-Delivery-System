@@ -1,4 +1,4 @@
-function UserDetailsCover({ username }) {
+function UserDetailsCover({ username, userProfileImageUrl }) {
   return (
     <div className="container-fluid h-72 bg-cover bg-restaurant-cover">
       <div>
@@ -7,9 +7,9 @@ function UserDetailsCover({ username }) {
             <div className="flex">
               <div className="items-center col-span-2">
                 <img
-                  className="w-60 scale-75"
-                  alt="Food"
-                  src={require("../assets/images/rest_image.png")}
+                  className="w-36 h-36 scale-75"
+                  alt="User Profile"
+                  src={userProfileImageUrl}
                 />
               </div>
               <div className="pt-16">

@@ -5,9 +5,16 @@ import UserOrderDetails from "../components/UserOrderDetails";
 
 function MyOrders() {
   const userName = useSelector((state) => state.loggedInUser.userName);
+  const userProfileImageUrl = useSelector(
+    (state) => state.loggedInUser.userProfileImageUrl,
+  );
+
   return (
     <div>
-      <UserDetailsCover username={userName} />
+      <UserDetailsCover
+        username={userName}
+        userProfileImageUrl={userProfileImageUrl}
+      />
       <UserOrderDetails />
     </div>
   );

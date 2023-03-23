@@ -278,6 +278,7 @@ const Login = (props) => {
 
           q.get().then((doc) => {
             if (doc.exists) {
+              console.log(doc.data())
               dispatch({
                 type: "LOGGED_IN_USER",
                 payload: {
@@ -285,6 +286,7 @@ const Login = (props) => {
                   userId: user.uid,
                   userName: doc.data().userName,
                   isRestaurant: doc.data().isRestaurant,
+                  userProfileImageUrl : doc.data().userProfileImageUrl,
                 },
               });
             }
