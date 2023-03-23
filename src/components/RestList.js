@@ -9,9 +9,7 @@ function RestList({item}) {
                                     {item.map((Val) => {
                                         return(
                                         <FeaturedRestCardsForRestPage
-                                            restImg={Val.userProfileImageUrl}
-                                            restName={Val.userName}
-                                            restDish={Val.category.charAt(0).toUpperCase() + Val.category.slice(1)}
+                                            restVal={Val}
                                         />
                                 );
                             })}
