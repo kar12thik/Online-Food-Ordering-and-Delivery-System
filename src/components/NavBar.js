@@ -5,10 +5,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { logOutUser } from "../actions/index";
 import { setNav } from "../actions/index.js";
 import { useNavigate } from 'react-router-dom';
+import loggedInUser from "../reducers/loggedInUser";
 //import { logout } from '../redux/actions/authActions';
 
 function NavBar() {
   const navbar = useSelector((state) => state.navbar);
+  
   const dispatch = useDispatch();
 
   return (

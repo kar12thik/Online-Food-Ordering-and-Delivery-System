@@ -5,6 +5,9 @@ import "firebase/compat/storage";
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider,getAuth,signInWithPopup,signInWithEmailAndPassword,createUserWithEmailAndPassword,sendPasswordResetEmail,signOut,} from "firebase/auth";
 import { getFirestore,query,getDocs,collection,where,addDoc,} from "firebase/firestore";
+import { useNavigate } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import loggedInUser from "../reducers/loggedInUser";
 
 // #todo: Convert firebaseConfig to Environment Variables
 const firebaseConfig = {
@@ -25,82 +28,49 @@ export const db = firebase.firestore(app);
 export default app;
 
 // Added for Sign-in-with google 
-function signInWithGoogle() {
-  return new Promise((resolve, reject) => {
-    const provider = new GoogleAuthProvider();
-   signInWithPopup(auth, provider)
-       .then((result) => {
-         // This gives you a Google Access Token. You can use it to access the Google API.
-         const credential = GoogleAuthProvider.credentialFromResult(result);
-         const token = credential.accessToken;
-         // The signed-in user info.
-         const user = result.user;
-         // IdP data available using getAdditionalUserInfo(result)
-         // ...
-       }).catch((error) => {
-         // Handle Errors here.
-         const errorCode = error.code;
-         const errorMessage = error.message;
-         // The email of the user's account used.
-         const email = error.customData.email;
-         // The AuthCredential type that was used.
-         const credential = GoogleAuthProvider.credentialFromError(error);
-         // ...
-       });
-   });
-}
+const provider = new GoogleAuthProvider();
 
-// export const signInWithGoogle = () => {
-//   const provider = new GoogleAuthProvider();
-//   return signInWithPopup(auth, provider);
-// };
+export const signInWithGoogle = () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      const dispatch = useDispatch();
 
-// const signInButton = () => {
-//   const provider = new GoogleAuthProvider();
-//   const signInButton = document.getElementById("google-sign-in-button");
-//   //const signInButton = document.getElementById('sign-in-button');
-//   signInButton.addEventListener('click', () => {
-//     signInWithPopup(auth, provider)
-//       .then((result) => {
-//         // This gives you a Google Access Token. You can use it to access the Google API.
-//         const credential = GoogleAuthProvider.credentialFromResult(result);
-//         const token = credential.accessToken;
-//         // The signed-in user info.
-//         const user = result.user;
-//         // IdP data available using getAdditionalUserInfo(result)
-//         // ...
-//       }).catch((error) => {
-//         // Handle Errors here.
-//         const errorCode = error.code;
-//         const errorMessage = error.message;
-//         // The email of the user's account used.
-//         const email = error.customData.email;
-//         // The AuthCredential type that was used.
-//         const credential = GoogleAuthProvider.credentialFromError(error);
-//         // ...
-//       });
-//   });
-// };
-// const googleProvider = new GoogleAuthProvider();
-// const signInWithGoogle = async () => {
-//   try {
-//     const res = await signInWithPopup(auth, googleProvider);
-//     const user = res.user;
-//     const q = query(collection(db, "users"), where("uid", "==", user.uid));
-//     const docs = await getDocs(q);
-//     if (docs.docs.length === 0) {
-//       await addDoc(collection(db, "users"), {
-//         uid: user.uid,
-//         name: user.displayName,
-//         authProvider: "google",
-//         email: user.email,
-//       });
-//     }
-//   } catch (err) {
-//     console.error(err);
-//     alert(err.message);
-//   }
-// };
+      // User Logged-in Details
+      const name = result.user.displayName;
+      const email = result.user.email;
+      const profileimg = result.user.photoURL;
+
+      // dispatch action to update loggedInUser state
+      dispatch(
+        loggedInUser({
+          loggedIn: true,
+          userName: name,
+          userEmail: email,
+          isRestaurant: false,
+        })
+      );
+
+      // redirect to home page
+      //navigate("/");
+      window.location.href = "/";
+
+      // firebase.auth().onAuthStateChanged(function(user) {
+      //   if (user) {
+      //     // User is signed in.
+      //     window.location.href = "/"; // replace "home.html" with your home page URL
+      //   } else {
+      //     // No user is signed in.
+      //   }
+      // });
+      
+      console.log("Google sign-in successful!", result.user);
+    })
+    .catch((error) => {
+      console.error("Google sign-in failed:", error);
+    });
+};
 
 const sendPasswordReset = async (email) => {
   try {
@@ -301,4 +271,4 @@ function restaurant_list(){
 }
 
 // export default firebase;
-export { signUp, logIn, orderNow, restaurant_list , signInWithPopup, signInWithGoogle};
+export { signUp, logIn, orderNow, restaurant_list , signInWithPopup};

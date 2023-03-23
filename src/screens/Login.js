@@ -277,16 +277,16 @@ const Login = (props) => {
     }
   };
 
-  const handleSignInWithGoogle = async () => {
-    try {
-      const result = await signInWithGoogle();
-      // Handle successful sign-in
-      console.log(result.user);
-    } catch (error) {
-      // Handle sign-in error
-      console.error(error);
-    }
-  };
+  // const handleSignInWithGoogle = async () => {
+  //   try {
+  //     const result = await signInWithGoogle();
+  //     // Handle successful sign-in
+  //     console.log(result.user);
+  //   } catch (error) {
+  //     // Handle sign-in error
+  //     console.error(error);
+  //   }
+  // };
 
   const handleLoginNowBtn = async (event) => {
     event.preventDefault();
@@ -541,14 +541,14 @@ const Login = (props) => {
 
                   <div className="flex flex-col items-center">
                     <div className="flex space-x-4">
-                      <button className="bg-blue-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out">
-                        <i className="far fa-envelope mr-2"></i> Google
+                      <button 
+                        className="bg-blue-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out"
+                        onClick={signInWithGoogle}
+                      >
+                        Google
                       </button>
                       <button className="bg-blue-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out">
                         <i className="fab fa-github mr-2"></i>GitHub
-                      </button>
-                      <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out">
-                        <i className="fab fa-facebook-f mr-2"></i>Facebook
                       </button>
                     </div>
                   </div>
@@ -637,30 +637,23 @@ const Login = (props) => {
                       <div className="bg-white px-2">-</div>
                     </div>
                   </div>
-
-                  <div className="flex flex-col items-center">
+                </div>
+              </center>
+            </form>
+            <div className="flex flex-col items-center">
                     <div className="flex space-x-4">
-                      <button
-                        id="google-sign-in-button"
+                    <button 
                         className="bg-blue-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out"
-                        onClick={handleSignInWithGoogle}
+                        onClick={signInWithGoogle}
                       >
-                        <i className="far fa-envelope mr-2"></i> Google
+                        Google
                       </button>
                       <button className="bg-blue-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out">
                         <i className="fab fa-github mr-2"></i>GitHub
                       </button>
-                      <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out">
-                        <i className="fab fa-facebook-f mr-2"></i>Facebook
-                      </button>
                     </div>
-                  </div>
+            </div>
 
-                </div>
-
-
-              </center>
-            </form>
             <p className="mt-4 text-center ">
               Don't have an account yet?{" "}
               <span
