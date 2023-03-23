@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // import Navbar from '../components/Navbar';
 /* import Navbar2 from '../components/Navbar2'; */
 /* import Footer from '../components/Footer'; */
-// import { signUp, logIn } from "../config/firebase";
+import { signUp, logIn } from "../config/firebase";
 import Swal from 'sweetalert2';
 
 // firebase related imports
