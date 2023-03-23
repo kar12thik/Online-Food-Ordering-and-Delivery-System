@@ -23,8 +23,9 @@ const Login = (props) => {
   const [isRestaurantUser, setIsRestaurantUser] = useState(restaurantProp);
   const [isRegisterForm, setIsRegisterForm] = useState(false);
   const [registerFormError, setRegisterFormError] = useState("");
-  const [setUserProfileImageLable] = useState("Choose image");
   const [userName, setUserName] = useState("");
+  const [restName, setrestName] = useState("");
+  const [restDescription, setRestDescription] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [userConfirmPassword, setUserConfirmPassword] = useState(false);
@@ -38,14 +39,45 @@ const Login = (props) => {
   const [userLoginEmail, setUserLoginEmail] = useState("");
   const [userLoginPassword, setUserLoginPassword] = useState("");
   const [noUserFound, setNoUserFound] = useState(false);
+  const [selectedOption, setSelectedOption] = useState("Indian");
   const [message, setMessage] = useState(false);
 
+  const options = ["Indian", "Thai", "Mexican", "Italian", "Chinese", "Greek"];
   // redux state
   //const loggedInUser = useSelector((state) => state.loggedInUser);
   const dispatch = useDispatch();
 
   const handleForms = () => {
+    setIsRestaurantUser(false);
     setIsRegisterForm(!isRegisterForm);
+  };
+
+  const handlerestName = (e) => {
+    const restaurantName = e;
+
+    const restaurantNameFormate = /^([A-Za-z.\s_-]).{5,}$/;
+    if (restaurantName.match(restaurantNameFormate)) {
+      setShowError(false);
+      setRegisterFormError("");
+      setrestName(restaurantName);
+    } else {
+      setShowError(true);
+      setrestName(" ");
+    }
+  };
+
+  const handleRestDescription = (e) => {
+    const restaurantDescription = e;
+
+    const restaurantDescriptionFormate = /^([A-Za-z.\s_-]).{5,}$/;
+    if (restaurantDescription.match(restaurantDescriptionFormate)) {
+      setShowError(false);
+      setRegisterFormError("");
+      setRestDescription(restaurantDescription);
+    } else {
+      setShowError(true);
+      setRestDescription(" ");
+    }
   };
 
   const handleUserName = (e) => {
@@ -57,7 +89,6 @@ const Login = (props) => {
       setUserName(userName);
     } else {
       setShowError(true);
-      //setRegisterFormError("Invalid Input !! Please enter a valid name.");
       setUserName(" ");
     }
   };
@@ -131,6 +162,10 @@ const Login = (props) => {
     setUserGender(e.target.value);
   };
 
+  const handleOptionClick = (value) => {
+    setSelectedOption(value);
+  };
+
   const handleUserAge = (e) => {
     const userAge = e;
     if (userAge > 0 && userAge < 101) {
@@ -154,7 +189,6 @@ const Login = (props) => {
     } else {
       // handle invalid file type
       setShowError(true);
-      setUserProfileImageLable("Choose image...");
       setUserProfileImage("");
     }
   };
@@ -174,13 +208,25 @@ const Login = (props) => {
     const userNameFormate = /^([A-Za-z.\s_-]).{5,}$/;
     const userEmailFormate =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const restDescriptionFormate = /^(?:\b[a-zA-Z]+\b[\s\r\n]*){10,30}$/;
     const userPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;
     const userCountryFormate = /^([A-Za-z.\s_-]).*$/;
     const userCityFormate = /^([A-Za-z.\s_-]).*$/;
 
-    if (!userName.match(userNameFormate)) {
+    if (isRestaurantUser && !restName.match(userNameFormate)) {
       setShowError(true);
-      //setRegisterFormError("Invalid Input !! Please enter a valid name.");
+      window.alert("Invalid Input !! Please enter a valid restaurant name.");
+    } else if (
+      isRestaurantUser &&
+      !restDescription.match(restDescriptionFormate)
+    ) {
+      console.log(restDescription, "rest");
+      setShowError(true);
+      window.alert(
+        "Invalid Input !! Please enter a description between 10 & 30 words."
+      );
+    } else if (!userName.match(userNameFormate)) {
+      setShowError(true);
       window.alert("Invalid Input !! Please enter a valid name.");
     } else if (!userEmail.match(userEmailFormate)) {
       setShowError(true);
@@ -213,7 +259,6 @@ const Login = (props) => {
       window.alert(
         "Invalid Input !! Please select a profile image in JPG or JPEG Format."
       );
-      setUserProfileImageLable("Choose image...");
       setUserProfileImage("");
     } else if (!userTNC) {
       setUserTNC(false);
@@ -221,6 +266,9 @@ const Login = (props) => {
       window.alert("Please accept terms and conditions.");
     } else {
       let userDetails = {
+        restName,
+        category: selectedOption,
+        restDescription,
         userName: userName,
         userEmail: userEmail,
         userPassword: userPassword,
@@ -234,45 +282,43 @@ const Login = (props) => {
         typeOfFood: [],
       };
       try {
-        navigate("/");
-        Swal.fire({
-          title: "Sign-up Successfully",
-          html: 'Please <a class="text-blue-500 hover:text-red-500" href="#" id="login-link">Login</a> to the system',
-          icon: "success",
-          timer: 5000,
-          timerProgressBar: true,
-          showConfirmButton: false,
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-          allowEnterKey: false,
-        }).then((result) => {
-          if (result.isDismissed) {
-            // Do nothing
-          } else if (result.isConfirmed) {
-            navigate("/");
-            window.scrollTo(0, 0);
-          }
-        });
-
-        document.querySelector("#login-link").addEventListener("click", () => {
-          Swal.close();
-        });
-
-        document.getElementById("login-link").addEventListener("click", () => {
-          navigate("/Login");
-          window.scrollTo(0, 0);
-        });
         console.log(userDetails);
         // Sign-up Fix
         const signUpReturn = await signUp(userDetails);
         console.log(signUpReturn);
         if (signUpReturn.success) {
           setMessage(false);
-          if (isRestaurantUser) {
-            navigate("/order-requests");
-          } else {
-            props.history.push("/login");
-          }
+          navigate("/");
+          Swal.fire({
+            title: "Sign-up Successfully",
+            html: 'Please <a class="text-blue-500 hover:text-red-500" href="#" id="login-link">Login</a> to the system',
+            icon: "success",
+            timer: 5000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+            allowEnterKey: false,
+          }).then((result) => {
+            if (result.isDismissed) {
+              // Do nothing
+            } else if (result.isConfirmed) {
+              navigate("/");
+              window.scrollTo(0, 0);
+            }
+          });
+          document
+            .querySelector("#login-link")
+            .addEventListener("click", () => {
+              Swal.close();
+            });
+
+          document
+            .getElementById("login-link")
+            .addEventListener("click", () => {
+              navigate("/Login");
+              window.scrollTo(0, 0);
+            });
         }
       } catch (error) {
         setMessage(true);
@@ -332,7 +378,7 @@ const Login = (props) => {
         }
       });
   };
-
+  console.log(selectedOption, "isrest");
   return (
     <div>
       <div className="container-fluid py-5 bg-gray-100">
@@ -343,20 +389,82 @@ const Login = (props) => {
             </h1>
             <br />
             <form>
+              {isRestaurantUser ? (
+                <div className="flex flex-row items-center px-1 py-1">
+                  <div className="form-item w-full mx-auto md:w-1/2">
+                    <label
+                      className="text-left block text-gray-700 font-bold mb-2"
+                      htmlFor="restOwnerName"
+                    >
+                      Restaurant Name
+                    </label>
+                    <input
+                      type="text"
+                      data-testid="restfullname-input"
+                      className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                      id="restOwnerName"
+                      placeholder="Restaurant Name"
+                      onKeyUp={(e) => handlerestName(e.target.value)}
+                    />
+                  </div>
+                </div>
+              ) : null}
+              {isRestaurantUser ? (
+                <div className="flex flex-row items-center px-1 py-1">
+                  <div className="form-item w-full mx-auto md:w-1/2">
+                    <label
+                      className="text-left block text-gray-700 font-bold mb-2"
+                      htmlFor="passwordConfirmation"
+                    >
+                      Restaurant Category
+                    </label>
+                    <select
+                      className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                      onChange={(e) => handleOptionClick(e.target.value)}
+                    >
+                      {options.map((option) => (
+                        <option key={option}>{option}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              ) : null}
+              {isRestaurantUser ? (
+                <div className="flex flex-row items-center px-1 py-1">
+                  <div className="form-item w-full mx-auto md:w-1/2">
+                    <label
+                      className="text-left block text-gray-700 font-bold mb-2"
+                      htmlFor="restDescription"
+                    >
+                      Restaurant Description
+                    </label>
+                    <textarea
+                      type="text"
+                      data-testid="restDescription-input"
+                      className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
+                      id="restDescription"
+                      placeholder="Restaurant Description"
+                      onKeyUp={(e) => handleRestDescription(e.target.value)}
+                    />
+                  </div>
+                </div>
+              ) : null}
               <div className="flex flex-row items-center px-1 py-1">
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <label
                     className="text-left block text-gray-700 font-bold mb-2"
                     htmlFor="userFullName"
                   >
-                    Full Name
+                    {isRestaurantUser ? "Restaurant Owner Name" : "Full Name"}
                   </label>
                   <input
                     type="text"
                     data-testid="fullname-input"
                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
-                    id="userName"
-                    placeholder="Full Name"
+                    id="userFullName"
+                    placeholder={
+                      isRestaurantUser ? "Restaurant Owner Name" : "Full Name"
+                    }
                     onKeyUp={(e) => handleUserName(e.target.value)}
                   />
                 </div>

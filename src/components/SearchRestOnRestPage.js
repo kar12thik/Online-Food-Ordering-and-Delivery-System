@@ -1,6 +1,12 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 function SearchRestOnRestPage({ dataTestId }) {
+  const location = useLocation();
+  if (location.state) {
+    const { searchText } = location.state;
+    console.log(searchText);
+  }
   return (
     <div className="border" data-testid={dataTestId}>
       <div className="flex h-52 bg-rest-page-bg1 bg-cover bg-no-repeat">

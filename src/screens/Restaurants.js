@@ -1,7 +1,7 @@
 import { useEffect, React } from "react";
 import SearchRestOnRestPage from "../components/SearchRestOnRestPage";
 import RestList from "../components/RestList";
-import { useState } from 'react';
+import { useState } from "react";
 import RestCategories from "../components/RestCategories";
 import { restaurant_list } from "../config/firebase";
 
@@ -10,6 +10,7 @@ function Restaurants() {
   const [menuItems, setMenuItems] = useState([]);
   const [item, setItem] = useState(restaurantList);
   const [categorybar, setCategorybar] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   function filterItem(filterCategory) {
     if (filterCategory.length > 0) {
@@ -17,38 +18,48 @@ function Restaurants() {
         return filterCategory.includes(newVal.category.toLowerCase());
       });
       setItem(newItem);
-    }
-    else {
+    } else {
       setItem(restaurantList);
     }
-  };
+  }
 
   useEffect(() => {
-    restaurant_list().then((result) => {
-      setRestaurantList(result);
-      let menuItems = [...new Set(result.map((Val) => Val.category.toLowerCase() ))];
-      setMenuItems(menuItems);
-    }).catch((error) => {
-      console.error('Error:', error);
-    });
+    restaurant_list()
+      .then((result) => {
+        setRestaurantList(result);
+        let menuItems = [
+          ...new Set(result.map((Val) => Val.category.toLowerCase())),
+        ];
+        setMenuItems(menuItems);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   }, []);
 
   useEffect(() => {
     setItem(restaurantList);
   }, [restaurantList]);
-  
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
-      <SearchRestOnRestPage dataTestId="Search_Restaurants_On_RestPage"></SearchRestOnRestPage>
+      <SearchRestOnRestPage
+        dataTestId="Search_Restaurants_On_RestPage"
+        setSearchText={setSearchText}
+      ></SearchRestOnRestPage>
       <div className="">
         <div className="container-fluid bg-slate-200 w-full flex mx-auto flex-col md:flex-row lg:flex-row sm:space-x-0 md:space-x-4 lg:space-x-4 pt-10 pb-10 px-3">
           <div className="w-1/3 justify-center md:block">
             <div className="sticky top-0">
-              <RestCategories categorybar={categorybar} setCategorybar={setCategorybar} menuItems={menuItems} filterItem={filterItem}></RestCategories>
+              <RestCategories
+                categorybar={categorybar}
+                setCategorybar={setCategorybar}
+                menuItems={menuItems}
+                filterItem={filterItem}
+              ></RestCategories>
             </div>
           </div>
           <div className="w-full md:w-full lg:w-2/3 justify-center">
