@@ -295,19 +295,19 @@ const Login = (props) => {
             .doc(user.uid)
             .collection("myOrder");
 
-          myOrdersQuery.get().then((querySnapshot) => {
+          myOrdersQuery.onSnapshot((querySnapshot) => {
             const myOrders = [];
             querySnapshot.forEach((doc) => {
               myOrders.push(doc.data());
             });
             dispatch({
-              type:"SET_ORDER",
-              payload:{
+              type: "SET_ORDER",
+              payload: {
                 userEmail: user.email,
                 userId: user.uid,
-                orders:myOrders,
-              }
-            })
+                orders: myOrders,
+              },
+            });
           });
         }
       })
