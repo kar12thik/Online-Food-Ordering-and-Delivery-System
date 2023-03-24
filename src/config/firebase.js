@@ -23,7 +23,6 @@ export const db = firebase.firestore(app);
 
 export default app;
 
-
 function signUp(userDetails) {
   return new Promise((resolve, reject) => {
     const {
@@ -103,7 +102,6 @@ function signUp(userDetails) {
         console.log("Error in Authentication", errorMessage);
         reject(errorMessage);
       });
-    
   });
 }
 
@@ -153,62 +151,138 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
   console.log("resDetails => ", resDetails);
   console.log("resDetails.id => ", resDetails.id);
   return new Promise((resolve, reject) => {
-      let user = firebase.auth().currentUser;
-      let uid;
-      if (user != null) {
-          uid = user.uid;
-      };
+    let user = firebase.auth().currentUser;
+    let uid;
+    if (user != null) {
+      uid = user.uid;
+    }
 
-      console.log("User id", uid);
-      uid = 'TestUser5'
+    console.log("User id", uid);
+    uid = "TestUser5";
 
-      const myOrder = {
-          itemsList: cartItemsList,
-          totalPrice: totalPrice,
-          status: "PENDING",
-          ...resDetails,
-      }
+    const myOrder = {
+      itemsList: cartItemsList,
+      totalPrice: totalPrice,
+      status: "PENDING",
+      ...resDetails,
+    };
 
-      const orderRequest = {
-          itemsList: cartItemsList,
-          totalPrice: totalPrice,
-          status: "PENDING",
-          ...userDetails,
-      }
+    const orderRequest = {
+      itemsList: cartItemsList,
+      totalPrice: totalPrice,
+      status: "PENDING",
+      ...userDetails,
+    };
 
-      console.log("myOrder => ", myOrder)
-      console.log("orderRequest => ", orderRequest)
-      db.collection("users").doc(uid).collection("myOrder").add(myOrder).then((docRef) => {
-          console.log("docRef.id", docRef.id)
-          db.collection("users").doc(resDetails.id).collection("orderRequest").doc(docRef.id).set(orderRequest).then((docRef) => {
-              resolve('Successfully ordered')
-          }).catch(function (error) {
-              console.error("Error adding document: ", error.message);
-              reject(error.message)
+    console.log("myOrder => ", myOrder);
+    console.log("orderRequest => ", orderRequest);
+    db.collection("users")
+      .doc(uid)
+      .collection("myOrder")
+      .add(myOrder)
+      .then((docRef) => {
+        console.log("docRef.id", docRef.id);
+        db.collection("users")
+          .doc(resDetails.id)
+          .collection("orderRequest")
+          .doc(docRef.id)
+          .set(orderRequest)
+          .then((docRef) => {
+            resolve("Successfully ordered");
           })
-      }).catch(function (error) {
-          console.error("Error adding document: ", error.message);
-          reject(error.message)
+          .catch(function (error) {
+            console.error("Error adding document: ", error.message);
+            reject(error.message);
+          });
       })
-  })
+      .catch(function (error) {
+        console.error("Error adding document: ", error.message);
+        reject(error.message);
+      });
+  });
 }
 
-function restaurant_list(){
+function restaurant_list() {
   return new Promise((resolve, reject) => {
     let restaurantList = [];
-    db.collection('users').get().then((querySnapshot) => {
-      querySnapshot.forEach(doc => {
-        if (doc.data().isRestaurant) {
-          const obj = { id: doc.id, ...doc.data() }
-          restaurantList.push(obj);
-        }
+    db.collection("users")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (doc.data().isRestaurant) {
+            const obj = { id: doc.id, ...doc.data() };
+            restaurantList.push(obj);
+          }
+        });
+        resolve(restaurantList);
       })
-      resolve(restaurantList);
-    }).catch((error) => {
-      reject(error);
-    });
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+function addItem(itemDetails) {
+  const { itemName, itemIngredients, itemPrice, itemCategory, itemImage } =
+    itemDetails;
+  return new Promise((resolve, reject) => {
+    let user = firebase.auth().currentUser;
+    var uid;
+    if (user != null) {
+      uid = user.uid;
+    }
+    firebase
+      .storage()
+      .ref()
+      .child(`itemImage/${uid}/` + itemImage.name)
+      .put(itemImage)
+      .then((url) => {
+        url.ref
+          .getDownloadURL()
+          .then((success) => {
+            const itemImageUrl = success;
+            console.log(itemImageUrl);
+            const itemDetailsForDb = {
+              itemName,
+              itemIngredients,
+              itemPrice,
+              itemCategory,
+              itemImageUrl,
+            };
+            db.collection("users")
+              .doc(uid)
+              .collection("menuItems")
+              .add(itemDetailsForDb)
+              .then((docRef) => {
+                // console.log("Document written with ID: ", docRef.id);
+                // itemDetails.propsHistory.push("/my-foods");
+                resolve("Successfully added food item");
+              })
+              .catch(function (error) {
+                let errorCode = error.code;
+                let errorMessage = error.message;
+                reject(errorMessage);
+                // console.error("Error adding document: ", error);
+              });
+          })
+          .catch((error) => {
+            // Handle Errors here.
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            console.log("Error in getDownloadURL function", errorCode);
+            console.log("Error in getDownloadURL function", errorMessage);
+            reject(errorMessage);
+          });
+      })
+      .catch((error) => {
+        // Handle Errors here.
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        console.log("Error in Image Uploading", errorMessage);
+        reject(errorMessage);
+      });
   });
 }
 
 // export default firebase;
-export { signUp, logIn, orderNow, restaurant_list };
+export { signUp, logIn, orderNow, restaurant_list, addItem };
