@@ -4,8 +4,6 @@ import React, { useState } from "react";
 /* import Footer from '../components/Footer'; */
 import { signUp, logIn } from "../config/firebase";
 import Swal from 'sweetalert2';
-import Swal from "sweetalert2";
-
 
 // firebase related imports
 import { signInWithEmailAndPassword } from "firebase/auth";
