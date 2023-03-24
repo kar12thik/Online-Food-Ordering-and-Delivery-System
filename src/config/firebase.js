@@ -38,7 +38,6 @@ function signUp(userDetails) {
       userProfileImage,
       isRestaurant,
       typeOfFood,
-      restDescription,
     } = userDetails;
     firebase
       .auth()

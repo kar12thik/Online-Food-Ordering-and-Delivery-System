@@ -30,7 +30,7 @@ function MyFoodList() {
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <p className="text-lg font-bold text-black truncate dark:text-white">
-                                                {FoodList[val].itemTitle}
+                                                {FoodList[val].itemName}
                                             </p>
                                             <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                                                 {FoodList[val].itemIngredients}
