@@ -23,6 +23,7 @@ const Login = (props) => {
   const [isRestaurantUser, setIsRestaurantUser] = useState(restaurantProp);
   const [isRegisterForm, setIsRegisterForm] = useState(false);
   const [registerFormError, setRegisterFormError] = useState("");
+  const [setUserProfileImageLable] = useState("Choose image");
   const [userName, setUserName] = useState("");
   const [restName, setrestName] = useState("");
   const [restDescription, setRestDescription] = useState("");
@@ -189,6 +190,7 @@ const Login = (props) => {
     } else {
       // handle invalid file type
       setShowError(true);
+      setUserProfileImageLable("Choose image...");
       setUserProfileImage("");
     }
   };
@@ -208,7 +210,7 @@ const Login = (props) => {
     const userNameFormate = /^([A-Za-z.\s_-]).{5,}$/;
     const userEmailFormate =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const restDescriptionFormate = /^(?:\b[a-zA-Z]+\b[\s\r\n]*){10,30}$/;
+    const restDescriptionFormate = /^(?:\S+\s+){9,}\S+$/;
     const userPasswordFormate = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}/;
     const userCountryFormate = /^([A-Za-z.\s_-]).*$/;
     const userCityFormate = /^([A-Za-z.\s_-]).*$/;
@@ -220,10 +222,9 @@ const Login = (props) => {
       isRestaurantUser &&
       !restDescription.match(restDescriptionFormate)
     ) {
-      console.log(restDescription, "rest");
       setShowError(true);
       window.alert(
-        "Invalid Input !! Please enter a description between 10 & 30 words."
+        "Invalid Input !! Please enter a description of minimum 10 words."
       );
     } else if (!userName.match(userNameFormate)) {
       setShowError(true);
@@ -259,6 +260,7 @@ const Login = (props) => {
       window.alert(
         "Invalid Input !! Please select a profile image in JPG or JPEG Format."
       );
+      setUserProfileImageLable("Choose image...");
       setUserProfileImage("");
     } else if (!userTNC) {
       setUserTNC(false);
@@ -334,7 +336,6 @@ const Login = (props) => {
   const handleLoginNowBtn = async (event) => {
     event.preventDefault();
     setIsRestaurantUser(false);
-    console.log(props.history);
     const userLoginDetails = {
       userLoginEmail: userLoginEmail,
       userLoginPassword: userLoginPassword,
@@ -350,7 +351,6 @@ const Login = (props) => {
           const q = db.collection("users").doc(user.uid);
 
           q.get().then((doc) => {
-            // console.log(doc);
             if (doc.exists) {
               dispatch({
                 type: "LOGGED_IN_USER",
@@ -364,7 +364,6 @@ const Login = (props) => {
             }
           });
           console.log(userLoginDetails);
-          // console.log(user);
         }
       })
       .catch((error) => {
@@ -372,13 +371,11 @@ const Login = (props) => {
         window.alert(
           "User Not Found, Please try again with Valid Email & Password"
         );
-        //const errorMessage = error.message;
         if (errorCode === "auth/user-not-found") {
           setNoUserFound(true);
         }
       });
   };
-  console.log(selectedOption, "isrest");
   return (
     <div>
       <div className="container-fluid py-5 bg-gray-100">
@@ -643,7 +640,7 @@ const Login = (props) => {
                 </button>
               </center>
             </form>
-            {isRestaurantUser && message ? (
+            {message ? (
               <div className="flex flex-row items-center px-1 py-1">
                 <div className="form-item w-full mx-auto md:w-1/2">
                   <div

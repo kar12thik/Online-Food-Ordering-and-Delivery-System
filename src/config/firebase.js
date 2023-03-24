@@ -80,13 +80,8 @@ function signUp(userDetails) {
                 .doc(uid)
                 .set(userDetailsForDb)
                 .then((docRef) => {
-                  if (userDetailsForDb.isRestaurant) {
-                    userDetailsForDb.success = true;
-                    resolve(userDetailsForDb);
-                  } else {
-                    userDetails.propsHistory.push("/");
-                    resolve(userDetailsForDb);
-                  }
+                  userDetailsForDb.success = true;
+                  resolve(userDetailsForDb);
                 })
                 .catch(function (error) {
                   error.success = false;
