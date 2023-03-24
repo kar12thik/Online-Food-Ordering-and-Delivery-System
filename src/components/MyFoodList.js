@@ -15,14 +15,6 @@ function MyFoodList() {
   }, []);
 
   function renderFoodList() {
-    // if(FoodList) {
-    //     console.log("Food list =>", FoodList);
-    //     return Object.keys(FoodList).map((val) => {
-    //         return (
-    //             <div>Foods List</div>
-    //         )
-    //     })
-    // }
     
     console.log("Food list =>", FoodList);
     return Object.keys(FoodList).map((val) => {
@@ -55,53 +47,6 @@ function MyFoodList() {
             </div>
         )
     })
-
-    //     return (
-    //         <div>
-    //         {
-    //             isLoggedIn ? (
-    //                 <ul className='w-2/4 ml-72 pl-20 pt-10 pb-10 divide-y divide-gray-200 dark:divide-gray-700'>
-    //                     <li class="pb-3 sm:pb-4">
-    //                         <div class="flex items-center space-x-4">
-    //                             <div class="flex-shrink-0">
-    //                                 <img className="w-14 h-14" alt="Food" src={require('../assets/images/Food.jpeg')} />
-    //                             </div>
-    //                             <div class="flex-1 min-w-0">
-    //                                 <p class="text-lg font-bold text-black truncate dark:text-white">
-    //                                 Beef Kebab
-    //                                 </p>
-    //                                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-    //                                 Beef, Spices, Potato
-    //                                 </p>
-    //                             </div>
-    //                             <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-    //                                 $32
-    //                             </div>
-    //                         </div>
-    //                     </li>
-    //                     <li class="py-3 sm:py-4">
-    //                         <div class="flex items-center space-x-4">
-    //                             <div class="flex-shrink-0">
-    //                             <img className="w-14 h-14" alt="Food" src={require('../assets/images/Food.jpeg')} />
-    //                             </div>
-    //                             <div class="flex-1 min-w-0">
-    //                                 <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-    //                                 Chicken wrap
-    //                                 </p>
-    //                                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-    //                                 Vegetables, Sauce, Chicken
-    //                                 </p>
-    //                             </div>
-    //                             <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-    //                                 $34
-    //                             </div>
-    //                         </div>
-    //                     </li>
-    //                 </ul>
-    //             ) : null
-    //         }
-    //     </div>
-    // )
   }
   
   return (

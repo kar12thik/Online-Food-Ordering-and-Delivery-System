@@ -6,17 +6,20 @@ function MyFoodsCover() {
   const [userName, setuserName] = useState('');
   const [typeOfFood, settypeOfFood] = useState([]);
   const [userProfileImageUrl, setuserProfileImageUrl] = useState('');
+  const [restDescription, setrestDescription] = useState('');
   
   const isLoggedIn = useSelector((state) => state.loggedInUser.loggedIn);
   const loggeduserName = useSelector((state) => state.loggedInUser.userName);
   const loggedtypeOfFood = useSelector((state) => state.loggedInUser.typeOfFood);
   const loggeduserProfileImageUrl = useSelector((state) => state.loggedInUser.userProfileImageUrl);
+  const loggedrestDescription = useSelector((state) => state.loggedInUser.restDescription);
 
   useEffect(() => {
     setuserName(loggeduserName);
     settypeOfFood(loggedtypeOfFood);
     setuserProfileImageUrl(loggeduserProfileImageUrl);
-  }, [loggeduserName, loggedtypeOfFood, loggeduserProfileImageUrl]);
+    setrestDescription(loggedrestDescription);
+  }, [loggeduserName, loggedtypeOfFood, loggeduserProfileImageUrl, loggedrestDescription]);
 
   return (
     <div className="container-fluid h-72 bg-cover bg-restaurant-cover">
@@ -31,8 +34,7 @@ function MyFoodsCover() {
                                 </div>
                                 <div className="pt-16">
                                     <h1 className="text-2xl text-white font-semibold">{ userName }</h1>
-                                    <p className="text-white">{ typeOfFood.join(', ') }</p>
-                                    {/* <p className="text-white">Food, Drinks</p> */}
+                                    <p className="text-white">{ restDescription }</p>
                                 </div>
                             </div>
                         ) : null

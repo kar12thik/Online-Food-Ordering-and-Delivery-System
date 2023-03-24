@@ -233,6 +233,7 @@ const Login = (props) => {
         isRestaurant: false,
         propsHistory: props.history,
         typeOfFood: [],
+        restDescription: "",
       };
       try {
         navigate("/");
@@ -304,7 +305,8 @@ const Login = (props) => {
                   userName: doc.data().userName,
                   isRestaurant: doc.data().isRestaurant,
                   typeOfFood: doc.data().typeOfFood,
-                  userProfileImageUrl: doc.data().userProfileImageUrl
+                  userProfileImageUrl: doc.data().userProfileImageUrl,
+                  restDescription: doc.data().restDescription,
                 },
               });
             }

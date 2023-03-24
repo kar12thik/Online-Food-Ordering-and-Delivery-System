@@ -37,6 +37,7 @@ function signUp(userDetails) {
       userProfileImage,
       isRestaurant,
       typeOfFood,
+      restDescription,
     } = userDetails;
     firebase
       .auth()
@@ -71,6 +72,7 @@ function signUp(userDetails) {
                 isRestaurant: isRestaurant,
                 userProfileImageUrl: userProfileImageUrl,
                 typeOfFood: typeOfFood,
+                restDescription: restDescription,
               };
               db.collection("users")
                 .doc(uid)
