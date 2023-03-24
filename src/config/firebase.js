@@ -2,7 +2,6 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
-import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 // #todo: Convert firebaseConfig to Environment Variables
@@ -23,10 +22,12 @@ export const db = firebase.firestore(app);
 
 export default app;
 
-
 function signUp(userDetails) {
   return new Promise((resolve, reject) => {
     const {
+      restName,
+      category,
+      restDescription,
       userName,
       userEmail,
       userPassword,
@@ -60,6 +61,9 @@ function signUp(userDetails) {
               const userProfileImageUrl = success;
               console.log(userProfileImageUrl);
               const userDetailsForDb = {
+                restName,
+                category,
+                restDescription,
                 userName: userName,
                 userEmail: userEmail,
                 userPassword: userPassword,
@@ -77,7 +81,7 @@ function signUp(userDetails) {
                 .set(userDetailsForDb)
                 .then((docRef) => {
                   if (userDetailsForDb.isRestaurant) {
-                    userDetails.propsHistory.push("/Restaurants");
+                    userDetailsForDb.success = true;
                     resolve(userDetailsForDb);
                   } else {
                     userDetails.propsHistory.push("/");
@@ -85,6 +89,7 @@ function signUp(userDetails) {
                   }
                 })
                 .catch(function (error) {
+                  error.success = false;
                   console.error("Error adding document: ", error);
                   reject(error);
                 });
@@ -103,14 +108,12 @@ function signUp(userDetails) {
         console.log("Error in Authentication", errorMessage);
         reject(errorMessage);
       });
-    
   });
 }
 
 function logIn(userLoginDetails) {
   return new Promise((resolve, reject) => {
-    const { userLoginEmail, userLoginPassword, propsHistory } =
-      userLoginDetails;
+    const { userLoginEmail, userLoginPassword } = userLoginDetails;
     let userFound = false;
     // console.log (userLoginEmail,userLoginPassword);
     firebase
@@ -153,60 +156,74 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
   console.log("resDetails => ", resDetails);
   console.log("resDetails.id => ", resDetails.id);
   return new Promise((resolve, reject) => {
-      let user = firebase.auth().currentUser;
-      let uid;
-      if (user != null) {
-          uid = user.uid;
-      };
+    let user = firebase.auth().currentUser;
+    let uid;
+    if (user != null) {
+      uid = user.uid;
+    }
 
-      console.log("User id", uid);
-      uid = 'TestUser5'
+    console.log("User id", uid);
+    uid = "TestUser5";
 
-      const myOrder = {
-          itemsList: cartItemsList,
-          totalPrice: totalPrice,
-          status: "PENDING",
-          ...resDetails,
-      }
+    const myOrder = {
+      itemsList: cartItemsList,
+      totalPrice: totalPrice,
+      status: "PENDING",
+      ...resDetails,
+    };
 
-      const orderRequest = {
-          itemsList: cartItemsList,
-          totalPrice: totalPrice,
-          status: "PENDING",
-          ...userDetails,
-      }
+    const orderRequest = {
+      itemsList: cartItemsList,
+      totalPrice: totalPrice,
+      status: "PENDING",
+      ...userDetails,
+    };
 
-      console.log("myOrder => ", myOrder)
-      console.log("orderRequest => ", orderRequest)
-      db.collection("users").doc(uid).collection("myOrder").add(myOrder).then((docRef) => {
-          console.log("docRef.id", docRef.id)
-          db.collection("users").doc(resDetails.id).collection("orderRequest").doc(docRef.id).set(orderRequest).then((docRef) => {
-              resolve('Successfully ordered')
-          }).catch(function (error) {
-              console.error("Error adding document: ", error.message);
-              reject(error.message)
+    console.log("myOrder => ", myOrder);
+    console.log("orderRequest => ", orderRequest);
+    db.collection("users")
+      .doc(uid)
+      .collection("myOrder")
+      .add(myOrder)
+      .then((docRef) => {
+        console.log("docRef.id", docRef.id);
+        db.collection("users")
+          .doc(resDetails.id)
+          .collection("orderRequest")
+          .doc(docRef.id)
+          .set(orderRequest)
+          .then((docRef) => {
+            resolve("Successfully ordered");
           })
-      }).catch(function (error) {
-          console.error("Error adding document: ", error.message);
-          reject(error.message)
+          .catch(function (error) {
+            console.error("Error adding document: ", error.message);
+            reject(error.message);
+          });
       })
-  })
+      .catch(function (error) {
+        console.error("Error adding document: ", error.message);
+        reject(error.message);
+      });
+  });
 }
 
-function restaurant_list(){
+function restaurant_list() {
   return new Promise((resolve, reject) => {
     let restaurantList = [];
-    db.collection('users').get().then((querySnapshot) => {
-      querySnapshot.forEach(doc => {
-        if (doc.data().isRestaurant) {
-          const obj = { id: doc.id, ...doc.data() }
-          restaurantList.push(obj);
-        }
+    db.collection("users")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (doc.data().isRestaurant) {
+            const obj = { id: doc.id, ...doc.data() };
+            restaurantList.push(obj);
+          }
+        });
+        resolve(restaurantList);
       })
-      resolve(restaurantList);
-    }).catch((error) => {
-      reject(error);
-    });
+      .catch((error) => {
+        reject(error);
+      });
   });
 }
 
