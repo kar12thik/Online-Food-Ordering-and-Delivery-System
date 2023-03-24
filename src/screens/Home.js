@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProcessInfo from "../components/ProcessInfo";
 import FeaturedRest from "../components/FeaturedRest";
 import SearchRest from "../components/SearchRest";
 import OrderNow from "../components/OrderNow";
 
 function Home() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="App">
       <SearchRest dataTestId="Search_Restaurants" />
