@@ -42,7 +42,9 @@ function UserOrderDetails() {
           >
             <button
               type="button"
-              className="w-full flex mx-auto bg-white hover:bg-gray-200 text-black h-12 px-11  justify-center items-center"
+              className={`w-full flex mx-auto ${
+                tab1Content ? "bg-orange" : "bg-white"
+              }   text-black h-12 px-11  justify-center items-center rounded-md`}
             >
               <div className="mr-1">
                 <img
@@ -59,7 +61,9 @@ function UserOrderDetails() {
           >
             <button
               type="button"
-              className="w-full flex mx-auto bg-white hover:bg-gray-200 text-black h-12 px-11  justify-center items-center"
+              className={`w-full flex mx-auto ${
+                tab2Content ? "bg-orange" : "bg-white"
+              }   text-black h-12 px-11  justify-center items-center rounded-md`}
             >
               <div className="mr-1">
                 <img
@@ -76,7 +80,9 @@ function UserOrderDetails() {
           >
             <button
               type="button"
-              className="w-full flex mx-auto bg-white hover:bg-gray-200 text-black h-12 px-11  justify-center items-center"
+              className={`w-full flex mx-auto ${
+                tab3Content ? "bg-orange" : "bg-white"
+              }   text-black h-12 px-11  justify-center items-center rounded-md`}
             >
               <div className="mr-1">
                 <img
