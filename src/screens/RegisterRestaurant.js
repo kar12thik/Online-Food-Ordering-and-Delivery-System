@@ -1,7 +1,12 @@
-function RegisterRestaurants() {
-    return ( <div>
-        Register RegisterRestaurants
-    </div> );
+import React from "react";
+import Login from "./Login";
+
+function RegisterRestaurant() {
+  return (
+    <div>
+      <Login restaurantProp={true} />
+    </div>
+  );
 }
 
-export default RegisterRestaurants;
+export default RegisterRestaurant;
