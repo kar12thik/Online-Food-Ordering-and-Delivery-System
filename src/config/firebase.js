@@ -254,15 +254,11 @@ function addItem(itemDetails) {
               .collection("menuItems")
               .add(itemDetailsForDb)
               .then((docRef) => {
-                // console.log("Document written with ID: ", docRef.id);
-                // itemDetails.propsHistory.push("/my-foods");
                 resolve("Successfully added food item");
               })
               .catch(function (error) {
-                let errorCode = error.code;
                 let errorMessage = error.message;
                 reject(errorMessage);
-                // console.error("Error adding document: ", error);
               });
           })
           .catch((error) => {
@@ -275,8 +271,6 @@ function addItem(itemDetails) {
           });
       })
       .catch((error) => {
-        // Handle Errors here.
-        let errorCode = error.code;
         let errorMessage = error.message;
         console.log("Error in Image Uploading", errorMessage);
         reject(errorMessage);
