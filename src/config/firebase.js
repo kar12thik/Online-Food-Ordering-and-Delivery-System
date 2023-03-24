@@ -2,7 +2,6 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
-import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 // #todo: Convert firebaseConfig to Environment Variables
@@ -26,6 +25,9 @@ export default app;
 function signUp(userDetails) {
   return new Promise((resolve, reject) => {
     const {
+      restName,
+      category,
+      restDescription,
       userName,
       userEmail,
       userPassword,
@@ -59,6 +61,9 @@ function signUp(userDetails) {
               const userProfileImageUrl = success;
               console.log(userProfileImageUrl);
               const userDetailsForDb = {
+                restName,
+                category,
+                restDescription,
                 userName: userName,
                 userEmail: userEmail,
                 userPassword: userPassword,
@@ -75,15 +80,11 @@ function signUp(userDetails) {
                 .doc(uid)
                 .set(userDetailsForDb)
                 .then((docRef) => {
-                  if (userDetailsForDb.isRestaurant) {
-                    userDetails.propsHistory.push("/Restaurants");
-                    resolve(userDetailsForDb);
-                  } else {
-                    userDetails.propsHistory.push("/");
-                    resolve(userDetailsForDb);
-                  }
+                  userDetailsForDb.success = true;
+                  resolve(userDetailsForDb);
                 })
                 .catch(function (error) {
+                  error.success = false;
                   console.error("Error adding document: ", error);
                   reject(error);
                 });
@@ -107,8 +108,7 @@ function signUp(userDetails) {
 
 function logIn(userLoginDetails) {
   return new Promise((resolve, reject) => {
-    const { userLoginEmail, userLoginPassword, propsHistory } =
-      userLoginDetails;
+    const { userLoginEmail, userLoginPassword } = userLoginDetails;
     let userFound = false;
     // console.log (userLoginEmail,userLoginPassword);
     firebase
