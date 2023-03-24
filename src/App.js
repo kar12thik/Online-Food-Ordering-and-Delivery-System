@@ -10,6 +10,7 @@ import Orders from "./screens/Orders";
 import Footer from "./components/Footer";
 import AddMenuItem from "./screens/AddMenuItems";
 import MyFoods from "./screens/MyFoods";
+import MyOrders from "./screens/MyOrders";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/restaurant-details" element={<RestaurantDetails />} />
         <Route path="/add-menu-items" element={<AddMenuItem />} />
         <Route path="/my-foods" element={<MyFoods />} />
+        <Route path="/my-orders" element={<MyOrders />} />
       </Routes>
       <Footer />
     </div>

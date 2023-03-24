@@ -2,8 +2,8 @@ import React, { useState } from "react";
 // import Navbar from '../components/Navbar';
 /* import Navbar2 from '../components/Navbar2'; */
 /* import Footer from '../components/Footer'; */
-import { signUp } from "../config/firebase";
-import Swal from "sweetalert2";
+import { signUp, logIn } from "../config/firebase";
+import Swal from 'sweetalert2';
 
 // firebase related imports
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -352,6 +352,7 @@ const Login = (props) => {
 
           q.get().then((doc) => {
             if (doc.exists) {
+              console.log(doc.data())
               dispatch({
                 type: "LOGGED_IN_USER",
                 payload: {
@@ -359,11 +360,31 @@ const Login = (props) => {
                   userId: user.uid,
                   userName: doc.data().userName,
                   isRestaurant: doc.data().isRestaurant,
+                  userProfileImageUrl : doc.data().userProfileImageUrl,
                 },
               });
             }
           });
-          console.log(userLoginDetails);
+
+          const myOrdersQuery = db
+            .collection("users")
+            .doc(user.uid)
+            .collection("myOrder");
+
+          myOrdersQuery.onSnapshot((querySnapshot) => {
+            const myOrders = [];
+            querySnapshot.forEach((doc) => {
+              myOrders.push(doc.data());
+            });
+            dispatch({
+              type: "SET_ORDER",
+              payload: {
+                userEmail: user.email,
+                userId: user.uid,
+                orders: myOrders,
+              },
+            });
+          });
         }
       })
       .catch((error) => {
