@@ -2,7 +2,7 @@ import React, { useState } from "react";
 // import Navbar from '../components/Navbar';
 /* import Navbar2 from '../components/Navbar2'; */
 /* import Footer from '../components/Footer'; */
-import { signUp } from "../config/firebase";
+import { signUp, logIn } from "../config/firebase";
 import Swal from 'sweetalert2';
 
 // firebase related imports
@@ -294,21 +294,42 @@ const Login = (props) => {
           const q = db.collection("users").doc(user.uid);
 
           q.get().then((doc) => {
-            // console.log(doc);
             if (doc.exists) {
+              console.log(doc.data())
               dispatch({
                 type: "LOGGED_IN_USER",
                 payload: {
                   userEmail: user.email,
                   userId: user.uid,
                   userName: doc.data().userName,
-                  isRestaurant: doc.data().isRestaurant
+                  isRestaurant: doc.data().isRestaurant,
+                  userProfileImageUrl : doc.data().userProfileImageUrl,
                 },
               });
             }
           });
           console.log(userLoginDetails);
           // console.log(user);
+
+          const myOrdersQuery = db
+            .collection("users")
+            .doc(user.uid)
+            .collection("orderRequest");
+
+          myOrdersQuery.onSnapshot((querySnapshot) => {
+            const receivedOrders = [];
+            querySnapshot.forEach((doc) => {
+              receivedOrders.push(doc.data());
+            });
+            dispatch({
+              type: "RECEIVE_ORDER",
+              payload: {
+                userEmail: user.email,
+                userId: user.uid,
+                orders: receivedOrders,
+              },
+            });
+          });
         }
       })
       .catch((error) => {
