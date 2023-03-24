@@ -281,8 +281,7 @@ const Login = (props) => {
         userProfileImage: userProfileImage,
         isRestaurant: isRestaurantUser,
         propsHistory: props.history,
-        typeOfFood: [],
-        restDescription: "",
+        typeOfFood: []
       };
       try {
         console.log(userDetails);

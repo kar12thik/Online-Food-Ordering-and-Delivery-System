@@ -74,8 +74,7 @@ function signUp(userDetails) {
                 userUid: uid,
                 isRestaurant: isRestaurant,
                 userProfileImageUrl: userProfileImageUrl,
-                typeOfFood: typeOfFood,
-                restDescription: restDescription,
+                typeOfFood: typeOfFood
               };
               db.collection("users")
                 .doc(uid)
