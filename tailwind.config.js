@@ -12,7 +12,6 @@ module.exports = {
           "url('../src/assets/images/order_now_background.png')",
         "search-rest-background": "url('../src/assets/images/bg.jpg')",
         "rest-page-bg1": "url('../src/assets/images/rest-page-bg1.jpg')",
-        "rest-bg": "url('../src/assets/images/rest-bg.jpeg')",
       },
     },
   },
