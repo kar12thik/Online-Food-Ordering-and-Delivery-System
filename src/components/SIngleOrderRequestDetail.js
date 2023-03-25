@@ -1,8 +1,5 @@
-import { useEffect, React } from "react";
 import firebase from '../config/firebase';
 import { useSelector } from "react-redux";
-import { order_request } from '../config/firebase';
-import { useState } from 'react';
 
 function handleSendToInProgressBtn(userUid, orderId, restaurantUid, status) {
   console.log("user id:", userUid);
@@ -43,7 +40,6 @@ export default function SingleOrderRequestDetail({
 
       {/* Single order list Card */}
       {orderItemList.map((item) => {
-        // console.log(item);
         return (
           <div className="mt-6 w-full h-16 flex">
             <div className="w-24 h-24 ml-0 p-1">

@@ -16,7 +16,6 @@ function OrderRequestsDetails() {
   let pendingOrders = ordersList.filter((o) => o.status === "PENDING");
   let inProgressOrders = ordersList.filter((o) => o.status === "IN PROGRESS");
   let deliveredOrders = ordersList.filter((o) => o.status === "DELIVERED");
-  console.log(pendingOrders);
 
   function handleTabs(e) {
     if (e === "tab1") {
@@ -103,7 +102,6 @@ function OrderRequestsDetails() {
           <div className="w-full flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2">
             {pendingOrders.length !== 0 ? (
               pendingOrders.map((order) => {
-                // console.log("my order id:",order.userName);
                 return (
                   <SingleOrderRequestDetail
                     orderId={order.id}
