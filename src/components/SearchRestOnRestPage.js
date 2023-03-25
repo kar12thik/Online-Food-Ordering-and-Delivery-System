@@ -1,6 +1,17 @@
 import React from "react";
+import { useLocation } from 'react-router-dom';
 
 function SearchRestOnRestPage({ dataTestId }) {
+  const location = useLocation();
+  let placeholder = "Search Restaurants...";
+  let searchValue = "";
+
+  if(location.state){
+    searchValue = location.state.searchBoxText;
+    console.log("Search value inside SearchRestOnRestPage component =>", searchValue);
+    placeholder = searchValue;
+  }
+
   return (
     <div className="border" data-testid={dataTestId}>
       <div className="flex h-52 bg-rest-page-bg1 bg-cover bg-no-repeat">
@@ -27,7 +38,7 @@ function SearchRestOnRestPage({ dataTestId }) {
                 type="text"
                 id="simple-search"
                 className="block sm:w-auto md:w-80 lg:w-96 rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-                placeholder="Search Restaurants..."
+                placeholder= { placeholder }
                 required
               />
             </div>
