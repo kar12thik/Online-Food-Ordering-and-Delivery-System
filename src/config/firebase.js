@@ -222,5 +222,25 @@ function restaurant_list() {
   });
 }
 
+function order_request() {
+  return new Promise((resolve, reject) => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        let orderRequest = [];
+        db.collection('users').doc(user.uid).collection("orderRequest").get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            const obj = { id: doc.id, ...doc.data() }
+            orderRequest.push(obj);
+          });
+          resolve(orderRequest);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+      }
+    });
+  });
+};
+
 // export default firebase;
-export { signUp, logIn, orderNow, restaurant_list };
+export { signUp, logIn, orderNow, restaurant_list, order_request };

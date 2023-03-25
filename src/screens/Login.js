@@ -394,7 +394,10 @@ const Login = (props) => {
           orderRequestQuery.onSnapshot((querySnapshot) => {
             const receivedOrders = [];
             querySnapshot.forEach((doc) => {
-              receivedOrders.push(doc.data());
+              const obj = { id: doc.id, ...doc.data() }
+              // console.log(obj);
+              receivedOrders.push(obj);
+              // console.log(receivedOrders);
             });
             dispatch({
               type: "RECEIVE_ORDER",
