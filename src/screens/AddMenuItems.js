@@ -2,6 +2,7 @@ import { useState } from "react";
 import { addItem } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 function AddMenuItem() {
@@ -214,7 +215,11 @@ function AddMenuItem() {
         </div>
       ) : (
         <div className="text-center font-extrabold p-28">
-          Only Logged-In Restaurant Owners Can Add Menu Items.
+          Only Logged-In Restaurant Owners Can Add Menu Items. Please{" "}
+          <Link className="text-blue-600" to="/login">
+            Login
+          </Link>{" "}
+          to continue!
         </div>
       )}
     </div>
