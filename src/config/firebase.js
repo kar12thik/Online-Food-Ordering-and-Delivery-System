@@ -1,10 +1,11 @@
 import firebase from "firebase/compat/app";
+import React, { useState } from "react";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
 import { initializeApp } from "firebase/app";
-import { GoogleAuthProvider,getAuth,signInWithPopup,signInWithEmailAndPassword,createUserWithEmailAndPassword,sendPasswordResetEmail,signOut,} from "firebase/auth";
-import { getFirestore,query,getDocs,collection,where,addDoc,} from "firebase/firestore";
+import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, } from "firebase/auth";
+import { getFirestore, query, getDocs, collection, where, addDoc, } from "firebase/firestore";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import loggedInUser from "../reducers/loggedInUser";
@@ -29,8 +30,8 @@ export default app;
 
 // Added for Sign-in-with google 
 const provider = new GoogleAuthProvider();
-
-export const signInWithGoogle = () => {
+export const signInWithGoogle = (history) => {
+  let answer = false;
   signInWithPopup(auth, provider)
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -50,26 +51,15 @@ export const signInWithGoogle = () => {
           userEmail: email,
           isRestaurant: false,
         })
-      );
-
-      // redirect to home page
-      //navigate("/");
-      window.location.href = "/";
-
-      // firebase.auth().onAuthStateChanged(function(user) {
-      //   if (user) {
-      //     // User is signed in.
-      //     window.location.href = "/"; // replace "home.html" with your home page URL
-      //   } else {
-      //     // No user is signed in.
-      //   }
-      // });
-      
-      console.log("Google sign-in successful!", result.user);
+      ); 
+      const [loggedInUser, setCurrentUser] = useState(null);
+      console.log("Google sign-in successful!", result.user); 
+      answer = true; 
     })
     .catch((error) => {
       console.error("Google sign-in failed:", error);
     });
+  return answer;  
 };
 
 const sendPasswordReset = async (email) => {
@@ -163,7 +153,7 @@ function signUp(userDetails) {
         console.log("Error in Authentication", errorMessage);
         reject(errorMessage);
       });
-    
+
   });
 }
 
@@ -213,47 +203,47 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
   console.log("resDetails => ", resDetails);
   console.log("resDetails.id => ", resDetails.id);
   return new Promise((resolve, reject) => {
-      let user = firebase.auth().currentUser;
-      let uid;
-      if (user != null) {
-          uid = user.uid;
-      };
+    let user = firebase.auth().currentUser;
+    let uid;
+    if (user != null) {
+      uid = user.uid;
+    };
 
-      console.log("User id", uid);
-      uid = 'TestUser5'
+    console.log("User id", uid);
+    uid = 'TestUser5'
 
-      const myOrder = {
-          itemsList: cartItemsList,
-          totalPrice: totalPrice,
-          status: "PENDING",
-          ...resDetails,
-      }
+    const myOrder = {
+      itemsList: cartItemsList,
+      totalPrice: totalPrice,
+      status: "PENDING",
+      ...resDetails,
+    }
 
-      const orderRequest = {
-          itemsList: cartItemsList,
-          totalPrice: totalPrice,
-          status: "PENDING",
-          ...userDetails,
-      }
+    const orderRequest = {
+      itemsList: cartItemsList,
+      totalPrice: totalPrice,
+      status: "PENDING",
+      ...userDetails,
+    }
 
-      console.log("myOrder => ", myOrder)
-      console.log("orderRequest => ", orderRequest)
-      db.collection("users").doc(uid).collection("myOrder").add(myOrder).then((docRef) => {
-          console.log("docRef.id", docRef.id)
-          db.collection("users").doc(resDetails.id).collection("orderRequest").doc(docRef.id).set(orderRequest).then((docRef) => {
-              resolve('Successfully ordered')
-          }).catch(function (error) {
-              console.error("Error adding document: ", error.message);
-              reject(error.message)
-          })
+    console.log("myOrder => ", myOrder)
+    console.log("orderRequest => ", orderRequest)
+    db.collection("users").doc(uid).collection("myOrder").add(myOrder).then((docRef) => {
+      console.log("docRef.id", docRef.id)
+      db.collection("users").doc(resDetails.id).collection("orderRequest").doc(docRef.id).set(orderRequest).then((docRef) => {
+        resolve('Successfully ordered')
       }).catch(function (error) {
-          console.error("Error adding document: ", error.message);
-          reject(error.message)
+        console.error("Error adding document: ", error.message);
+        reject(error.message)
       })
+    }).catch(function (error) {
+      console.error("Error adding document: ", error.message);
+      reject(error.message)
+    })
   })
 }
 
-function restaurant_list(){
+function restaurant_list() {
   return new Promise((resolve, reject) => {
     let restaurantList = [];
     db.collection('users').get().then((querySnapshot) => {
@@ -271,4 +261,4 @@ function restaurant_list(){
 }
 
 // export default firebase;
-export { signUp, logIn, orderNow, restaurant_list , signInWithPopup};
+export { signUp, logIn, orderNow, restaurant_list, signInWithPopup };

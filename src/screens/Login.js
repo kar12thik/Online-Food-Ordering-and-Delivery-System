@@ -277,16 +277,10 @@ const Login = (props) => {
     }
   };
 
-  // const handleSignInWithGoogle = async () => {
-  //   try {
-  //     const result = await signInWithGoogle();
-  //     // Handle successful sign-in
-  //     console.log(result.user);
-  //   } catch (error) {
-  //     // Handle sign-in error
-  //     console.error(error);
-  //   }
-  // };
+  const handleSignInWithGoogle = async () => {
+    let result = await signInWithGoogle();
+    //navigate("/");
+  };
 
   const handleLoginNowBtn = async (event) => {
     event.preventDefault();
@@ -529,31 +523,6 @@ const Login = (props) => {
                 >
                   <b>Create an Account</b>
                 </button>
-                <div className="mt-4">
-                  <div className="flex items-center justify-center mb-4 relative">
-                    <div className="bg-gray-400 h-px flex-grow"></div>
-                    <div className="mx-3 text-black-600 font-bold text-sm z-10">OR sign-up with</div>
-                    <div className="bg-gray-400 h-px flex-grow"></div>
-                    <div className="absolute inset-0 flex items-center justify-center z-0">
-                      <div className="bg-white px-2">-</div>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col items-center">
-                    <div className="flex space-x-4">
-                      <button 
-                        className="bg-blue-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out"
-                        onClick={signInWithGoogle}
-                      >
-                        Google
-                      </button>
-                      <button className="bg-blue-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out">
-                        <i className="fab fa-github mr-2"></i>GitHub
-                      </button>
-                    </div>
-                  </div>
-
-                </div>
               </center>
             </form>
             <center>
@@ -644,7 +613,7 @@ const Login = (props) => {
                     <div className="flex space-x-4">
                     <button 
                         className="bg-blue-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out"
-                        onClick={signInWithGoogle}
+                        onClick={handleSignInWithGoogle}
                       >
                         Google
                       </button>
