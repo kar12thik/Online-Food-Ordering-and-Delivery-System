@@ -24,9 +24,9 @@ afterAll(() => {
 
 const store = configureStore({ reducer: rootReducer });
 
-describe('Wrapping Firebase For NavBar Test', () => {
+describe("Wrapping Firebase For NavBar Test", () => {
   let firestore;
-   beforeAll(() => {
+  beforeAll(() => {
     firestore = firebase.firestore();
   });
 
@@ -45,14 +45,14 @@ describe('Wrapping Firebase For NavBar Test', () => {
         </BrowserRouter>
       </Provider>
     );
-  const user = userEvent.setup();
-  expect(screen.getByText(/FAVOURITE/i)).toBeInTheDocument();
-  expect(screen.queryByText("Featured Restaurants")).toBeNull();
+    const user = userEvent.setup();
+    expect(screen.getByText(/FAVOURITE/i)).toBeInTheDocument();
+    expect(screen.queryByText("Featured Restaurants")).toBeNull();
 
-  // verify page content for expected route after navigating
-  await user.click(screen.getByText("RESTAURANTS"));
-  expect(screen.getByText("Featured Restaurants")).toBeInTheDocument();
-});
+    // verify page content for expected route after navigating
+    await user.click(screen.getByText("RESTAURANTS"));
+    expect(screen.getByText("Featured Restaurants")).toBeInTheDocument();
+  });
 
   test("full app rendering/navigating to Login page", async () => {
     firestore.disableNetwork();
@@ -63,18 +63,19 @@ describe('Wrapping Firebase For NavBar Test', () => {
         </BrowserRouter>
       </Provider>
     );
-    
+
     const user = userEvent.setup();
     // verify page content for default route
     expect(screen.getByText(/Featured Restaurants/i)).toBeInTheDocument();
 
     // verify page content for expected route after navigating
-    await user.click(screen.getByRole('link', {
-      name: /login\/register/i
-    }));
+    await user.click(
+      screen.getByRole("link", {
+        name: /login\/register/i,
+      })
+    );
     expect(screen.getByText("Login Your Account")).toBeInTheDocument();
   });
-
 
   test("full app rendering/navigating to Register Restaurant page", async () => {
     firestore.disableNetwork();
@@ -93,7 +94,7 @@ describe('Wrapping Firebase For NavBar Test', () => {
 
     // verify page content for expected route after navigating
     await user.click(screen.getByText("REGISTER RESTAURANT"));
-    expect(screen.getByText("Register RegisterRestaurants")).toBeInTheDocument();
+    expect(screen.getByText("Restaurant Name")).toBeInTheDocument();
   });
 
   test("should render Quick Food Button", () => {

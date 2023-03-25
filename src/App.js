@@ -9,6 +9,7 @@ import RestaurantDetails from "./screens/RestaurantDetails";
 import Orders from "./screens/Orders";
 import Footer from "./components/Footer";
 import OrderRequests from "./screens/OrderRequest";
+import MyOrders from "./screens/MyOrders";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/orders" element={<Orders />} />
         <Route path="/restaurant-details" element ={ <RestaurantDetails/>} />
         <Route path="/order-requests" element ={ <OrderRequests/>} />
+        <Route path="/my-orders" element={<MyOrders />} />
       </Routes>
       <Footer />
     </div>

@@ -118,7 +118,7 @@ function RenderHomeLinks() {
           )}
           {isLoggedIn && !userName.isRestaurant && (
             <li className="text-black font-bold">
-              <Link to="/restaurants">MY ORDERS</Link>
+              <Link to="/my-orders">MY ORDERS</Link>
             </li>
           )}
         </>
