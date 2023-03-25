@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 function AddMenuItem() {
   const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState("Starter");
-  const [itemImageLable, setItemImageLable] = useState("Choose image");
   const [itemProfileImage, setItemProfileImage] = useState(null);
   const [itemName, setItemName] = useState("");
   const [itemIngredients, setItemIngredients] = useState("");
@@ -38,12 +37,13 @@ function AddMenuItem() {
 
   const handleItemProfileImage = (e) => {
     const file = e.target.files[0];
-    const allowedTypes = ["image/png", "image/jpeg"];
-    if (file && allowedTypes.includes(file.type)) {
-      setItemProfileImage(e.target.files[0]);
+    const fileType = file.type.split("/")[0];
+    if (fileType !== "image") {
+      window.alert("Please enter a valid item image in jpg/jpeg.");
+      e.target.value = null;
+      setItemProfileImage(null);
     } else {
-      setItemImageLable("Choose image...");
-      setItemProfileImage("");
+      setItemProfileImage(e.target.files[0]);
     }
   };
 
@@ -59,17 +59,21 @@ function AddMenuItem() {
     const itemIngredientsFormate = /^[A-Za-z0-9\s,]+$/i;
     if (!itemName.match(itemNameFormate)) {
       window.alert("Please enter a valid item name.");
+      setItemName("");
       return;
     } else if (!itemIngredients.match(itemIngredientsFormate)) {
       window.alert(
         "Please enter a valid list of ingredients seperated by comma."
       );
+      setItemIngredients("");
       return;
     } else if (itemPrice <= 0) {
       window.alert("Please enter a valid item price.");
+      setItemPrice(0);
       return;
     } else if (itemProfileImage == null) {
       window.alert("Please enter a valid item image in jpg/jpeg.");
+      setItemProfileImage(null);
       return;
     }
 
@@ -185,7 +189,7 @@ function AddMenuItem() {
                     type="file"
                     className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none"
                     id="itemProfileImage"
-                    accept="image/png, image/jpeg"
+                    accept="image/*"
                     onChange={handleItemProfileImage}
                   />
                 </div>
