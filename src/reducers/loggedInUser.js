@@ -6,6 +6,7 @@ const initialState = {
   userEmail: null, // for storing the JWT
   userName: null,
   error: null,
+  userProfileImageUrl: null,
   success: false, // for monitoring the registration process.
 };
 
@@ -24,7 +25,7 @@ const loggedInUser = (state = initialState, action) => {
         restDescription: action.payload.restDescription
       };
     case "LOG_OUT_USER":
-      return initialState
+      return initialState;
     default:
       return state;
   }

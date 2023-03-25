@@ -9,6 +9,7 @@ import RestaurantDetails from "./screens/RestaurantDetails";
 import Orders from "./screens/Orders";
 import Footer from "./components/Footer";
 import MyFoods from "./screens/MyFoods";
+import MyOrders from "./screens/MyOrders";
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
         <Route path="/restaurants" element={<Restaurants />} />
         <Route path="/register-restaurant" element={<RegisterRestaurants />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/restaurant-details" element ={ <RestaurantDetails/>} />
+        <Route path="/restaurant-details" element={<RestaurantDetails />} />
+        <Route path="/my-orders" element={<MyOrders />} />
         <Route path="/my-foods" element ={ <MyFoods/>} />
       </Routes>
       <Footer />
