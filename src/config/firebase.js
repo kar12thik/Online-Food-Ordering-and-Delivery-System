@@ -222,5 +222,61 @@ function restaurant_list() {
   });
 }
 
+function addItem(itemDetails) {
+  const { itemName, itemIngredients, itemPrice, itemCategory, itemImage } =
+    itemDetails;
+  return new Promise((resolve, reject) => {
+    let user = firebase.auth().currentUser;
+    var uid;
+    if (user != null) {
+      uid = user.uid;
+    }
+    firebase
+      .storage()
+      .ref()
+      .child(`itemImage/${uid}/` + itemImage.name)
+      .put(itemImage)
+      .then((url) => {
+        url.ref
+          .getDownloadURL()
+          .then((success) => {
+            const itemImageUrl = success;
+            console.log(itemImageUrl);
+            const itemDetailsForDb = {
+              itemName,
+              itemIngredients,
+              itemPrice,
+              itemCategory,
+              itemImageUrl,
+            };
+            db.collection("users")
+              .doc(uid)
+              .collection("menuItems")
+              .add(itemDetailsForDb)
+              .then((docRef) => {
+                resolve("Successfully added food item");
+              })
+              .catch(function (error) {
+                let errorMessage = error.message;
+                reject(errorMessage);
+              });
+          })
+          .catch((error) => {
+            // Handle Errors here.
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            console.log("Error in getDownloadURL function", errorCode);
+            console.log("Error in getDownloadURL function", errorMessage);
+            reject(errorMessage);
+          });
+      })
+      .catch((error) => {
+        let errorMessage = error.message;
+        console.log("Error in Image Uploading", errorMessage);
+        reject(errorMessage);
+      });
+  });
+}
+
 // export default firebase;
-export { signUp, logIn, orderNow, restaurant_list };
+export { signUp, logIn, orderNow, restaurant_list, addItem };
