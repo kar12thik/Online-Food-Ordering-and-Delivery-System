@@ -28,7 +28,7 @@ export default function SingleUserOrderDetail({
               <span className="text-lg font-black">{item.itemTitle}</span>{" "}
               <span className="">{item.itemIngredients}</span>
             </div>
-            <div className="ml-auto">${item.itemPrice} 20</div>
+            <div className="ml-auto">${item.itemPrice}</div>
           </div>
         );
       })}

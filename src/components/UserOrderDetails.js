@@ -12,7 +12,7 @@ function UserOrderDetails() {
   const ordersList = useSelector((state) => state.myOrders.orders);
 
   let pendingOrders = ordersList.filter((o) => o.status === "PENDING");
-  let inProgressOrders = ordersList.filter((o) => o.status === "IN_PROGRESS");
+  let inProgressOrders = ordersList.filter((o) => o.status === "IN PROGRESS");
   let deliveredOrders = ordersList.filter((o) => o.status === "DELIVERED");
 
   function handleTabs(e) {
