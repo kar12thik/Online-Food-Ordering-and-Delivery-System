@@ -112,7 +112,7 @@ function AddMenuItem() {
         <div className="flex items-center bg-center bg-restaurant-cover justify-center w-screen h-screen sm:h-4/5 bg-gray-100 text-gray-800 p-8 sm:pt-0 overflow-hidden">
           <div className="p-4 sm:p-8 rounded border border-gray-200 bg-white mt-1 shadow-lg">
             <h1 className="font-medium text-3xl">Add Menu Items</h1>
-            <p className="text-gray-600 mt-6">
+            <p className="text-gray-600 mt-6 italic">
               A meal without new menu items is like a day without sunshine.
             </p>
 
