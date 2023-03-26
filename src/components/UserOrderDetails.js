@@ -102,12 +102,15 @@ function UserOrderDetails() {
               pendingOrders.map((order) => {
                 return (
                   <SingleUserOrderDetail
-                    key={order.id}
+                    orderId={order.id}
+                    userUid={order.userUid}
                     restaurant_name={order.userName}
                     order_status={order.status}
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
                     order_status_color="text-red-500"
+                    nextaction=""
+                    status=""
                   />
                 );
               })
@@ -123,12 +126,15 @@ function UserOrderDetails() {
               inProgressOrders.map((order) => {
                 return (
                   <SingleUserOrderDetail
-                    key={order.id}
+                    orderId={order.id}
+                    userUid={order.userUid}
                     restaurant_name={order.userName}
                     order_status={order.status}
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
-                    order_status_color="text-yellow-500"
+                    order_status_color="text-red-500"
+                    nextaction=""
+                    status=""
                   />
                 );
               })
@@ -143,12 +149,15 @@ function UserOrderDetails() {
               deliveredOrders.map((order) => {
                 return (
                   <SingleUserOrderDetail
-                    key={order.id}
+                    orderId={order.id}
+                    userUid={order.userUid}
                     restaurant_name={order.userName}
                     order_status={order.status}
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
-                    order_status_color="text-green-500"
+                    order_status_color="text-red-500"
+                    nextaction=""
+                    status=""
                   />
                 );
               })

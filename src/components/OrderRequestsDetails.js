@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { useSelector } from "react-redux";
 
-import SingleOrderRequestDetail from "./SIngleOrderRequestDetail";
+import SingleUserOrderDetail from "./SingleUserOrderDetail";
 
 function OrderRequestsDetails() {
   const [tab1Content, settab1Content] = useState(true);
@@ -103,10 +103,10 @@ function OrderRequestsDetails() {
             {pendingOrders.length !== 0 ? (
               pendingOrders.map((order) => {
                 return (
-                  <SingleOrderRequestDetail
+                  <SingleUserOrderDetail
                     orderId={order.id}
                     userUid={order.userUid}
-                    user_name={order.userName}
+                    restaurant_name={order.userName}
                     order_status={order.status}
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
@@ -127,10 +127,10 @@ function OrderRequestsDetails() {
             {inProgressOrders.length !== 0 ? (
               inProgressOrders.map((order) => {
                 return (
-                  <SingleOrderRequestDetail
+                  <SingleUserOrderDetail
                     orderId={order.id}
                     userUid={order.userUid}
-                    user_name={order.userName}
+                    restaurant_name={order.userName}
                     order_status={order.status}
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
@@ -150,10 +150,10 @@ function OrderRequestsDetails() {
             {deliveredOrders.length !== 0 ? (
               deliveredOrders.map((order) => {
                 return (
-                  <SingleOrderRequestDetail
+                  <SingleUserOrderDetail
                     orderId={order.id}
                     userUid={order.userUid}
-                    user_name={order.userName}
+                    restaurant_name={order.userName}
                     order_status={order.status}
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
