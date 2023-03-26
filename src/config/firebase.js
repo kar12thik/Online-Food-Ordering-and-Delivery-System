@@ -4,8 +4,8 @@ import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
 import { initializeApp } from "firebase/app";
-import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, } from "firebase/auth";
-import { getFirestore, query, getDocs, collection, where, addDoc, } from "firebase/firestore";
+import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, updateProfile } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import loggedInUser from "../reducers/loggedInUser";
@@ -36,30 +36,37 @@ export const signInWithGoogle = (history) => {
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
-      const dispatch = useDispatch();
+      //const dispatch = useDispatch();
 
-      // User Logged-in Details
-      const name = result.user.displayName;
-      const email = result.user.email;
-      const profileimg = result.user.photoURL;
+      // // User Logged-in Details
+      // const name = result.user.displayName;
+      // const email = result.user.email;
+      // const profileimg = result.user.photoURL;
+
+      // Try to add user information in Cloud Firestore
+      const { displayName: name, email, photoURL: profileimg } = result.user;
+      updateProfile(auth.currentUser, { displayName: name, photoURL: profileimg });
+      const userRef = doc(db, 'users');
+      setDoc(userRef, { name, email, profileimg }, { merge: true });
+      console.log("Google sign-in successful!", result.user);
 
       // dispatch action to update loggedInUser state
-      dispatch(
-        loggedInUser({
-          loggedIn: true,
-          userName: name,
-          userEmail: email,
-          isRestaurant: false,
-        })
-      ); 
-      const [loggedInUser, setCurrentUser] = useState(null);
-      console.log("Google sign-in successful!", result.user); 
-      answer = true; 
+      // dispatch(
+      //   loggedInUser({
+      //     loggedIn: true,
+      //     userName: name,
+      //     userEmail: email,
+      //     isRestaurant: false,
+      //   })
+      // ); 
+      //const [loggedInUser, setCurrentUser] = useState(null);
+      console.log("Google sign-in successful!", result.user);
+      answer = true;
     })
     .catch((error) => {
       console.error("Google sign-in failed:", error);
     });
-  return answer;  
+  return answer;
 };
 
 const sendPasswordReset = async (email) => {
