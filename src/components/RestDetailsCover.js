@@ -12,7 +12,7 @@ function RestDetailsCover(props) {
                         </div>
                         <div className="pt-16">
                             <h1 className="text-2xl text-white font-semibold">{props.username}</h1>
-                            <p className="text-white">Food, Drinks</p>
+                            <p className="text-white">{props.restDescription}</p>
                         </div>
                     </div>
                 </div>

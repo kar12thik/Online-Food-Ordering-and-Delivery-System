@@ -6,11 +6,13 @@ import UserOrderDetails from "../components/UserOrderDetails";
 function OrderRequests() {
   const userName = useSelector((state) => state.loggedInUser.userName);
   const userProfileImageUrl = useSelector((state) => state.loggedInUser.userProfileImageUrl);
+  const restDescription = useSelector((state) => state.loggedInUser.restDescription);
   return (
     <div>
       <RestDetailsCover 
       username={userName} 
       userProfileImageUrl = {userProfileImageUrl}
+      restDescription = {restDescription}
       />
       <UserOrderDetails />
     </div>
