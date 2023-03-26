@@ -31,7 +31,7 @@ export default app;
 // Added for Sign-in-with google 
 const provider = new GoogleAuthProvider();
 export const signInWithGoogle = (history) => {
-  let answer = false;
+  return new Promise((resolve, reject) => {
   signInWithPopup(auth, provider)
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -61,12 +61,11 @@ export const signInWithGoogle = (history) => {
       // ); 
       //const [loggedInUser, setCurrentUser] = useState(null);
       console.log("Google sign-in successful!", result.user);
-      answer = true;
     })
     .catch((error) => {
       console.error("Google sign-in failed:", error);
     });
-  return answer;
+  });
 };
 
 const sendPasswordReset = async (email) => {
