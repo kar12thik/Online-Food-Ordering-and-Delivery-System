@@ -26,6 +26,7 @@ function App() {
         <Route path="/add-menu-items" element={<AddMenuItem />} />
         <Route path="/my-foods" element={<MyFoods />} />
         <Route path="/my-orders" element={<MyOrders />} />
+        <Route path="/my-foods" element ={ <MyFoods/>} />
       </Routes>
       <Footer />
     </div>
