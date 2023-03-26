@@ -8,8 +8,15 @@ function UserOrderDetails() {
   const [tab1Content, settab1Content] = useState(true);
   const [tab2Content, settab2Content] = useState(false);
   const [tab3Content, settab3Content] = useState(false);
+  const status = ["PENDING", "IN PROGRESS", "DELIVERED"];
 
-  const ordersList = useSelector((state) => state.myOrders.orders);
+  let ordersList = useSelector((state) => state.myOrders.orders);
+  let orderRequests = useSelector((state) => state.orderRequests.orders);
+  const isRestaurant = useSelector((state) => state.loggedInUser.isRestaurant);
+  
+  if (isRestaurant) {
+    ordersList = orderRequests
+  }
 
   let pendingOrders = ordersList.filter((o) => o.status === "PENDING");
   let inProgressOrders = ordersList.filter((o) => o.status === "IN PROGRESS");
@@ -109,8 +116,8 @@ function UserOrderDetails() {
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
                     order_status_color="text-red-500"
-                    nextaction=""
-                    status=""
+                    nextaction= {isRestaurant ? ("Send to In Progress"):("")}
+                    status={isRestaurant ? status[1]:("")}
                   />
                 );
               })
@@ -133,8 +140,8 @@ function UserOrderDetails() {
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
                     order_status_color="text-red-500"
-                    nextaction=""
-                    status=""
+                    nextaction= {isRestaurant ? ("Send to Delivered"):("")}
+                    status={isRestaurant ? status[2]:("")}
                   />
                 );
               })

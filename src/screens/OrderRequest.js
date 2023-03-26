@@ -1,7 +1,7 @@
 import React from "react";
 import RestDetailsCover from "../components/RestDetailsCover";
 import { useSelector } from "react-redux";
-import OrderRequestsDetails from "../components/OrderRequestsDetails";
+import UserOrderDetails from "../components/UserOrderDetails";
 
 function OrderRequests() {
   const userName = useSelector((state) => state.loggedInUser.userName);
@@ -12,7 +12,7 @@ function OrderRequests() {
       username={userName} 
       userProfileImageUrl = {userProfileImageUrl}
       />
-      <OrderRequestsDetails />
+      <UserOrderDetails />
     </div>
   );
 }
