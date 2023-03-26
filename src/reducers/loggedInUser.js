@@ -23,7 +23,8 @@ const loggedInUser = (state = initialState, action) => {
         isRestaurant: action.payload.isRestaurant,
         typeOfFood: action.payload.typeOfFood,
         userProfileImageUrl: action.payload.userProfileImageUrl,
-        restDescription: action.payload.restDescription
+        restDescription: action.payload.restDescription,
+        restName: action.payload.restName
       };
     case "LOG_OUT_USER":
       return initialState;

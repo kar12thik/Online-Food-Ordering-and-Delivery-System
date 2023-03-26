@@ -363,6 +363,7 @@ const Login = (props) => {
                   typeOfFood: doc.data().typeOfFood,
                   userProfileImageUrl: doc.data().userProfileImageUrl,
                   restDescription: doc.data().restDescription,
+                  restName: doc.data().restName,
                 },
               });
             }
