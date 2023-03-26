@@ -281,7 +281,7 @@ const Login = (props) => {
         userProfileImage: userProfileImage,
         isRestaurant: isRestaurantUser,
         propsHistory: props.history,
-        typeOfFood: [],
+        typeOfFood: []
       };
       try {
         console.log(userDetails);
@@ -360,7 +360,9 @@ const Login = (props) => {
                   userId: user.uid,
                   userName: doc.data().userName,
                   isRestaurant: doc.data().isRestaurant,
-                  userProfileImageUrl : doc.data().userProfileImageUrl,
+                  typeOfFood: doc.data().typeOfFood,
+                  userProfileImageUrl: doc.data().userProfileImageUrl,
+                  restDescription: doc.data().restDescription,
                 },
               });
             }
