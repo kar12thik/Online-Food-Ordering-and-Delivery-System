@@ -139,7 +139,7 @@ function UserOrderDetails() {
                     order_status={order.status}
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
-                    order_status_color="text-red-500"
+                    order_status_color="text-yellow-500"
                     nextaction= {isRestaurant ? ("Send to Delivered"):("")}
                     status={isRestaurant ? status[2]:("")}
                   />
@@ -162,7 +162,7 @@ function UserOrderDetails() {
                     order_status={order.status}
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
-                    order_status_color="text-red-500"
+                    order_status_color="text-green-500"
                     nextaction=""
                     status=""
                   />
