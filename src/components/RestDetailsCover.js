@@ -11,7 +11,7 @@ function RestDetailsCover(props) {
                             <img className="w-60 scale-75" alt="Food" src={props.userProfileImageUrl} />
                         </div>
                         <div className="pt-16">
-                            <h1 className="text-2xl text-white font-semibold">{props.username}</h1>
+                            <h1 className="text-2xl text-white font-semibold">{props.restName}</h1>
                             <p className="text-white">{props.restDescription}</p>
                         </div>
                     </div>

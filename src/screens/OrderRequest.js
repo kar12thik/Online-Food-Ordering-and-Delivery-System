@@ -4,13 +4,13 @@ import { useSelector } from "react-redux";
 import UserOrderDetails from "../components/UserOrderDetails";
 
 function OrderRequests() {
-  const userName = useSelector((state) => state.loggedInUser.userName);
+  const restName = useSelector((state) => state.loggedInUser.restName);
   const userProfileImageUrl = useSelector((state) => state.loggedInUser.userProfileImageUrl);
   const restDescription = useSelector((state) => state.loggedInUser.restDescription);
   return (
     <div>
       <RestDetailsCover 
-      username={userName} 
+      restName={restName} 
       userProfileImageUrl = {userProfileImageUrl}
       restDescription = {restDescription}
       />

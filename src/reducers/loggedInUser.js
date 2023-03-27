@@ -9,6 +9,7 @@ const initialState = {
   userProfileImageUrl: null,
   success: false, // for monitoring the registration process.
   restDescription: "",
+  restName: null,
 };
 
 const loggedInUser = (state = initialState, action) => {
