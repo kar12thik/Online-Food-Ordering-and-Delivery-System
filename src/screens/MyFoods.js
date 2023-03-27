@@ -1,7 +1,19 @@
-import React from "react";
+import { useEffect, React } from "react";
+import MyFoodsCover from '../components/MyFoodsCover';
+import MyFoodList from '../components/MyFoodList';
 
 function MyFoods() {
-  return <div>MyFoods</div>;
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  return (
+    <div>
+        <MyFoodsCover />
+        <MyFoodList />
+    </div>
+  )
 }
 
 export default MyFoods;

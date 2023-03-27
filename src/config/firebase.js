@@ -74,7 +74,7 @@ function signUp(userDetails) {
                 userUid: uid,
                 isRestaurant: isRestaurant,
                 userProfileImageUrl: userProfileImageUrl,
-                typeOfFood: typeOfFood,
+                typeOfFood: typeOfFood
               };
               db.collection("users")
                 .doc(uid)
@@ -222,6 +222,26 @@ function restaurant_list() {
   });
 }
 
+function order_request() {
+  return new Promise((resolve, reject) => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        let orderRequest = [];
+        db.collection('users').doc(user.uid).collection("orderRequest").get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            const obj = { id: doc.id, ...doc.data() }
+            orderRequest.push(obj);
+          });
+          resolve(orderRequest);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+      }
+    });
+  });
+};
+
 function addItem(itemDetails) {
   const { itemName, itemIngredients, itemPrice, itemCategory, itemImage } =
     itemDetails;
@@ -278,5 +298,30 @@ function addItem(itemDetails) {
   });
 }
 
+function myFoodList(){
+  return new Promise((resolve, reject) => {
+    let user = firebase.auth().currentUser;
+    console.log("User =>", user);
+    var uid;
+    if (user != null) {
+      uid = user.uid;
+    }
+    console.log("uid =>", uid);
+    let myFoods = [];
+    db.collection('users').doc(uid).collection('menuItems').get().then((querySnapshot) => {
+      console.log("Inside db.collection");
+      console.log("querySnapshot =>", querySnapshot);
+      querySnapshot.forEach(doc => {
+        const obj = { id: doc.id, ...doc.data() }
+        myFoods.push(obj);
+      })
+      resolve(myFoods);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
+}
+
 // export default firebase;
-export { signUp, logIn, orderNow, restaurant_list, addItem };
+export { signUp, logIn, orderNow, restaurant_list, addItem, myFoodList, order_request };
+
