@@ -46,17 +46,6 @@ export const signInWithGoogle = async (history) => {
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
-      // // User Logged-in Details
-      // const name = result.user.displayName;
-      // const email = result.user.email;
-      // const profileimg = result.user.photoURL;
-
-      // Try to add user information in Cloud Firestore
-      // const { displayName: name, email, photoURL: profileimg } = result.user;
-      // updateProfile(auth.currentUser, { displayName: name, photoURL: profileimg });
-      // const userRef = doc(db, 'users');
-      // setDoc(userRef, { name, email, profileimg }, { merge: true });
-      // console.log("User Logged-in Details", result.user);
       user = result.user;
     })
     .catch((error) => {
@@ -64,16 +53,6 @@ export const signInWithGoogle = async (history) => {
     });
 
   return user;
-};
-
-const sendPasswordReset = async (email) => {
-  try {
-    await sendPasswordResetEmail(auth, email);
-    alert("Password reset link sent!");
-  } catch (err) {
-    console.error(err);
-    alert(err.message);
-  }
 };
 
 // Added for Sign-in-with google

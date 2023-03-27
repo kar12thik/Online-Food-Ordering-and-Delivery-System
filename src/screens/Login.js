@@ -279,17 +279,7 @@ const Login = (props) => {
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        // // User Logged-in Details
-        // const name = result.user.displayName;
-        // const email = result.user.email;
-        // const profileimg = result.user.photoURL;
-
-        // Try to add user information in Cloud Firestore
-        // const { displayName: name, email, photoURL: profileimg } = result.user;
-        // updateProfile(auth.currentUser, { displayName: name, photoURL: profileimg });
-        // const userRef = doc(db, 'users');
-        // setDoc(userRef, { name, email, profileimg }, { merge: true });
-        // user = result.user;
+        console.log(token);
         console.log("Google sign-in successful:", result.user);
         dispatch({
           type: "LOGGED_IN_USER",
