@@ -4,7 +4,16 @@ import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
 import { initializeApp } from "firebase/app";
-import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut, updateProfile } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signOut,
+  updateProfile,
+} from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
@@ -28,44 +37,33 @@ export const db = firebase.firestore(app);
 
 export default app;
 
-// Added for Sign-in-with google 
-const provider = new GoogleAuthProvider();
-export const signInWithGoogle = (history) => {
-  return new Promise((resolve, reject) => {
+// This function is not used but kept for future use
+// Added for Sign-in-with google
+export const signInWithGoogle = async (history) => {
+  const provider = new GoogleAuthProvider();
+  let user = null;
   signInWithPopup(auth, provider)
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
-      //const dispatch = useDispatch();
-
       // // User Logged-in Details
       // const name = result.user.displayName;
       // const email = result.user.email;
       // const profileimg = result.user.photoURL;
 
       // Try to add user information in Cloud Firestore
-      const { displayName: name, email, photoURL: profileimg } = result.user;
-      updateProfile(auth.currentUser, { displayName: name, photoURL: profileimg });
-      const userRef = doc(db, 'users');
-      setDoc(userRef, { name, email, profileimg }, { merge: true });
-      console.log("Google sign-in successful!", result.user);
-
-      // dispatch action to update loggedInUser state
-      // dispatch(
-      //   loggedInUser({
-      //     loggedIn: true,
-      //     userName: name,
-      //     userEmail: email,
-      //     isRestaurant: false,
-      //   })
-      // ); 
-      //const [loggedInUser, setCurrentUser] = useState(null);
-      console.log("Google sign-in successful!", result.user);
+      // const { displayName: name, email, photoURL: profileimg } = result.user;
+      // updateProfile(auth.currentUser, { displayName: name, photoURL: profileimg });
+      // const userRef = doc(db, 'users');
+      // setDoc(userRef, { name, email, profileimg }, { merge: true });
+      // console.log("User Logged-in Details", result.user);
+      user = result.user;
     })
     .catch((error) => {
       console.error("Google sign-in failed:", error);
     });
-  });
+
+  return user;
 };
 
 const sendPasswordReset = async (email) => {
@@ -159,7 +157,6 @@ function signUp(userDetails) {
         console.log("Error in Authentication", errorMessage);
         reject(errorMessage);
       });
-
   });
 }
 
@@ -213,56 +210,70 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
     let uid;
     if (user != null) {
       uid = user.uid;
-    };
+    }
 
     console.log("User id", uid);
-    uid = 'TestUser5'
+    uid = "TestUser5";
 
     const myOrder = {
       itemsList: cartItemsList,
       totalPrice: totalPrice,
       status: "PENDING",
       ...resDetails,
-    }
+    };
 
     const orderRequest = {
       itemsList: cartItemsList,
       totalPrice: totalPrice,
       status: "PENDING",
       ...userDetails,
-    }
+    };
 
-    console.log("myOrder => ", myOrder)
-    console.log("orderRequest => ", orderRequest)
-    db.collection("users").doc(uid).collection("myOrder").add(myOrder).then((docRef) => {
-      console.log("docRef.id", docRef.id)
-      db.collection("users").doc(resDetails.id).collection("orderRequest").doc(docRef.id).set(orderRequest).then((docRef) => {
-        resolve('Successfully ordered')
-      }).catch(function (error) {
-        console.error("Error adding document: ", error.message);
-        reject(error.message)
+    console.log("myOrder => ", myOrder);
+    console.log("orderRequest => ", orderRequest);
+    db.collection("users")
+      .doc(uid)
+      .collection("myOrder")
+      .add(myOrder)
+      .then((docRef) => {
+        console.log("docRef.id", docRef.id);
+        db.collection("users")
+          .doc(resDetails.id)
+          .collection("orderRequest")
+          .doc(docRef.id)
+          .set(orderRequest)
+          .then((docRef) => {
+            resolve("Successfully ordered");
+          })
+          .catch(function (error) {
+            console.error("Error adding document: ", error.message);
+            reject(error.message);
+          });
       })
-    }).catch(function (error) {
-      console.error("Error adding document: ", error.message);
-      reject(error.message)
-    })
-  })
+      .catch(function (error) {
+        console.error("Error adding document: ", error.message);
+        reject(error.message);
+      });
+  });
 }
 
 function restaurant_list() {
   return new Promise((resolve, reject) => {
     let restaurantList = [];
-    db.collection('users').get().then((querySnapshot) => {
-      querySnapshot.forEach(doc => {
-        if (doc.data().isRestaurant) {
-          const obj = { id: doc.id, ...doc.data() }
-          restaurantList.push(obj);
-        }
+    db.collection("users")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (doc.data().isRestaurant) {
+            const obj = { id: doc.id, ...doc.data() };
+            restaurantList.push(obj);
+          }
+        });
+        resolve(restaurantList);
       })
-      resolve(restaurantList);
-    }).catch((error) => {
-      reject(error);
-    });
+      .catch((error) => {
+        reject(error);
+      });
   });
 }
 

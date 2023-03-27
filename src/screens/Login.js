@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-// import Navbar from '../components/Navbar';
-/* import Navbar2 from '../components/Navbar2'; */
-/* import Footer from '../components/Footer'; */
-import { signUp, signInWithPopup, signInWithGoogle } from "../config/firebase";
-import Swal from 'sweetalert2';
+import { signUp, signInWithGoogle } from "../config/firebase";
+import Swal from "sweetalert2";
 
 // firebase related imports
 import { signInWithEmailAndPassword } from "firebase/auth";
 //import { useSelector } from "react-redux";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+
 import { useDispatch } from "react-redux";
 import { auth } from "../config/firebase";
 import { db } from "../config/firebase";
@@ -141,7 +140,7 @@ const Login = (props) => {
 
   const handleUserProfileImage = (e) => {
     const file = e.target.files[0];
-    const allowedTypes = ['image/png', 'image/jpeg'];
+    const allowedTypes = ["image/png", "image/jpeg"];
     if (file && allowedTypes.includes(file.type)) {
       // handle the valid file
       setUserProfileImage(e.target.files[0]);
@@ -154,7 +153,6 @@ const Login = (props) => {
       setUserProfileImage("");
     }
   };
-
 
   const handleUserTNC = () => {
     if (!userTNC) {
@@ -178,24 +176,20 @@ const Login = (props) => {
     if (!userName.match(userNameFormate)) {
       setShowError(true);
       //setRegisterFormError("Invalid Input !! Please enter a valid name.");
-      window.alert("Invalid Input !! Please enter a valid name.",);
+      window.alert("Invalid Input !! Please enter a valid name.");
     } else if (!userEmail.match(userEmailFormate)) {
       setShowError(true);
-      window.alert(
-        "Invalid Input !! Please enter a valid email address.",
-      );
+      window.alert("Invalid Input !! Please enter a valid email address.");
       setUserEmail("");
     } else if (!userPassword.match(userPasswordFormate)) {
       setShowError(true);
       window.alert(
-        "Invalid Password !! Use alphanumeric, uppercase, lowercase & greater than 10 characters.",
+        "Invalid Password !! Use alphanumeric, uppercase, lowercase & greater than 10 characters."
       );
       setUserPassword("");
     } else if (!userConfirmPassword) {
       setShowError(true);
-      window.alert(
-        "Invalid Input !! Confirmation password not matched.",
-      );
+      window.alert("Invalid Input !! Confirmation password not matched.");
       setUserConfirmPassword(false);
     } else if (!userCity.match(userCityFormate)) {
       setShowError(true);
@@ -203,9 +197,7 @@ const Login = (props) => {
       setUserCity("");
     } else if (!userCountry.match(userCountryFormate)) {
       setShowError(true);
-      window.alert(
-        "Invalid Input !! Please enter a valid country name.",
-      );
+      window.alert("Invalid Input !! Please enter a valid country name.");
       setUserCountry("");
     } else if (!(userAge > 0 && userAge < 101)) {
       setShowError(true);
@@ -213,7 +205,9 @@ const Login = (props) => {
       setUserAge("");
     } else if (userProfileImage === null) {
       setShowError(true);
-      window.alert("Invalid Input !! Please select a profile image in JPG or JPEG Format.");
+      window.alert(
+        "Invalid Input !! Please select a profile image in JPG or JPEG Format."
+      );
       setUserProfileImageLable("Choose image...");
       setUserProfileImage("");
     } else if (!userTNC) {
@@ -237,9 +231,9 @@ const Login = (props) => {
       try {
         navigate("/");
         Swal.fire({
-          title: 'Sign-up Successfully',
+          title: "Sign-up Successfully",
           html: 'Please <a class="text-blue-500 hover:text-red-500" href="#" id="login-link">Login</a> to the system',
-          icon: 'success',
+          icon: "success",
           timer: 5000,
           timerProgressBar: true,
           showConfirmButton: false,
@@ -250,21 +244,21 @@ const Login = (props) => {
           if (result.isDismissed) {
             // Do nothing
           } else if (result.isConfirmed) {
-            navigate('/');
+            navigate("/");
             window.scrollTo(0, 0);
           }
         });
 
-        document.querySelector('#login-link').addEventListener('click', () => {
+        document.querySelector("#login-link").addEventListener("click", () => {
           Swal.close();
         });
 
-        document.getElementById('login-link').addEventListener('click', () => {
-          navigate('/Login');
+        document.getElementById("login-link").addEventListener("click", () => {
+          navigate("/Login");
           window.scrollTo(0, 0);
         });
         console.log(userDetails);
-        // Sign-up Fix 
+        // Sign-up Fix
         const signUpReturn = await signUp(userDetails);
         if (signUpReturn.success) {
           // Redirect to the login page
@@ -277,9 +271,37 @@ const Login = (props) => {
     }
   };
 
-  const handleSignInWithGoogle = async () => {
-    let result = await signInWithGoogle();
-    //navigate("/");
+  const handleSignInWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        // // User Logged-in Details
+        // const name = result.user.displayName;
+        // const email = result.user.email;
+        // const profileimg = result.user.photoURL;
+
+        // Try to add user information in Cloud Firestore
+        // const { displayName: name, email, photoURL: profileimg } = result.user;
+        // updateProfile(auth.currentUser, { displayName: name, photoURL: profileimg });
+        // const userRef = doc(db, 'users');
+        // setDoc(userRef, { name, email, profileimg }, { merge: true });
+        // user = result.user;
+        console.log("Google sign-in successful:", result.user);
+        dispatch({
+          type: "LOGGED_IN_USER",
+          payload: {
+            userEmail: result.user.email,
+            userName: result.user.displayName,
+            isRestaurant: false,
+          },
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Google sign-in failed:", error);
+      });
   };
 
   const handleLoginNowBtn = async (event) => {
@@ -307,7 +329,7 @@ const Login = (props) => {
                   userEmail: user.email,
                   userId: user.uid,
                   userName: doc.data().userName,
-                  isRestaurant: doc.data().isRestaurant
+                  isRestaurant: doc.data().isRestaurant,
                 },
               });
             }
@@ -318,7 +340,9 @@ const Login = (props) => {
       })
       .catch((error) => {
         const errorCode = error.code;
-        window.alert("User Not Found, Please try again with Valid Email & Password");
+        window.alert(
+          "User Not Found, Please try again with Valid Email & Password"
+        );
         //const errorMessage = error.message;
         if (errorCode === "auth/user-not-found") {
           setNoUserFound(true);
@@ -519,7 +543,7 @@ const Login = (props) => {
                   type="button"
                   className=" cen-ter bg-yellow-500 text-white uppercase font-bold py-2 px-4 rounded mb-4"
                   onClick={handleCreateAccountBtn}
-                //onClick={handleForms}
+                  //onClick={handleForms}
                 >
                   <b>Create an Account</b>
                 </button>
@@ -577,7 +601,7 @@ const Login = (props) => {
                 />
                 <p
                   className="text-sm text-black font-bold mt-4 mr-2 cursor-pointer hover:text-gray-800 text-right"
-                //onClick={() => handleForgotPassword()}
+                  //onClick={() => handleForgotPassword()}
                 >
                   Forgot Password?
                 </p>
@@ -600,7 +624,9 @@ const Login = (props) => {
                 <div className="mt-4">
                   <div className="flex items-center justify-center mb-4 relative">
                     <div className="bg-gray-400 h-px flex-grow"></div>
-                    <div className="mx-3 text-black-600 font-bold text-sm z-10">OR sign-in with</div>
+                    <div className="mx-3 text-black-600 font-bold text-sm z-10">
+                      OR sign-in with
+                    </div>
                     <div className="bg-gray-400 h-px flex-grow"></div>
                     <div className="absolute inset-0 flex items-center justify-center z-0">
                       <div className="bg-white px-2">-</div>
@@ -610,17 +636,17 @@ const Login = (props) => {
               </center>
             </form>
             <div className="flex flex-col items-center">
-                    <div className="flex space-x-4">
-                    <button 
-                        className="bg-blue-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out"
-                        onClick={handleSignInWithGoogle}
-                      >
-                        Google
-                      </button>
-                      <button className="bg-blue-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out">
-                        <i className="fab fa-github mr-2"></i>GitHub
-                      </button>
-                    </div>
+              <div className="flex space-x-4">
+                <button
+                  className="bg-blue-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out"
+                  onClick={handleSignInWithGoogle}
+                >
+                  Google
+                </button>
+                <button className="bg-blue-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out">
+                  <i className="fab fa-github mr-2"></i>GitHub
+                </button>
+              </div>
             </div>
 
             <p className="mt-4 text-center ">
