@@ -33,7 +33,7 @@ test("should render Register component correctly", () => {
   expect(element).toBeInTheDocument();
 });
 
-test("should show error message when all the fields are not entered", async () => {
+test("should render Create an account button", async () => {
   render(
     <Provider store={store}>
       <BrowserRouter>
@@ -42,8 +42,9 @@ test("should show error message when all the fields are not entered", async () =
       </BrowserRouter>
     </Provider>
   );
-  const buttonElement = screen.getByRole("button");
-  await userEvent.click(buttonElement);
+  await fireEvent.click(screen.getByText("Create an Account"));
+  const signupButton = screen.getByTestId("signup-button");
+  expect(signupButton).toBeInTheDocument();
 });
 
 test("should render Create an Account form title", () => {

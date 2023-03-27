@@ -715,6 +715,7 @@ const Login = (props) => {
                   type="button"
                   className=" cen-ter bg-yellow-500 text-white uppercase font-bold py-2 px-4 rounded mb-4"
                   onClick={handleCreateAccountBtn}
+                  data-testid="signup-button"
                   //onClick={handleForms}
                 >
                   <b>Create an Account</b>
