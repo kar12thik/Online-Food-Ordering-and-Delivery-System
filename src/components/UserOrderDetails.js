@@ -8,11 +8,18 @@ function UserOrderDetails() {
   const [tab1Content, settab1Content] = useState(true);
   const [tab2Content, settab2Content] = useState(false);
   const [tab3Content, settab3Content] = useState(false);
+  const status = ["PENDING", "IN PROGRESS", "DELIVERED"];
 
-  const ordersList = useSelector((state) => state.myOrders.orders);
+  let ordersList = useSelector((state) => state.myOrders.orders);
+  let orderRequests = useSelector((state) => state.orderRequests.orders);
+  const isRestaurant = useSelector((state) => state.loggedInUser.isRestaurant);
+  
+  if (isRestaurant) {
+    ordersList = orderRequests
+  }
 
   let pendingOrders = ordersList.filter((o) => o.status === "PENDING");
-  let inProgressOrders = ordersList.filter((o) => o.status === "IN_PROGRESS");
+  let inProgressOrders = ordersList.filter((o) => o.status === "IN PROGRESS");
   let deliveredOrders = ordersList.filter((o) => o.status === "DELIVERED");
 
   function handleTabs(e) {
@@ -102,12 +109,15 @@ function UserOrderDetails() {
               pendingOrders.map((order) => {
                 return (
                   <SingleUserOrderDetail
-                    key={order.id}
+                    orderId={order.id}
+                    userUid={order.userUid}
                     restaurant_name={order.userName}
                     order_status={order.status}
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
                     order_status_color="text-red-500"
+                    nextaction= {isRestaurant ? ("Send to In Progress"):("")}
+                    status={isRestaurant ? status[1]:("")}
                   />
                 );
               })
@@ -123,12 +133,15 @@ function UserOrderDetails() {
               inProgressOrders.map((order) => {
                 return (
                   <SingleUserOrderDetail
-                    key={order.id}
+                    orderId={order.id}
+                    userUid={order.userUid}
                     restaurant_name={order.userName}
                     order_status={order.status}
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
                     order_status_color="text-yellow-500"
+                    nextaction= {isRestaurant ? ("Send to Delivered"):("")}
+                    status={isRestaurant ? status[2]:("")}
                   />
                 );
               })
@@ -143,12 +156,15 @@ function UserOrderDetails() {
               deliveredOrders.map((order) => {
                 return (
                   <SingleUserOrderDetail
-                    key={order.id}
+                    orderId={order.id}
+                    userUid={order.userUid}
                     restaurant_name={order.userName}
                     order_status={order.status}
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
                     order_status_color="text-green-500"
+                    nextaction=""
+                    status=""
                   />
                 );
               })

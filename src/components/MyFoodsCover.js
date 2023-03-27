@@ -3,23 +3,23 @@ import { useSelector } from "react-redux";
 
 function MyFoodsCover() {
 
-  const [userName, setuserName] = useState('');
   const [typeOfFood, settypeOfFood] = useState([]);
   const [userProfileImageUrl, setuserProfileImageUrl] = useState('');
   const [restDescription, setrestDescription] = useState('');
+  const [restName, setrestName] = useState('');
   
   const isLoggedIn = useSelector((state) => state.loggedInUser.loggedIn);
-  const loggeduserName = useSelector((state) => state.loggedInUser.userName);
   const loggedtypeOfFood = useSelector((state) => state.loggedInUser.typeOfFood);
   const loggeduserProfileImageUrl = useSelector((state) => state.loggedInUser.userProfileImageUrl);
   const loggedrestDescription = useSelector((state) => state.loggedInUser.restDescription);
+  const loggedrestName = useSelector((state) => state.loggedInUser.restName);
 
   useEffect(() => {
-    setuserName(loggeduserName);
     settypeOfFood(loggedtypeOfFood);
     setuserProfileImageUrl(loggeduserProfileImageUrl);
     setrestDescription(loggedrestDescription);
-  }, [loggeduserName, loggedtypeOfFood, loggeduserProfileImageUrl, loggedrestDescription]);
+    setrestName(loggedrestName);
+  }, [loggedtypeOfFood, loggeduserProfileImageUrl, loggedrestDescription, loggedrestName]);
 
   return (
     <div className="container-fluid h-72 bg-cover bg-restaurant-cover">
@@ -33,7 +33,7 @@ function MyFoodsCover() {
                                     <img className="w-48 scale-75" alt="Food" src={ userProfileImageUrl } />
                                 </div>
                                 <div className="pt-16">
-                                    <h1 className="text-2xl text-white font-semibold">{ userName }</h1>
+                                    <h1 className="text-2xl text-white font-semibold">{ restName }</h1>
                                     <p className="text-white">{ restDescription }</p>
                                 </div>
                             </div>

@@ -222,6 +222,26 @@ function restaurant_list() {
   });
 }
 
+function order_request() {
+  return new Promise((resolve, reject) => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        let orderRequest = [];
+        db.collection('users').doc(user.uid).collection("orderRequest").get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            const obj = { id: doc.id, ...doc.data() }
+            orderRequest.push(obj);
+          });
+          resolve(orderRequest);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+      }
+    });
+  });
+};
+
 function addItem(itemDetails) {
   const { itemName, itemIngredients, itemPrice, itemCategory, itemImage } =
     itemDetails;
@@ -303,5 +323,5 @@ function myFoodList(){
 }
 
 // export default firebase;
-export { signUp, logIn, orderNow, restaurant_list, addItem, myFoodList };
+export { signUp, logIn, orderNow, restaurant_list, addItem, myFoodList, order_request };
 

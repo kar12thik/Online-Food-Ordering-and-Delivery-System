@@ -363,6 +363,7 @@ const Login = (props) => {
                   typeOfFood: doc.data().typeOfFood,
                   userProfileImageUrl: doc.data().userProfileImageUrl,
                   restDescription: doc.data().restDescription,
+                  restName: doc.data().restName,
                 },
               });
             }
@@ -384,6 +385,27 @@ const Login = (props) => {
                 userEmail: user.email,
                 userId: user.uid,
                 orders: myOrders,
+              },
+            });
+          });
+
+          const orderRequestQuery = db
+            .collection("users")
+            .doc(user.uid)
+            .collection("orderRequest");
+
+          orderRequestQuery.onSnapshot((querySnapshot) => {
+            const receivedOrders = [];
+            querySnapshot.forEach((doc) => {
+              const obj = { id: doc.id, ...doc.data() }
+              receivedOrders.push(obj);
+            });
+            dispatch({
+              type: "RECEIVE_ORDER",
+              payload: {
+                userEmail: user.email,
+                userId: user.uid,
+                orders: receivedOrders,
               },
             });
           });
