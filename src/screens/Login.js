@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux";
 import { auth } from "../config/firebase";
 import { db } from "../config/firebase";
 
+import { doc, setDoc } from "firebase/firestore";
+
 import { useNavigate } from "react-router-dom";
 
 import "../App.css";
@@ -271,7 +273,7 @@ const Login = (props) => {
     }
   };
 
-  const handleSignInWithGoogle = () => {
+  const handleSignInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -297,6 +299,15 @@ const Login = (props) => {
             isRestaurant: false,
           },
         });
+
+        // code to add user to firestore database
+        db.collection("users").doc(result.user.uid).set({
+          userName: result.user.displayName,
+          userEmail: result.user.email,
+          userProfileImageUrl: result.user.photoURL,
+          isRestaurant: false,
+        });
+
         navigate("/");
       })
       .catch((error) => {
