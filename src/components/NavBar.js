@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logOutUser } from "../actions/index";
 import { setNav } from "../actions/index.js";
-import { useNavigate } from 'react-router-dom';
 import loggedInUser from "../reducers/loggedInUser";
+import { useNavigate } from "react-router-dom";
 //import { logout } from '../redux/actions/authActions';
 
 function NavBar() {
@@ -94,13 +94,13 @@ function RenderHomeLinks() {
       {isLoggedIn && isRestaurant ? (
         <>
           <li className="text-black font-bold">
-            <Link to="/restaurants">ADD FOODS</Link>
+            <Link to="/add-menu-items">ADD FOODS</Link>
           </li>
           <li className="text-black font-bold">
-            <Link to="/restaurants">MY FOODS</Link>
+            <Link to="/my-foods">MY FOODS</Link>
           </li>
           <li className="text-black font-bold">
-            <Link to="/restaurants">ORDER REQUESTS</Link>
+            <Link to="/order-requests">ORDER REQUESTS</Link>
           </li>
         </>
       ) : (
@@ -109,10 +109,7 @@ function RenderHomeLinks() {
           {!isLoggedIn && (
             <li className="text-black font-bold">
               <Link to="/register-restaurant">
-                <button
-                  type="button"
-                  className="btn h-12 px-6"
-                >
+                <button type="button" className="btn h-12 px-6">
                   REGISTER RESTAURANT
                 </button>
               </Link>
@@ -120,7 +117,7 @@ function RenderHomeLinks() {
           )}
           {isLoggedIn && !userName.isRestaurant && (
             <li className="text-black font-bold">
-              <Link to="/restaurants">MY ORDERS</Link>
+              <Link to="/my-orders">MY ORDERS</Link>
             </li>
           )}
         </>
@@ -150,11 +147,11 @@ function RenderHomeLinks() {
         ) : (
           <Link to="/login">
             <button
-                type="button"
-                className="btn rounded-lg bg-orange h-12 px-6"
-              >
-                 LOGIN/REGISTER
-              </button>            
+              type="button"
+              className="btn rounded-lg bg-orange h-12 px-6"
+            >
+              LOGIN/REGISTER
+            </button>
           </Link>
         )}
       </li>

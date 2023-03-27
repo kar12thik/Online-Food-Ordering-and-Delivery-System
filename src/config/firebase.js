@@ -18,6 +18,7 @@ import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import loggedInUser from "../reducers/loggedInUser";
+import { getAuth } from "firebase/auth";
 
 // #todo: Convert firebaseConfig to Environment Variables
 const firebaseConfig = {
@@ -36,6 +37,7 @@ export const auth = getAuth(app);
 export const db = firebase.firestore(app);
 
 export default app;
+
 
 // This function is not used but kept for future use
 // Added for Sign-in-with google
@@ -60,6 +62,9 @@ export const signInWithGoogle = async (history) => {
 function signUp(userDetails) {
   return new Promise((resolve, reject) => {
     const {
+      restName,
+      category,
+      restDescription,
       userName,
       userEmail,
       userPassword,
@@ -93,6 +98,9 @@ function signUp(userDetails) {
               const userProfileImageUrl = success;
               console.log(userProfileImageUrl);
               const userDetailsForDb = {
+                restName,
+                category,
+                restDescription,
                 userName: userName,
                 userEmail: userEmail,
                 userPassword: userPassword,
@@ -103,21 +111,17 @@ function signUp(userDetails) {
                 userUid: uid,
                 isRestaurant: isRestaurant,
                 userProfileImageUrl: userProfileImageUrl,
-                typeOfFood: typeOfFood,
+                typeOfFood: typeOfFood
               };
               db.collection("users")
                 .doc(uid)
                 .set(userDetailsForDb)
                 .then((docRef) => {
-                  if (userDetailsForDb.isRestaurant) {
-                    userDetails.propsHistory.push("/Restaurants");
-                    resolve(userDetailsForDb);
-                  } else {
-                    userDetails.propsHistory.push("/");
-                    resolve(userDetailsForDb);
-                  }
+                  userDetailsForDb.success = true;
+                  resolve(userDetailsForDb);
                 })
                 .catch(function (error) {
+                  error.success = false;
                   console.error("Error adding document: ", error);
                   reject(error);
                 });
@@ -141,8 +145,7 @@ function signUp(userDetails) {
 
 function logIn(userLoginDetails) {
   return new Promise((resolve, reject) => {
-    const { userLoginEmail, userLoginPassword, propsHistory } =
-      userLoginDetails;
+    const { userLoginEmail, userLoginPassword } = userLoginDetails;
     let userFound = false;
     // console.log (userLoginEmail,userLoginPassword);
     firebase
@@ -256,5 +259,106 @@ function restaurant_list() {
   });
 }
 
+function order_request() {
+  return new Promise((resolve, reject) => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        let orderRequest = [];
+        db.collection('users').doc(user.uid).collection("orderRequest").get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            const obj = { id: doc.id, ...doc.data() }
+            orderRequest.push(obj);
+          });
+          resolve(orderRequest);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+      }
+    });
+  });
+};
+
+function addItem(itemDetails) {
+  const { itemName, itemIngredients, itemPrice, itemCategory, itemImage } =
+    itemDetails;
+  return new Promise((resolve, reject) => {
+    let user = firebase.auth().currentUser;
+    var uid;
+    if (user != null) {
+      uid = user.uid;
+    }
+    firebase
+      .storage()
+      .ref()
+      .child(`itemImage/${uid}/` + itemImage.name)
+      .put(itemImage)
+      .then((url) => {
+        url.ref
+          .getDownloadURL()
+          .then((success) => {
+            const itemImageUrl = success;
+            console.log(itemImageUrl);
+            const itemDetailsForDb = {
+              itemName,
+              itemIngredients,
+              itemPrice,
+              itemCategory,
+              itemImageUrl,
+            };
+            db.collection("users")
+              .doc(uid)
+              .collection("menuItems")
+              .add(itemDetailsForDb)
+              .then((docRef) => {
+                resolve("Successfully added food item");
+              })
+              .catch(function (error) {
+                let errorMessage = error.message;
+                reject(errorMessage);
+              });
+          })
+          .catch((error) => {
+            // Handle Errors here.
+            let errorCode = error.code;
+            let errorMessage = error.message;
+            console.log("Error in getDownloadURL function", errorCode);
+            console.log("Error in getDownloadURL function", errorMessage);
+            reject(errorMessage);
+          });
+      })
+      .catch((error) => {
+        let errorMessage = error.message;
+        console.log("Error in Image Uploading", errorMessage);
+        reject(errorMessage);
+      });
+  });
+}
+
+function myFoodList(){
+  return new Promise((resolve, reject) => {
+    let user = firebase.auth().currentUser;
+    console.log("User =>", user);
+    var uid;
+    if (user != null) {
+      uid = user.uid;
+    }
+    console.log("uid =>", uid);
+    let myFoods = [];
+    db.collection('users').doc(uid).collection('menuItems').get().then((querySnapshot) => {
+      console.log("Inside db.collection");
+      console.log("querySnapshot =>", querySnapshot);
+      querySnapshot.forEach(doc => {
+        const obj = { id: doc.id, ...doc.data() }
+        myFoods.push(obj);
+      })
+      resolve(myFoods);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
+}
+
 // export default firebase;
-export { signUp, logIn, orderNow, restaurant_list, signInWithPopup };
+export { signUp, logIn, orderNow, restaurant_list, addItem, myFoodList, order_request, signInWithPopup  };
+
