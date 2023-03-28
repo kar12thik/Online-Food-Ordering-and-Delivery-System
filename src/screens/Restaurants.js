@@ -13,11 +13,8 @@ function Restaurants() {
   const [categorybar, setCategorybar] = useState(false);
 
   function filterItem(filterCategory) {
-    console.log(item2);
-    setItem(restaurantList);
-    console.log(item);
     if (filterCategory.length > 0) {
-      const newItem = item.filter((newVal) => {
+      const newItem = item2.filter((newVal) => {
         return filterCategory.includes(newVal.category.toLowerCase());
       });
       setItem(newItem);
