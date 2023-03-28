@@ -353,6 +353,7 @@ const Login = (props) => {
             isRestaurant: false,
           },
         });
+        // Try to set Profile Image.
         dispatch({
           type: "SET_ORDER",
           payload: {
