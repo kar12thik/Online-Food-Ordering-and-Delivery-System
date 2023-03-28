@@ -3,6 +3,7 @@ const initialState = {
   userId: null,
   userEmail: null,
   userName: null,
+  userProfileImageUrl: null,
   orders: [],
 };
 
@@ -13,6 +14,8 @@ const myOrder = (state = initialState, action) => {
         ...state,
         userId: action.payload.userId,
         userEmail: action.payload.userEmail,
+        userName: action.payload.userName,
+        userProfileImageUrl: action.payload.userProfileImageUrl,
         orders: action.payload.orders,
       };
     default:

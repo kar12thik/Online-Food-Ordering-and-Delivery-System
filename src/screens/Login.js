@@ -2,8 +2,9 @@ import React, { useState } from "react";
 // import Navbar from '../components/Navbar';
 /* import Navbar2 from '../components/Navbar2'; */
 /* import Footer from '../components/Footer'; */
-import { signUp, logIn, signInWithGoogle } from "../config/firebase";
+import { signUp } from "../config/firebase";
 import Swal from 'sweetalert2';
+import GoogleButton from 'react-google-button';
 
 // firebase related imports
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -13,9 +14,6 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { auth } from "../config/firebase";
 import { db } from "../config/firebase";
-
-import { doc, setDoc } from "firebase/firestore";
-
 import { useNavigate } from "react-router-dom";
 
 import "../App.css";
@@ -344,6 +342,8 @@ const Login = (props) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         console.log(token);
+        var uid;
+        uid = result.user.uid;
         console.log("Google sign-in successful:", result.user);
         dispatch({
           type: "LOGGED_IN_USER",
@@ -353,13 +353,28 @@ const Login = (props) => {
             isRestaurant: false,
           },
         });
-
+        dispatch({
+          type: "SET_ORDER",
+          payload: {
+            userId: result.user.uid,
+            userEmail: result.user.email,
+            userName: result.user.displayName,
+            userProfileImageUrl: result.user.photoURL,
+            orders: [],
+          },
+        });
         // code to add user to firestore database
         db.collection("users").doc(result.user.uid).set({
           userName: result.user.displayName,
           userEmail: result.user.email,
           userProfileImageUrl: result.user.photoURL,
           isRestaurant: false,
+          typeOfFood: ' ',
+          userUid: uid,
+          userAge: 0,
+          userCity: ' ',
+          userCountry: ' ',
+          userGender: 'Male',
         });
 
         navigate("/");
@@ -380,6 +395,7 @@ const Login = (props) => {
     signInWithEmailAndPassword(auth, userLoginEmail, userLoginPassword)
       .then((userCredential) => {
         // Signed in
+        console.log(userLoginDetails);
         const user = userCredential.user;
         navigate("/");
         if (user) {
@@ -819,7 +835,7 @@ const Login = (props) => {
                   <div className="flex items-center justify-center mb-4 relative">
                     <div className="bg-gray-400 h-px flex-grow"></div>
                     <div className="mx-3 text-black-600 font-bold text-sm z-10">
-                      OR sign-in with
+                      OR
                     </div>
                     <div className="bg-gray-400 h-px flex-grow"></div>
                     <div className="absolute inset-0 flex items-center justify-center z-0">
@@ -831,12 +847,12 @@ const Login = (props) => {
             </form>
             <div className="flex flex-col items-center">
               <div className="flex space-x-4">
-                <button
-                  className="bg-blue-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-full uppercase tracking-widest transition-colors duration-300 ease-in-out"
+                <GoogleButton
+                  className="bg-yellow-500 text-bold rounded-full"
                   onClick={handleSignInWithGoogle}
                 >
                   Google
-                </button>
+                </GoogleButton>
               </div>
             </div>
 
