@@ -347,6 +347,7 @@ const Login = (props) => {
           payload: {
             userEmail: result.user.email,
             userName: result.user.displayName,
+            userProfileImageUrl: result.user.photoURL,
             isRestaurant: false,
           },
         });
