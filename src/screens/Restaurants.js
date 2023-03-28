@@ -9,17 +9,42 @@ function Restaurants() {
   const [restaurantList, setRestaurantList] = useState([]);
   const [menuItems, setMenuItems] = useState([]);
   const [item, setItem] = useState(restaurantList);
+  const [item2, setItem2] = useState(restaurantList);
   const [categorybar, setCategorybar] = useState(false);
 
   function filterItem(filterCategory) {
+    console.log(item2);
+    setItem(restaurantList);
+    console.log(item);
     if (filterCategory.length > 0) {
-      const newItem = restaurantList.filter((newVal) => {
+      const newItem = item.filter((newVal) => {
         return filterCategory.includes(newVal.category.toLowerCase());
       });
       setItem(newItem);
     }
     else {
-      setItem(restaurantList);
+      setItem(item2);
+    }
+  };
+
+  function handleSearchBar(searchBoxText) {
+    const searchText = searchBoxText;
+    console.log("searchtext,",searchText);
+    if (restaurantList) {
+        Object.keys(restaurantList).map((val) => { });
+        const result = restaurantList.filter((val) => {
+            return val.userName.toLocaleLowerCase().indexOf(searchText.toLocaleLowerCase()) !== -1;
+        })
+        console.log(result);
+        if (searchText.length > 0) {
+          console.log("inside if");
+          setItem(result);
+          setItem2(result);
+        }
+        else {
+          setItem(restaurantList);
+          setItem2(restaurantList);
+        }
     }
   };
 
@@ -43,7 +68,7 @@ function Restaurants() {
   }, [])
   return (
     <div>
-      <SearchRestOnRestPage dataTestId="Search_Restaurants_On_RestPage"></SearchRestOnRestPage>
+      <SearchRestOnRestPage dataTestId="Search_Restaurants_On_RestPage" restaurantList={restaurantList} handleSearchBar={handleSearchBar}></SearchRestOnRestPage>
       <div className="">
         <div className="container-fluid bg-slate-200 w-full flex mx-auto flex-col md:flex-row lg:flex-row sm:space-x-0 md:space-x-4 lg:space-x-4 pt-10 pb-10 px-3">
           <div className="w-1/3 justify-center md:block">

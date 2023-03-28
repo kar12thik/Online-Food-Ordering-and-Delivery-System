@@ -1,16 +1,28 @@
-import React from "react";
+import { useEffect, React } from "react";
 import { useLocation } from 'react-router-dom';
+import { useState } from "react";
 
-function SearchRestOnRestPage({ dataTestId }) {
-  const location = useLocation();
+function SearchRestOnRestPage({ dataTestId, restaurantList, handleSearchBar }) {
+  // const location = useLocation();
   let placeholder = "Search Restaurants...";
-  let searchValue = "";
+  // let [searchValue, setsearchValue] = useState("");
+  const [searchBoxText, setsearchBoxText] = useState("");
 
-  if(location.state){
-    searchValue = location.state.searchBoxText;
-    console.log("Search value inside SearchRestOnRestPage component =>", searchValue);
-    placeholder = searchValue;
+  // if(location.state){
+  //   setsearchBoxText(location.state.searchBoxText);
+  //   console.log("Search value inside SearchRestOnRestPage component =>", searchBoxText);
+  //   placeholder = searchBoxText;
+  // }
+
+  function handleInputChange(event) {
+    setsearchBoxText(event.target.value);
+    console.log("after,",searchBoxText);
   }
+
+  useEffect(() => { 
+    console.log(searchBoxText) 
+    handleSearchBar(searchBoxText);
+  }, [searchBoxText])
 
   return (
     <div className="border" data-testid={dataTestId}>
@@ -39,11 +51,13 @@ function SearchRestOnRestPage({ dataTestId }) {
                 id="simple-search"
                 className="block sm:w-auto md:w-80 lg:w-96 rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
                 placeholder= { placeholder }
+                value={searchBoxText}
+                onChange={ handleInputChange }
                 required
               />
             </div>
 
-            <button
+            {/* <button
               type="submit"
               className="ml-2 rounded-lg border border-blue-700 bg-blue-700 p-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
             >
@@ -62,7 +76,7 @@ function SearchRestOnRestPage({ dataTestId }) {
                 ></path>
               </svg>
               <span className="sr-only">Search</span>
-            </button>
+            </button> */}
           </div>
         </form>
       </div>
