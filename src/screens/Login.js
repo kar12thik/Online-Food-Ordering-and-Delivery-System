@@ -7,10 +7,7 @@ import Swal from 'sweetalert2';
 import GoogleButton from 'react-google-button';
 
 // firebase related imports
-import { signInWithEmailAndPassword } from "firebase/auth";
-//import { useSelector } from "react-redux";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-
+import { signInWithEmailAndPassword,GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { auth } from "../config/firebase";
 import { db } from "../config/firebase";
@@ -342,7 +339,7 @@ const Login = (props) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         console.log(token);
-        var uid;
+        let uid;
         uid = result.user.uid;
         console.log("Google sign-in successful:", result.user);
         dispatch({

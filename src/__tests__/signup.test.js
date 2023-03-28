@@ -3,7 +3,6 @@ import { BrowserRouter } from "react-router-dom";
 import Login from "../screens/Login";
 import React from "react";
 import "@testing-library/jest-dom";
-import userEvent from "@testing-library/user-event";
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "../reducers/index";
 import { Provider } from "react-redux";

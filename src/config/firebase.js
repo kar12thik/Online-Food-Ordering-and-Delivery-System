@@ -1,24 +1,12 @@
 import firebase from "firebase/compat/app";
-import React, { useState } from "react";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
-import { initializeApp } from "firebase/app";
 import {
   GoogleAuthProvider,
   getAuth,
   signInWithPopup,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  sendPasswordResetEmail,
-  signOut,
-  updateProfile,
 } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
-import { useNavigate } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
-import loggedInUser from "../reducers/loggedInUser";
-//import { getAuth } from "firebase/auth";
 
 // #todo: Convert firebaseConfig to Environment Variables
 const firebaseConfig = {
@@ -38,7 +26,6 @@ export const db = firebase.firestore(app);
 
 export default app;
 
-
 // This function is not used but kept for future use
 // Added for Sign-in-with google
 export const signInWithGoogle = async (history) => {
@@ -48,6 +35,7 @@ export const signInWithGoogle = async (history) => {
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
+      console.log(token);
       user = result.user;
     })
     .catch((error) => {
