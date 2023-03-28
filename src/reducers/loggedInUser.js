@@ -8,6 +8,8 @@ const initialState = {
   error: null,
   userProfileImageUrl: null,
   success: false, // for monitoring the registration process.
+  restDescription: "",
+  restName: null,
 };
 
 const loggedInUser = (state = initialState, action) => {
@@ -20,7 +22,10 @@ const loggedInUser = (state = initialState, action) => {
         userId: action.payload.userId,
         userName: action.payload.userName,
         isRestaurant: action.payload.isRestaurant,
+        typeOfFood: action.payload.typeOfFood,
         userProfileImageUrl: action.payload.userProfileImageUrl,
+        restDescription: action.payload.restDescription,
+        restName: action.payload.restName
       };
     case "LOG_OUT_USER":
       return initialState;

@@ -8,6 +8,9 @@ import RegisterRestaurants from "./screens/RegisterRestaurant";
 import RestaurantDetails from "./screens/RestaurantDetails";
 import Orders from "./screens/Orders";
 import Footer from "./components/Footer";
+import OrderRequests from "./screens/OrderRequest";
+import AddMenuItem from "./screens/AddMenuItems";
+import MyFoods from "./screens/MyFoods";
 import MyOrders from "./screens/MyOrders";
 
 function App() {
@@ -20,7 +23,10 @@ function App() {
         <Route path="/restaurants" element={<Restaurants />} />
         <Route path="/register-restaurant" element={<RegisterRestaurants />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/restaurant-details" element={<RestaurantDetails />} />
+        <Route path="/restaurant-details" element ={ <RestaurantDetails/>} />
+        <Route path="/order-requests" element ={ <OrderRequests/>} />
+        <Route path="/add-menu-items" element={<AddMenuItem />} />
+        <Route path="/my-foods" element={<MyFoods />} />
         <Route path="/my-orders" element={<MyOrders />} />
       </Routes>
       <Footer />
