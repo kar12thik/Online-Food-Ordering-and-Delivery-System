@@ -808,12 +808,6 @@ const Login = (props) => {
                   onChange={(e) => setUserLoginPassword(e.target.value)}
                   data-testid="login-password"
                 />
-                <p
-                  className="text-sm text-black font-bold mt-4 mr-2 cursor-pointer hover:text-gray-800 text-right"
-                  //onClick={() => handleForgotPassword()}
-                >
-                  Forgot Password?
-                </p>
               </div>
               <center>
                 <button
