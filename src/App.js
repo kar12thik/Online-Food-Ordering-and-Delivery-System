@@ -23,8 +23,8 @@ function App() {
         <Route path="/restaurants" element={<Restaurants />} />
         <Route path="/register-restaurant" element={<RegisterRestaurants />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/restaurant-details" element ={ <RestaurantDetails/>} />
-        <Route path="/order-requests" element ={ <OrderRequests/>} />
+        <Route path="/restaurant-details" element={<RestaurantDetails />} />
+        <Route path="/order-requests" element={<OrderRequests />} />
         <Route path="/add-menu-items" element={<AddMenuItem />} />
         <Route path="/my-foods" element={<MyFoods />} />
         <Route path="/my-orders" element={<MyOrders />} />

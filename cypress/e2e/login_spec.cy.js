@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 describe("payment", () => {
   beforeEach(() => {
+    cy.clearCookies();
     cy.visit("/login");
 
     cy.get("body").within(() => {
@@ -13,7 +14,7 @@ describe("payment", () => {
     cy.findByRole("button", {
       name: /login now/i,
     }).click();
-    cy.wait(5000);
+    cy.wait(2000);
   });
 
   // it("user can log in using restaurant credentials", () => {
@@ -41,7 +42,7 @@ describe("payment", () => {
       name: /ok/i,
     }).click();
     cy.findByRole("link", {
-      name: /order requests/i,
+      name: /my orders/i,
     }).click();
   });
 });
