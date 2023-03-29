@@ -242,6 +242,30 @@ function order_request() {
   });
 };
 
+/**
+ * Getting menu details
+ * */
+
+export function menu_detail_list() {
+  return new Promise((resolve, reject) => {
+    let menuDetailList = [];
+    db.collection("menuItems")
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            if(doc != null) {
+              const obj = {id: doc.id, ...doc.data()};
+              menuDetailList.push(obj);
+            }
+          });
+          resolve(menuDetailList);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+  });
+}
+
 function addItem(itemDetails) {
   const { itemName, itemIngredients, itemPrice, itemCategory, itemImage } =
     itemDetails;
