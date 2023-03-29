@@ -364,8 +364,12 @@ const Login = (props) => {
         });
         // code to add user to firestore database
         db.collection("users").doc(result.user.uid).set({
+          restName: ' ',
+          category: selectedOption,
+          restDescription: ' ',
           userName: result.user.displayName,
           userEmail: result.user.email,
+          userPassword: ' ',
           userProfileImageUrl: result.user.photoURL,
           isRestaurant: false,
           typeOfFood: ' ',
