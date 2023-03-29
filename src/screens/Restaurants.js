@@ -10,7 +10,6 @@ function Restaurants() {
   const [restaurantList, setRestaurantList] = useState([]);
   const [menuItems, setMenuItems] = useState([]);
   const [item, setItem] = useState(restaurantList);
-  const [item2, setItem2] = useState(restaurantList);
   const [categorybar, setCategorybar] = useState(false);
   const [searchBoxText, setSearchBoxText] = useState("");
   const [filterCat, setFilterCat] = useState([]);
@@ -63,7 +62,6 @@ function Restaurants() {
       tempItem = restaurantList;
     }
 
-    Object.keys(tempItem).map((val) => {});
     tempItem = tempItem.filter((val) => {
       return (
         val.userName
