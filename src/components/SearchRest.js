@@ -4,11 +4,8 @@ import { useNavigate } from 'react-router-dom';
 function SearchRest({ dataTestId }) {
   const navigate = useNavigate();
   const [searchBoxText, setsearchBoxText] = useState("");
-
-  console.log("searchBoxText => ", searchBoxText);
   
   function handleSearchClick() {
-    console.log("On Search button click searchBoxText => ", searchBoxText);
     if (searchBoxText) {
       navigate("/restaurants", {state : {searchBoxText}} );
     }

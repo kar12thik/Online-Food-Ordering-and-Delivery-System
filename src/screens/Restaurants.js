@@ -19,39 +19,10 @@ function Restaurants() {
 
   function filterItem(filterCategory) {
     setFilterCat(filterCategory);
-    // if (filterCategory.length > 0) {
-    //   const newItem = item2.filter((newVal) => {
-    //     return filterCategory.includes(newVal.category.toLowerCase());
-    //   });
-    //   setItem(newItem);
-    // } else {
-    //   setItem(item2);
-    // }
   }
 
   function handleSearchBar(searchBoxText) {
     setSearchBoxText(searchBoxText);
-    // const searchText = searchBoxText;
-    // console.log("searchtext,", searchText);
-    // if (restaurantList) {
-    //   Object.keys(restaurantList).map((val) => {});
-    //   const result = restaurantList.filter((val) => {
-    //     return (
-    //       val.userName
-    //         .toLocaleLowerCase()
-    //         .indexOf(searchText.toLocaleLowerCase()) !== -1
-    //     );
-    //   });
-    //   console.log(result);
-    //   if (searchText.length > 0) {
-    //     console.log("inside if");
-    //     setItem(result);
-    //     setItem2(result);
-    //   } else {
-    //     setItem(restaurantList);
-    //     setItem2(restaurantList);
-    //   }
-    // }
   }
 
   useEffect(() => {
@@ -81,7 +52,6 @@ function Restaurants() {
 
     if(location.state){
       setSearchBoxText(location.state.searchBoxText);
-      console.log("Search value inside SearchRestOnRestPage component =>", searchBoxText);
       navigate(location.state, {}); 
     }
 
@@ -111,7 +81,7 @@ function Restaurants() {
         dataTestId="Search_Restaurants_On_RestPage"
         restaurantList={restaurantList}
         handleSearchBar={handleSearchBar}
-        placeholder={ location.state ? ({searchBoxText}) : ("Search Restaurants...") }
+        placeholder={ searchBoxText }
       ></SearchRestOnRestPage>
       <div className="">
         <div className="container-fluid bg-slate-200 w-full flex mx-auto flex-col md:flex-row lg:flex-row sm:space-x-0 md:space-x-4 lg:space-x-4 pt-10 pb-10 px-3">
