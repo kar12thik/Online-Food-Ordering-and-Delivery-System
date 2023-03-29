@@ -1,7 +1,6 @@
 import FeaturedRestCardsForRestPage from "./FeaturedRestCardsForRestPage";
 
 function RestList({item}) {
-    console.log(item);
     return (
         ( item.length > 0 ? (
         <div className="">
@@ -18,10 +17,10 @@ function RestList({item}) {
                             </div>
                             </div>
                         </div>
-    ) : (<div class="flex flex-col item-center h-screen">
-    <img src={require('../assets/images/no-rest-found.png')} alt="No Restaurants Found" class="h-60 w-80 mb-8" />
-    <p class="text-3xl font-bold text-gray-800 mb-2">No Restaurants Found</p>
-    <p class="text-xl text-gray-600">Sorry, we couldn't find any restaurants matching your search.</p>
+    ) : (<div className="flex flex-col item-center h-screen">
+    <img src={require('../assets/images/no-rest-found.png')} alt="No Restaurants Found" className="h-60 w-80 mb-8" />
+    <p className="text-3xl font-bold text-gray-800 mb-2">No Restaurants Found</p>
+    <p className="text-xl text-gray-600">Sorry, we couldn't find any restaurants matching your search.</p>
   </div>) ));
 }
 
