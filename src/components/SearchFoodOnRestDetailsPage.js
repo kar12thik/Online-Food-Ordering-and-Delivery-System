@@ -1,7 +1,15 @@
-function SearchFoodOnRestDetails() {
+function SearchFoodOnRestDetails({onSearch}) {
+
+  function onClick(event) {
+    event.preventDefault(); // prevent the default form submission behavior
+    const searchInput = event.target.querySelector('#simple-search');
+    const searchQuery = searchInput.value;
+    onSearch(searchQuery);
+  }
+
   return (
     <div className="border w-full">
-      <form className="flex items-center w-full">
+      <form className="flex items-center w-full" onSubmit={onClick}>
         <label htmlFor="simple-search" className="sr-only">
           Search
         </label>
@@ -26,7 +34,6 @@ function SearchFoodOnRestDetails() {
             id="simple-search"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange  block w-full pl-10 p-2.5 "
             placeholder="Search"
-            required
           />
         </div>
         <button

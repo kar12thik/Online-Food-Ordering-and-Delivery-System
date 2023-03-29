@@ -19,7 +19,6 @@ function MenuDetails({selectedCategories, addToCart}) {
       "https://react-quick-food.firebaseapp.com/static/media/listing-logo12.c9102623.png";
   const [menuDetailList, setMenuDetailList] = useState([]);
 
-  console.log(menuDetailList);
 
   useEffect(() => {
     if (selectedCategories.length < 1) {
@@ -86,6 +85,26 @@ function MenuDetails({selectedCategories, addToCart}) {
     }
   }
 
+  function onSearch(query) {
+    if(query !== "") {
+      const temp = menuDetailList.filter((item) => item.itemTitle.includes(query));
+      setMenuDetailList(temp);
+    } else {
+      menu_detail_list().then((result) => {
+        const updatedMenuDetailList = result.map((res) => {
+          return {
+            itemTitle: res.itemTitle,
+            itemPrice: res.itemPrice,
+            chooseItemType: res.chooseItemType,
+            itemImageUrl: res.itemImageUrl,
+            itemIngredients: res.itemIngredients,
+          };
+        });
+        setMenuDetailList(updatedMenuDetailList);
+      });
+    }
+  }
+
 
   return (
       <div className="w-full mr-24">
@@ -124,7 +143,7 @@ function MenuDetails({selectedCategories, addToCart}) {
           {/* List */}
           {tab1Content && (
               <div className="">
-                <SearchFoodOnRestDetailsPage />
+                <SearchFoodOnRestDetailsPage onSearch={onSearch}/>
 
 
                 <div className="">

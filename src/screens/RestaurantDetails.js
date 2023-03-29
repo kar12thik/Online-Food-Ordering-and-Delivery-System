@@ -29,14 +29,11 @@ function RestaurantDetails() {
         }
     };
 
-
-
-
-    const removeCartItem = (itemIndex) => {
-        const removedItemPrice = Number(cartItemsList[itemIndex].itemPrice);
-        cartItemsList.splice(itemIndex, 1);
-        settotalPrice(totalPrice - removedItemPrice);
-        setCartItemsList(cartItemsList);
+    const removeCartItem = (item) => {
+        const temp = cartItemsList.filter((itemInCart) => itemInCart.itemTitle !== item.itemTitle);
+        console.log(temp);
+        setCartItemsList(temp);
+        settotalPrice(totalPrice - item.itemPrice);
     };
 
     function filter(category) {
@@ -63,10 +60,10 @@ function RestaurantDetails() {
                             <FoodCategories filter={filter}/>
                         </div>
                         <div className="w-2/3 flex justify-center">
-                            <MenuDetails selectedCategories = {selectedCategories} addToCart = {addToCart}/>
+                            <MenuDetails selectedCategories = {selectedCategories} addToCart = {addToCart} />
                         </div>
                         <div className="w-1/3 justify-center">
-                            <Cart cartItemsList = {cartItemsList} currentTotalPrice = {totalPrice}/>
+                            <Cart cartItemsList = {cartItemsList} currentTotalPrice = {totalPrice} removeCart = {removeCartItem}/>
                         </div>
                     </div>
                 </div>
