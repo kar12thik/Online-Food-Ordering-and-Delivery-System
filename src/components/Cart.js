@@ -91,7 +91,9 @@ function Cart({cartItemsList, currentTotalPrice}) {
             })
         }
     }
-
+    function onClick() {
+        props.addToCart(props);
+      }
     const renderCartItemsList = () => {
         return (
             <li className="pb-2 mb-3">
@@ -104,7 +106,7 @@ function Cart({cartItemsList, currentTotalPrice}) {
                                 </div>
                                 <div className="w-1/3 pl-0 text-right flex">
                                     <div className="mb-0 font-bold"><span>${item.itemPrice}</span></div>
-                                    <div className="ml-5 mb-0">< RxCross2 /></div>
+                                    <button type="button"  className="ml-5 mb-0" onClick={onClick}>< RxCross2 /></button>
                                 </div>
                             </div>
                         )
@@ -138,7 +140,7 @@ function Cart({cartItemsList, currentTotalPrice}) {
     return (
         <div>
             <h3 className="mb-4 font-bold text-gray-900 dark:text-white">Your Order</h3>
-            <div className="w-60 h-48 p-3 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <div className="w-60 h-auto p-3 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
                 {/* {cartItemsList.length > 0 ? */}
                 {cartItemsCount > 0 ?
                     <div>
