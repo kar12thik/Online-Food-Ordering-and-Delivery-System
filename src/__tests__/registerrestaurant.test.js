@@ -81,9 +81,6 @@ test("Should render all labels", async () => {
     expect(screen.getByText("Country")).toBeInTheDocument();
     expect(screen.getByText("Gender")).toBeInTheDocument();
     expect(screen.getByText("Age")).toBeInTheDocument();
-    // expect(screen.getByText("Profile Image")).toBeInTheDocument();
-    // expect(screen.getByText("Accept terms and condition")).toBeInTheDocument();
-    // expect(screen.getByText("Create an account")).toBeInTheDocument();
 });
 
 test("Should render Terms and Conditions label", async () => {
