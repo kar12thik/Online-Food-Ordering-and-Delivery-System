@@ -2,9 +2,9 @@ import { useEffect, React } from "react";
 import { useLocation } from 'react-router-dom';
 import { useState } from "react";
 
-function SearchRestOnRestPage({ dataTestId, restaurantList, handleSearchBar }) {
+function SearchRestOnRestPage({ dataTestId, handleSearchBar, placeholder }) {
   // const location = useLocation();
-  let placeholder = "Search Restaurants...";
+  // let placeholder = "Search Restaurants...";
   // let [searchValue, setsearchValue] = useState("");
   const [searchBoxText, setsearchBoxText] = useState("");
 

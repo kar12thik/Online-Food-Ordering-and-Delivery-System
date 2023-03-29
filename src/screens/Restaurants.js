@@ -4,6 +4,7 @@ import RestList from "../components/RestList";
 import { useState } from "react";
 import RestCategories from "../components/RestCategories";
 import { restaurant_list } from "../config/firebase";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Restaurants() {
   const [restaurantList, setRestaurantList] = useState([]);
@@ -13,6 +14,8 @@ function Restaurants() {
   const [categorybar, setCategorybar] = useState(false);
   const [searchBoxText, setSearchBoxText] = useState("");
   const [filterCat, setFilterCat] = useState([]);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   function filterItem(filterCategory) {
     setFilterCat(filterCategory);
@@ -76,6 +79,12 @@ function Restaurants() {
   useEffect(() => {
     var tempItem = [];
 
+    if(location.state){
+      setSearchBoxText(location.state.searchBoxText);
+      console.log("Search value inside SearchRestOnRestPage component =>", searchBoxText);
+      navigate(location.state, {}); 
+    }
+
     if (filterCat.length > 0) {
       tempItem = restaurantList.filter((newVal) => {
         return filterCat.includes(newVal.category.toLowerCase());
@@ -102,6 +111,7 @@ function Restaurants() {
         dataTestId="Search_Restaurants_On_RestPage"
         restaurantList={restaurantList}
         handleSearchBar={handleSearchBar}
+        placeholder={ location.state ? ({searchBoxText}) : ("Search Restaurants...") }
       ></SearchRestOnRestPage>
       <div className="">
         <div className="container-fluid bg-slate-200 w-full flex mx-auto flex-col md:flex-row lg:flex-row sm:space-x-0 md:space-x-4 lg:space-x-4 pt-10 pb-10 px-3">
