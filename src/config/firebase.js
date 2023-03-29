@@ -2,7 +2,11 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
-import { getAuth } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+} from "firebase/auth";
 
 // #todo: Convert firebaseConfig to Environment Variables
 const firebaseConfig = {
@@ -21,6 +25,27 @@ export const auth = getAuth(app);
 export const db = firebase.firestore(app);
 
 export default app;
+
+// This function is not used but kept for future use
+// Added for Sign-in-with google
+export const signInWithGoogle = async (history) => {
+  const provider = new GoogleAuthProvider();
+  let user = null;
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      console.log(token);
+      user = result.user;
+    })
+    .catch((error) => {
+      console.error("Google sign-in failed:", error);
+    });
+
+  return user;
+};
+
+// Added for Sign-in-with google
 
 function signUp(userDetails) {
   return new Promise((resolve, reject) => {
@@ -323,5 +348,5 @@ function myFoodList(){
 }
 
 // export default firebase;
-export { signUp, logIn, orderNow, restaurant_list, addItem, myFoodList, order_request };
+export { signUp, logIn, orderNow, restaurant_list, addItem, myFoodList, order_request, signInWithPopup  };
 

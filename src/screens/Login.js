@@ -2,16 +2,15 @@ import React, { useState } from "react";
 // import Navbar from '../components/Navbar';
 /* import Navbar2 from '../components/Navbar2'; */
 /* import Footer from '../components/Footer'; */
-import { signUp, logIn } from "../config/firebase";
+import { signUp } from "../config/firebase";
 import Swal from 'sweetalert2';
+import GoogleButton from 'react-google-button';
 
 // firebase related imports
-import { signInWithEmailAndPassword } from "firebase/auth";
-//import { useSelector } from "react-redux";
+import { signInWithEmailAndPassword,GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { auth } from "../config/firebase";
 import { db } from "../config/firebase";
-
 import { useNavigate } from "react-router-dom";
 
 import "../App.css";
@@ -333,6 +332,61 @@ const Login = (props) => {
     }
   };
 
+  const handleSignInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        console.log(token);
+        let uid;
+        uid = result.user.uid;
+        console.log("Google sign-in successful:", result.user);
+        dispatch({
+          type: "LOGGED_IN_USER",
+          payload: {
+            userEmail: result.user.email,
+            userName: result.user.displayName,
+            userProfileImageUrl: result.user.photoURL,
+            isRestaurant: false,
+          },
+        });
+        // Try to set Profile Image.
+        dispatch({
+          type: "SET_ORDER",
+          payload: {
+            userId: result.user.uid,
+            userEmail: result.user.email,
+            userName: result.user.displayName,
+            userProfileImageUrl: result.user.photoURL,
+            orders: [],
+          },
+        });
+        // code to add user to firestore database
+        db.collection("users").doc(result.user.uid).set({
+          restName: ' ',
+          category: selectedOption,
+          restDescription: ' ',
+          userName: result.user.displayName,
+          userEmail: result.user.email,
+          userPassword: ' ',
+          userProfileImageUrl: result.user.photoURL,
+          isRestaurant: false,
+          typeOfFood: ' ',
+          userUid: uid,
+          userAge: 0,
+          userCity: ' ',
+          userCountry: ' ',
+          userGender: 'Male',
+        });
+
+        navigate("/");
+      })
+      .catch((error) => {
+        console.error("Google sign-in failed:", error);
+      });
+  };
+
   const handleLoginNowBtn = async (event) => {
     event.preventDefault();
     setIsRestaurantUser(false);
@@ -344,6 +398,7 @@ const Login = (props) => {
     signInWithEmailAndPassword(auth, userLoginEmail, userLoginPassword)
       .then((userCredential) => {
         // Signed in
+        console.log(userLoginDetails);
         const user = userCredential.user;
         navigate("/");
         if (user) {
@@ -679,6 +734,7 @@ const Login = (props) => {
                   type="button"
                   className=" cen-ter bg-yellow-500 text-white uppercase font-bold py-2 px-4 rounded mb-4"
                   onClick={handleCreateAccountBtn}
+                  data-testid="signup-button"
                   //onClick={handleForms}
                 >
                   <b>Create an Account</b>
@@ -772,9 +828,32 @@ const Login = (props) => {
                 ) : (
                   ""
                 )}
+                <div className="mt-4">
+                  <div className="flex items-center justify-center mb-4 relative">
+                    <div className="bg-gray-400 h-px flex-grow"></div>
+                    <div className="mx-3 text-black-600 font-bold text-sm z-10">
+                      OR
+                    </div>
+                    <div className="bg-gray-400 h-px flex-grow"></div>
+                    <div className="absolute inset-0 flex items-center justify-center z-0">
+                      <div className="bg-white px-2">-</div>
+                    </div>
+                  </div>
+                </div>
               </center>
             </form>
-            <p className="mt-4 text-center">
+            <div className="flex flex-col items-center">
+              <div className="flex space-x-4">
+                <GoogleButton
+                  className="bg-yellow-500 text-bold rounded-full"
+                  onClick={handleSignInWithGoogle}
+                >
+                  Google
+                </GoogleButton>
+              </div>
+            </div>
+
+            <p className="mt-4 text-center ">
               Don't have an account yet?{" "}
               <span
                 className="cursor-pointer text-yellow-500"

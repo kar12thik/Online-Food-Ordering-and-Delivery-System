@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 function NavBar() {
   const navbar = useSelector((state) => state.navbar);
+  
   const dispatch = useDispatch();
 
   return (
