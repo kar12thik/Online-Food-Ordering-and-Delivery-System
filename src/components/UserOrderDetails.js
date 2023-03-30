@@ -13,9 +13,9 @@ function UserOrderDetails() {
   let ordersList = useSelector((state) => state.myOrders.orders);
   let orderRequests = useSelector((state) => state.orderRequests.orders);
   const isRestaurant = useSelector((state) => state.loggedInUser.isRestaurant);
-  
+
   if (isRestaurant) {
-    ordersList = orderRequests
+    ordersList = orderRequests;
   }
 
   let pendingOrders = ordersList.filter((o) => o.status === "PENDING");
@@ -104,7 +104,7 @@ function UserOrderDetails() {
 
         {/* List */}
         {tab1Content && (
-          <div className="w-full flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2">
+          <div className="order-created w-full flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2">
             {pendingOrders.length !== 0 ? (
               pendingOrders.map((order) => {
                 return (
@@ -116,8 +116,8 @@ function UserOrderDetails() {
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
                     order_status_color="text-red-500"
-                    nextaction= {isRestaurant ? ("Send to In Progress"):("")}
-                    status={isRestaurant ? status[1]:("")}
+                    nextaction={isRestaurant ? "Send to In Progress" : ""}
+                    status={isRestaurant ? status[1] : ""}
                   />
                 );
               })
@@ -128,7 +128,7 @@ function UserOrderDetails() {
         )}
 
         {tab2Content && (
-          <div className=" flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2">
+          <div className="order-progress flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2">
             {inProgressOrders.length !== 0 ? (
               inProgressOrders.map((order) => {
                 return (
@@ -140,8 +140,8 @@ function UserOrderDetails() {
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
                     order_status_color="text-yellow-500"
-                    nextaction= {isRestaurant ? ("Send to Delivered"):("")}
-                    status={isRestaurant ? status[2]:("")}
+                    nextaction={isRestaurant ? "Send to Delivered" : ""}
+                    status={isRestaurant ? status[2] : ""}
                   />
                 );
               })
@@ -151,7 +151,7 @@ function UserOrderDetails() {
           </div>
         )}
         {tab3Content && (
-          <div className=" flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2">
+          <div className="order-delivered flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2">
             {deliveredOrders.length !== 0 ? (
               deliveredOrders.map((order) => {
                 return (

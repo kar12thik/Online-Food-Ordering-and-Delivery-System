@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-describe("payment", () => {
+describe("login", () => {
   beforeEach(() => {
     cy.clearCookies();
     cy.visit("/login");
@@ -9,8 +9,8 @@ describe("payment", () => {
     });
     cy.findByRole("textbox", {
       name: /email/i,
-    }).type("userone@gmail.com");
-    cy.findByLabelText(/password/i).type("Userone@123.");
+    }).type("user13@gmail.com");
+    cy.findByLabelText(/password/i).type("Hotel@123.");
     cy.findByRole("button", {
       name: /login now/i,
     }).click();
@@ -25,6 +25,13 @@ describe("payment", () => {
   //   cy.findByLabelText(/password/i).type("Hotel@123.");
   //   cy.findByRole("button", {
   //     name: /login now/i,
+  //   }).click();
+  // });
+
+  // it("restaurant user can make visit restaurants page", () => {
+  //   // cy.visit("/login");
+  //   cy.findByRole("link", {
+  //     name: /restaurants/i,
   //   }).click();
   // });
 

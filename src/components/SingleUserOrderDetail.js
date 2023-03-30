@@ -1,22 +1,36 @@
 import React from "react";
-import firebase from '../config/firebase';
+import firebase from "../config/firebase";
 import { useSelector } from "react-redux";
 
 function handleSendToInProgressBtn(userUid, orderId, restaurantUid, status) {
   console.log("user id:", userUid);
   console.log("order id:", orderId);
   console.log("restaurant id:", restaurantUid);
-  firebase.firestore().collection('users').doc(restaurantUid).collection('orderRequest').doc(orderId).update({
+  firebase
+    .firestore()
+    .collection("users")
+    .doc(restaurantUid)
+    .collection("orderRequest")
+    .doc(orderId)
+    .update({
       status: status,
-  }).then(() => {
-      console.log("First Seccussfully send to IN PROGRESS")
-      firebase.firestore().collection('users').doc(userUid).collection('myOrder').doc(orderId).update({
+    })
+    .then(() => {
+      console.log("First Seccussfully send to IN PROGRESS");
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(userUid)
+        .collection("myOrder")
+        .doc(orderId)
+        .update({
           status: status,
-      }).then(()=>{
-          console.log("Second Seccussfully send to IN PROGRESS")
-      })
-  })
-};
+        })
+        .then(() => {
+          console.log("Second Seccussfully send to IN PROGRESS");
+        });
+    });
+}
 
 export default function SingleUserOrderDetail({
   orderId,
@@ -27,11 +41,11 @@ export default function SingleUserOrderDetail({
   total_price,
   orderItemList,
   nextaction,
-  status
+  status,
 }) {
   const restaurantUid = useSelector((state) => state.loggedInUser.userId);
   return (
-    <div>
+    <div className="order-item">
       <div className="flex">
         <h1 className="text-lg font-black">{restaurant_name}</h1>
         <h1 className={`ml-auto uppercase font-bold ${order_status_color}`}>
@@ -57,13 +71,19 @@ export default function SingleUserOrderDetail({
       })}
 
       <div className="mt-16 w-full my-2 flex">
-        {
-          (status === "") ? 
-          (<div></div>) : 
-          (
-            <button type="button" className="ml-2 rounded-lg bg-orange p-2.5 text-sm font-medium text-black" onClick={() => handleSendToInProgressBtn(userUid, orderId, restaurantUid, status)}>{nextaction}</button>
-          )
-        }
+        {status === "" ? (
+          <div></div>
+        ) : (
+          <button
+            type="button"
+            className="order-button ml-2 rounded-lg bg-orange p-2.5 text-sm font-medium text-black"
+            onClick={() =>
+              handleSendToInProgressBtn(userUid, orderId, restaurantUid, status)
+            }
+          >
+            {nextaction}
+          </button>
+        )}
         <div className="ml-auto">Total :${total_price}</div>
       </div>
 
