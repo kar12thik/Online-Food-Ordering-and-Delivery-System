@@ -64,7 +64,7 @@ function Restaurants() {
 
     tempItem = tempItem.filter((val) => {
       return (
-        val.userName
+        val.restName
           .toLocaleLowerCase()
           .indexOf(searchBoxText.toLocaleLowerCase()) !== -1
       );
