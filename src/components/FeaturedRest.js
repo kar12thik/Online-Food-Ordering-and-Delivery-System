@@ -8,7 +8,7 @@ function FeaturedRest({dataTestId}) {
       <h1 className="text-4xl font-bold">FEATURED RESTAURANTS</h1>
 
       <div className="flex justify-center items-center">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2" data-testid="rest-cards">
           <FeaturedRestCards
             restImg={require('../assets/images/mcdonald.png')}
             restName="McDonald's"
