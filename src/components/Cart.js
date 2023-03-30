@@ -173,4 +173,3 @@ function Cart({cartItemsList, currentTotalPrice, removeCart}) {
     )
 }
 
-export default Cart
