@@ -39,7 +39,7 @@ function UserOrderDetails() {
   }
 
   return (
-    <div className="w-1/3 mx-auto">
+    <div className="w-1/3 mx-auto" data-testid="user-order-details">
       {/* Tabs */}
       <div className="w-full mr-6">
         <ul className="w-full flex-col md:flex-row lg: flex justify item-center sm:space-x-0 md:space-x-1 lg:flex space-x-1 justify-between mb-1 pt-10">
