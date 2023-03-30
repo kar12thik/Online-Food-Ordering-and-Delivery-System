@@ -51,10 +51,7 @@ function MenuDetails({selectedCategories, addToCart}) {
       });
     }
   }, [selectedCategories]);
-  //
-  menuDetailList.forEach((res)=>{
-    console.log(res);
-  })
+
 
   // console.log(menuDetailList.length);
   // console.log(menuDetailList);

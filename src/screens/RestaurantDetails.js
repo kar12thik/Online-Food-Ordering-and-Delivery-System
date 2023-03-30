@@ -30,10 +30,12 @@ function RestaurantDetails() {
     };
 
     const removeCartItem = (item) => {
-        const temp = cartItemsList.filter((itemInCart) => itemInCart.itemTitle !== item.itemTitle);
-        console.log(temp);
-        setCartItemsList(temp);
-        settotalPrice(totalPrice - item.itemPrice);
+        const index = cartItemsList.findIndex(element => element.itemTitle === item.itemTitle);
+        if(index != -1) {
+            cartItemsList.splice(index, 1);
+            setCartItemsList(cartItemsList);
+            settotalPrice(totalPrice - item.itemPrice);
+        }
     };
 
     function filter(category) {
