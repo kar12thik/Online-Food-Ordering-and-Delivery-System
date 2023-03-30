@@ -52,7 +52,7 @@ function Cart({cartItemsList, currentTotalPrice, removeCart}) {
                             type: 'success',
                             confirmButtonColor: '#E18633'
                         }).then(() => {
-                            navigate("/orders");
+                            navigate("/screens/MyOrders");
                         })
                     } catch (error) {
                         // console.log(" Error in confirm order => ", error)
