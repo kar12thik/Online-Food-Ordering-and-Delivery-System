@@ -2,16 +2,14 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
-import {
-  GoogleAuthProvider,
-  getAuth,
-  signInWithPopup,
-} from "firebase/auth";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import "firebase/compat/database";
 
 // #todo: Convert firebaseConfig to Environment Variables
 const firebaseConfig = {
   apiKey: "AIzaSyAlI4g1RYjy9Ea3l632wFzkPL_kYZs08L4",
   authDomain: "ofods-app.firebaseapp.com",
+  databaseURL: "https://ofods-app-default-rtdb.firebaseio.com/",
   projectId: "ofods-app",
   storageBucket: "ofods-app.appspot.com",
   messagingSenderId: "912102731712",
@@ -25,6 +23,8 @@ export const auth = getAuth(app);
 export const db = firebase.firestore(app);
 
 export default app;
+export const database = firebase.database();
+export const logsRef = database.ref("logs");
 
 // This function is not used but kept for future use
 // Added for Sign-in-with google
@@ -99,7 +99,7 @@ function signUp(userDetails) {
                 userUid: uid,
                 isRestaurant: isRestaurant,
                 userProfileImageUrl: userProfileImageUrl,
-                typeOfFood: typeOfFood
+                typeOfFood: typeOfFood,
               };
               db.collection("users")
                 .doc(uid)
@@ -146,17 +146,7 @@ function logIn(userLoginDetails) {
           .doc(success.user.uid)
           .get()
           .then((snapshot) => {
-            // propsHistory.push("/");
-            // //debugger
-            // console.log("11");
-            // console.log("snapshot.data =>>", snapshot.data().isRestaurant);
-            // if(snapshot.data().isRestaurant){
-            //     userLoginDetails.propsHistory.push("/Restaurants");
-            //     resolve(success)
-            // }else{
-            //     userLoginDetails.propsHistory.push("/");
-            //     resolve(success)
-            // }
+            console.log("Yess");
           });
       })
       .catch((error) => {
@@ -252,20 +242,24 @@ function order_request() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         let orderRequest = [];
-        db.collection('users').doc(user.uid).collection("orderRequest").get().then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            const obj = { id: doc.id, ...doc.data() }
-            orderRequest.push(obj);
+        db.collection("users")
+          .doc(user.uid)
+          .collection("orderRequest")
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              const obj = { id: doc.id, ...doc.data() };
+              orderRequest.push(obj);
+            });
+            resolve(orderRequest);
+          })
+          .catch((error) => {
+            reject(error);
           });
-          resolve(orderRequest);
-        })
-        .catch((error) => {
-          reject(error);
-        });
       }
     });
   });
-};
+}
 
 function addItem(itemDetails) {
   const { itemName, itemIngredients, itemPrice, itemCategory, itemImage } =
@@ -300,6 +294,11 @@ function addItem(itemDetails) {
               .add(itemDetailsForDb)
               .then((docRef) => {
                 resolve("Successfully added food item");
+                logsRef.push({
+                  message: `Added New Menu Item - ${itemName}!`,
+                  userId: uid,
+                  timestamp: firebase.database.ServerValue.TIMESTAMP,
+                });
               })
               .catch(function (error) {
                 let errorMessage = error.message;
@@ -323,7 +322,7 @@ function addItem(itemDetails) {
   });
 }
 
-function myFoodList(){
+function myFoodList() {
   return new Promise((resolve, reject) => {
     let user = firebase.auth().currentUser;
     console.log("User =>", user);
@@ -333,20 +332,33 @@ function myFoodList(){
     }
     console.log("uid =>", uid);
     let myFoods = [];
-    db.collection('users').doc(uid).collection('menuItems').get().then((querySnapshot) => {
-      console.log("Inside db.collection");
-      console.log("querySnapshot =>", querySnapshot);
-      querySnapshot.forEach(doc => {
-        const obj = { id: doc.id, ...doc.data() }
-        myFoods.push(obj);
+    db.collection("users")
+      .doc(uid)
+      .collection("menuItems")
+      .get()
+      .then((querySnapshot) => {
+        console.log("Inside db.collection");
+        console.log("querySnapshot =>", querySnapshot);
+        querySnapshot.forEach((doc) => {
+          const obj = { id: doc.id, ...doc.data() };
+          myFoods.push(obj);
+        });
+        resolve(myFoods);
       })
-      resolve(myFoods);
-    }).catch((error) => {
-      reject(error);
-    });
+      .catch((error) => {
+        reject(error);
+      });
   });
 }
 
 // export default firebase;
-export { signUp, logIn, orderNow, restaurant_list, addItem, myFoodList, order_request, signInWithPopup  };
-
+export {
+  signUp,
+  logIn,
+  orderNow,
+  restaurant_list,
+  addItem,
+  myFoodList,
+  order_request,
+  signInWithPopup,
+};

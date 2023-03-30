@@ -1,4 +1,4 @@
-import { auth } from "../config/firebase";
+import { auth, logsRef } from "../config/firebase";
 import { signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,10 +6,11 @@ import { logOutUser } from "../actions/index";
 import { setNav } from "../actions/index.js";
 import { useNavigate } from "react-router-dom";
 //import { logout } from '../redux/actions/authActions';
+import firebase from "firebase/compat/app";
 
 function NavBar() {
   const navbar = useSelector((state) => state.navbar);
-  
+
   const dispatch = useDispatch();
 
   return (
@@ -134,6 +135,10 @@ function RenderHomeLinks() {
                 className="btn rounded-lg bg-orange h-12 px-6"
                 onClick={(event) => {
                   event.preventDefault();
+                  logsRef.push({
+                    message: `User ${userName} Logged Out!`,
+                    timestamp: firebase.database.ServerValue.TIMESTAMP,
+                  });
                   dispatch(logOutUser());
                   signOut(auth);
                   navigate("/");
