@@ -97,7 +97,7 @@ describe("Wrapping Firebase For NavBar Test", () => {
     expect(screen.getByText("Restaurant Name")).toBeInTheDocument();
   });
 
-  test("should render Quick Food Button", () => {
+  test("should render Quick Food Buttons", () => {
     firestore.disableNetwork();
     render(
       <Provider store={store}>
