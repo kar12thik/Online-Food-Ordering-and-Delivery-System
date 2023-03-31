@@ -1,6 +1,15 @@
-import React from "react";
+import { React, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 function SearchRest({ dataTestId }) {
+  const navigate = useNavigate();
+  const [searchBoxText, setsearchBoxText] = useState("");
+  
+  function handleSearchClick() {
+    if (searchBoxText) {
+      navigate("/restaurants", {state : {searchBoxText}} );
+    }
+  }
   return (
     <div className="border" data-testid={dataTestId}>
       <div className="flex h-screen bg-search-rest-background bg-center bg-no-repeat bg-cover">
@@ -31,6 +40,7 @@ function SearchRest({ dataTestId }) {
                 id="simple-search"
                 className="block sm:w-auto md:w-80 lg:w-96 rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
                 placeholder="Search Restaurants..."
+                onChange={(e) => {setsearchBoxText(e.target.value)}}
                 required
               />
             </div>
@@ -38,6 +48,7 @@ function SearchRest({ dataTestId }) {
             <button
               type="submit"
               className="ml-2 rounded-lg border border-blue-700 bg-blue-700 p-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+              onClick={handleSearchClick}
             >
               <svg
                 className="h-5 w-5"
