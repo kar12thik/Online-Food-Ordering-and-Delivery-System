@@ -565,6 +565,7 @@ const Login = (props) => {
                     <select
                       className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                       onChange={(e) => handleOptionClick(e.target.value)}
+                      data-testid="restaurant-category-dropdown"
                     >
                       {options.map((option) => (
                         <option key={option}>{option}</option>
@@ -779,6 +780,7 @@ const Login = (props) => {
               <center>
                 <button
                   type="button"
+                  
                   className=" cen-ter bg-yellow-500 text-white uppercase font-bold py-2 px-4 rounded mb-4"
                   onClick={handleCreateAccountBtn}
                   data-testid="signup-button"
