@@ -17,7 +17,7 @@ function SearchRest({ dataTestId }) {
           <label htmlFor="simple-search" className="sr-only">
             Search
           </label>
-          <h2 className="mb-4 font-sans items-center text-center font-extrabold text-white uppercase leading-none tracking-tight text-gray-900 sm:text-4xl md:text-4xl lg:text-5xl">
+          <h2 className="mb-4 font-sans items-center text-center font-extrabold text-white uppercase leading-none tracking-tight text-gray-900 sm:text-4xl md:text-4xl lg:text-5xl" data-testid="order-text">
             Order your favourite meals, <br/> anytime, anywhere!
           </h2>
           <div className="mx-auto flex w-auto content-center justify-center">
@@ -40,6 +40,7 @@ function SearchRest({ dataTestId }) {
                 id="simple-search"
                 className="block sm:w-auto md:w-80 lg:w-96 rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
                 placeholder="Search Restaurants..."
+                data-testid="search-text"
                 onChange={(e) => {setsearchBoxText(e.target.value)}}
                 required
               />
@@ -48,6 +49,7 @@ function SearchRest({ dataTestId }) {
             <button
               type="submit"
               className="ml-2 rounded-lg border border-blue-700 bg-blue-700 p-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300"
+              data-testid="search-button"
               onClick={handleSearchClick}
             >
               <svg
