@@ -2,6 +2,7 @@ import React from "react";
 import firebase from "firebase/compat/app";
 import { useSelector } from "react-redux";
 import { logsRef } from "../config/firebase";
+import * as Sentry from "@sentry/react";
 
 function handleSendToInProgressBtn(userUid, orderId, restaurantUid, status) {
   console.log("user id:", userUid);
@@ -24,6 +25,12 @@ function handleSendToInProgressBtn(userUid, orderId, restaurantUid, status) {
         restaurantId: restaurantUid,
         timestamp: firebase.database.ServerValue.TIMESTAMP,
       });
+      Sentry.captureMessage({
+        message: `Order ${orderId} - ${status}!`,
+        userId: userUid,
+        restaurantId: restaurantUid,
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
+      });
       firebase
         .firestore()
         .collection("users")
@@ -36,6 +43,12 @@ function handleSendToInProgressBtn(userUid, orderId, restaurantUid, status) {
         .then(() => {
           console.log("Second Seccussfully send to IN PROGRESS");
           logsRef.push({
+            message: `Order ${orderId} - ${status}!`,
+            userId: userUid,
+            restaurantId: restaurantUid,
+            timestamp: firebase.database.ServerValue.TIMESTAMP,
+          });
+          Sentry.captureMessage({
             message: `Order ${orderId} - ${status}!`,
             userId: userUid,
             restaurantId: restaurantUid,

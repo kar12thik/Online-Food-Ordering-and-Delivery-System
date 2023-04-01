@@ -300,6 +300,7 @@ const Login = (props) => {
             email: userEmail,
             timestamp: firebase.database.ServerValue.TIMESTAMP,
           });
+          Sentry.captureMessage(`New User ${userName} Signed Up!`);
           navigate("/");
           Swal.fire({
             title: "Sign-up Successfully",
@@ -339,6 +340,7 @@ const Login = (props) => {
           error,
           timestamp: firebase.database.ServerValue.TIMESTAMP,
         });
+        Sentry.captureMessage(`Signup Error! - ${userEmail}, ${userName}`);
         if (isRestaurantUser) {
           console.log("Error in Register Restaurant => ", error);
         } else {
@@ -400,6 +402,9 @@ const Login = (props) => {
           email: result.user.email,
           timestamp: firebase.database.ServerValue.TIMESTAMP,
         });
+        Sentry.captureMessage(
+          `New User ${result.user.displayName} - Google SignIn!`
+        );
         navigate("/");
       })
       .catch((error) => {
@@ -408,6 +413,9 @@ const Login = (props) => {
           error,
           timestamp: firebase.database.ServerValue.TIMESTAMP,
         });
+        Sentry.captureMessage(
+          `Google Sign Failed! - ${userEmail}, ${userName}`
+        );
         console.error("Google sign-in failed:", error);
       });
   };
@@ -506,6 +514,7 @@ const Login = (props) => {
           email: userEmail,
           timestamp: firebase.database.ServerValue.TIMESTAMP,
         });
+        Sentry.captureMessage(`User ${userName} Login Failed!`);
         window.alert(
           "User Not Found, Please try again with Valid Email & Password"
         );

@@ -4,6 +4,7 @@ import "firebase/compat/auth";
 import "firebase/compat/storage";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import "firebase/compat/database";
+import * as Sentry from "@sentry/react";
 
 // #todo: Convert firebaseConfig to Environment Variables
 const firebaseConfig = {
@@ -295,6 +296,11 @@ function addItem(itemDetails) {
               .then((docRef) => {
                 resolve("Successfully added food item");
                 logsRef.push({
+                  message: `Added New Menu Item - ${itemName}!`,
+                  userId: uid,
+                  timestamp: firebase.database.ServerValue.TIMESTAMP,
+                });
+                Sentry.captureMessage({
                   message: `Added New Menu Item - ${itemName}!`,
                   userId: uid,
                   timestamp: firebase.database.ServerValue.TIMESTAMP,

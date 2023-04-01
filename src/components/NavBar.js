@@ -7,6 +7,7 @@ import { setNav } from "../actions/index.js";
 import { useNavigate } from "react-router-dom";
 //import { logout } from '../redux/actions/authActions';
 import firebase from "firebase/compat/app";
+import * as Sentry from "@sentry/react";
 
 function NavBar() {
   const navbar = useSelector((state) => state.navbar);
@@ -139,6 +140,7 @@ function RenderHomeLinks() {
                     message: `User ${userName} Logged Out!`,
                     timestamp: firebase.database.ServerValue.TIMESTAMP,
                   });
+                  Sentry.captureMessage(`User ${userName} Logged Out!`);
                   dispatch(logOutUser());
                   signOut(auth);
                   navigate("/");
