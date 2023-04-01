@@ -41,12 +41,12 @@ function Cart() {
     userUid: "7VFRuJ4qV8MEuu5NjrguFWiuW9F2",
   };
 
-  function HandleConfirmOrderBtn() {
+  const HandleConfirmOrderBtn = async () => {
     if (userDetails) {
       if (!userDetails.isRestaurant) {
         if (cartItemsList.length > 0) {
           try {
-            const orderNowReturn = orderNow(
+            const orderNowReturn = await orderNow(
               cartItemsList,
               totalPrice,
               resDetails,
@@ -90,7 +90,7 @@ function Cart() {
         //this.props.history.push('/login')
       });
     }
-  }
+  };
 
   const renderCartItemsList = () => {
     return (
