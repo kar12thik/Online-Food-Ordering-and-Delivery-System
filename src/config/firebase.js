@@ -74,7 +74,7 @@ function signUp(userDetails) {
                 userUid: uid,
                 isRestaurant: isRestaurant,
                 userProfileImageUrl: userProfileImageUrl,
-                typeOfFood: typeOfFood
+                typeOfFood: typeOfFood,
               };
               db.collection("users")
                 .doc(uid)
@@ -227,42 +227,48 @@ function order_request() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         let orderRequest = [];
-        db.collection('users').doc(user.uid).collection("orderRequest").get().then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            const obj = { id: doc.id, ...doc.data() }
-            orderRequest.push(obj);
+        db.collection("users")
+          .doc(user.uid)
+          .collection("orderRequest")
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              const obj = { id: doc.id, ...doc.data() };
+              orderRequest.push(obj);
+            });
+            resolve(orderRequest);
+          })
+          .catch((error) => {
+            reject(error);
           });
-          resolve(orderRequest);
-        })
-        .catch((error) => {
-          reject(error);
-        });
       }
     });
   });
-};
+}
 
 /**
  * Getting menu details
  * */
 
-export function menu_detail_list() {
+export function menu_detail_list(rest_id) {
   return new Promise((resolve, reject) => {
     let menuDetailList = [];
-    db.collection("menuItems")
-        .get()
-        .then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            if(doc != null) {
-              const obj = {id: doc.id, ...doc.data()};
-              menuDetailList.push(obj);
-            }
-          });
-          resolve(menuDetailList);
-        })
-        .catch((error) => {
-          reject(error);
+    db.collection("users")
+      .doc(rest_id)
+      .collection("menuItems")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (doc != null) {
+            const obj = { id: doc.id, ...doc.data() };
+            menuDetailList.push(obj);
+          }
         });
+        resolve(menuDetailList);
+      })
+      .catch((error) => {
+        reject(error);
+      });
   });
 }
 
@@ -322,7 +328,7 @@ function addItem(itemDetails) {
   });
 }
 
-function myFoodList(){
+function myFoodList() {
   return new Promise((resolve, reject) => {
     let user = firebase.auth().currentUser;
     console.log("User =>", user);
@@ -332,20 +338,32 @@ function myFoodList(){
     }
     console.log("uid =>", uid);
     let myFoods = [];
-    db.collection('users').doc(uid).collection('menuItems').get().then((querySnapshot) => {
-      console.log("Inside db.collection");
-      console.log("querySnapshot =>", querySnapshot);
-      querySnapshot.forEach(doc => {
-        const obj = { id: doc.id, ...doc.data() }
-        myFoods.push(obj);
+    db.collection("users")
+      .doc(uid)
+      .collection("menuItems")
+      .get()
+      .then((querySnapshot) => {
+        console.log("Inside db.collection");
+        console.log("querySnapshot =>", querySnapshot);
+        querySnapshot.forEach((doc) => {
+          const obj = { id: doc.id, ...doc.data() };
+          myFoods.push(obj);
+        });
+        resolve(myFoods);
       })
-      resolve(myFoods);
-    }).catch((error) => {
-      reject(error);
-    });
+      .catch((error) => {
+        reject(error);
+      });
   });
 }
 
 // export default firebase;
-export { signUp, logIn, orderNow, restaurant_list, addItem, myFoodList, order_request };
-
+export {
+  signUp,
+  logIn,
+  orderNow,
+  restaurant_list,
+  addItem,
+  myFoodList,
+  order_request,
+};
