@@ -1,9 +1,9 @@
-import firebase from "../config/firebase";
+import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
-import "firebase/compat/database";
+import "firebase/database";
 import * as Sentry from "@sentry/react";
 
 // #todo: Convert firebaseConfig to Environment Variables
@@ -22,10 +22,9 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = firebase.firestore(app);
-
-export default app;
 export const database = firebase.database();
 export const logsRef = database.ref("logs");
+export default app;
 
 // This function is not used but kept for future use
 // Added for Sign-in-with google
