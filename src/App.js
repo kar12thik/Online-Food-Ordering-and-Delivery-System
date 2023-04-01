@@ -1,15 +1,7 @@
 import "./App.css";
 import * as Sentry from "@sentry/react";
 import React from "react";
-import {
-  Route,
-  Routes,
-  BrowserRouter,
-  useLocation,
-  useNavigationType,
-  createRoutesFromChildren,
-  matchRoutes,
-} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
@@ -40,14 +32,6 @@ function App() {
         <Route path="/my-orders" element={<MyOrders />} />
       </Routes>
       <Footer />
-      <button
-        onClick={() => {
-          throw Error("OOps");
-        }}
-      >
-        Break the world
-      </button>
-      ;
     </div>
   );
 }

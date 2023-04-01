@@ -52,7 +52,6 @@ function Cart() {
               resDetails,
               userDetails
             );
-            console.log(orderNowReturn);
             Swal.fire({
               title: "Success",
               text: "Successfully Ordered",
@@ -62,7 +61,6 @@ function Cart() {
               navigate("/orders");
             });
           } catch (error) {
-            // console.log(" Error in confirm order => ", error)
             Swal.fire({
               title: "Error",
               text: error,
@@ -70,7 +68,6 @@ function Cart() {
             });
           }
         } else {
-          console.log("You have to select atleast one item");
           Swal.fire({
             title: "Error",
             text: "You have to select atleast one item",
@@ -78,7 +75,6 @@ function Cart() {
           });
         }
       } else {
-        // console.log("You are not able to order")
         Swal.fire({
           title: "Error",
           text: "You are not able to order",
@@ -86,7 +82,6 @@ function Cart() {
         });
       }
     } else {
-      // console.log("You must be Loged In")
       Swal.fire({
         title: "Error",
         text: "You must be Loged In",

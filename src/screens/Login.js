@@ -289,10 +289,8 @@ const Login = (props) => {
         typeOfFood: [],
       };
       try {
-        console.log(userDetails);
         // Sign-up Fix
         const signUpReturn = await signUp(userDetails);
-        console.log(signUpReturn);
         if (signUpReturn.success) {
           setMessage(false);
           logsRef.push({
@@ -356,10 +354,8 @@ const Login = (props) => {
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        console.log(token);
         let uid;
         uid = result.user.uid;
-        console.log("Google sign-in successful:", result.user);
         dispatch({
           type: "LOGGED_IN_USER",
           payload: {
@@ -431,18 +427,14 @@ const Login = (props) => {
     signInWithEmailAndPassword(auth, userLoginEmail, userLoginPassword)
       .then((userCredential) => {
         // Signed in
-        console.log("YESSSSSSSSSSSSSSSSSS");
-        console.log(userLoginDetails);
         const user = userCredential.user;
         navigate("/");
-        console.log("YESSSSSSSSSSSSSSSSSS");
         if (user) {
           // get user name
           const q = db.collection("users").doc(user.uid);
 
           q.get().then((doc) => {
             if (doc.exists) {
-              console.log(doc.data());
               logsRef.push({
                 message: `User ${doc.data().userName} Logged In!`,
                 email: user.email,
@@ -780,7 +772,6 @@ const Login = (props) => {
               <center>
                 <button
                   type="button"
-                  
                   className=" cen-ter bg-yellow-500 text-white uppercase font-bold py-2 px-4 rounded mb-4"
                   onClick={handleCreateAccountBtn}
                   data-testid="signup-button"

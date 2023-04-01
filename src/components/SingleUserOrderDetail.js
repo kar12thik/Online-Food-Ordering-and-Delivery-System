@@ -5,9 +5,6 @@ import { logsRef } from "../config/firebase";
 import * as Sentry from "@sentry/react";
 
 function handleSendToInProgressBtn(userUid, orderId, restaurantUid, status) {
-  console.log("user id:", userUid);
-  console.log("order id:", orderId);
-  console.log("restaurant id:", restaurantUid);
   firebase
     .firestore()
     .collection("users")
@@ -18,7 +15,6 @@ function handleSendToInProgressBtn(userUid, orderId, restaurantUid, status) {
       status: status,
     })
     .then(() => {
-      console.log("First Seccussfully send to IN PROGRESS");
       logsRef.push({
         message: `Order ${orderId} - ${status}!`,
         userId: userUid,
@@ -41,7 +37,6 @@ function handleSendToInProgressBtn(userUid, orderId, restaurantUid, status) {
           status: status,
         })
         .then(() => {
-          console.log("Second Seccussfully send to IN PROGRESS");
           logsRef.push({
             message: `Order ${orderId} - ${status}!`,
             userId: userUid,
@@ -81,7 +76,6 @@ export default function SingleUserOrderDetail({
 
       {/* Single order list Card */}
       {orderItemList.map((item) => {
-        console.log(item);
         return (
           <div className="mt-6 w-full h-16 flex">
             <div className="w-24 h-24 ml-0 p-1">

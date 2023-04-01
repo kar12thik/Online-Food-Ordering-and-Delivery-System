@@ -84,7 +84,6 @@ function signUp(userDetails) {
           .then((url) => {
             url.ref.getDownloadURL().then((success) => {
               const userProfileImageUrl = success;
-              console.log(userProfileImageUrl);
               const userDetailsForDb = {
                 restName,
                 category,
@@ -140,20 +139,15 @@ function logIn(userLoginDetails) {
       .auth()
       .signInWithEmailAndPassword(userLoginEmail, userLoginPassword)
       .then((success) => {
-        console.log(" 00 - Second Iteration");
         userFound = true;
         db.collection("users")
           .doc(success.user.uid)
           .get()
-          .then((snapshot) => {
-            console.log("Yess");
-          });
+          .then((snapshot) => {});
       })
       .catch((error) => {
-        console.log("22");
         // Handle Errors here.
-        // var errorCode = error.code;
-        var errorMessage = error.message;
+        let errorMessage = error.message;
         reject(errorMessage);
       });
     return userFound;
@@ -161,20 +155,13 @@ function logIn(userLoginDetails) {
 }
 
 function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
-  console.log("Inside orderNow");
-  console.log("userDetails => ", userDetails);
-  console.log("resDetails => ", resDetails);
-  console.log("resDetails.id => ", resDetails.id);
   return new Promise((resolve, reject) => {
     let user = firebase.auth().currentUser;
     let uid;
     if (user != null) {
       uid = user.uid;
     }
-
-    console.log("User id", uid);
     uid = "TestUser5";
-
     const myOrder = {
       itemsList: cartItemsList,
       totalPrice: totalPrice,
@@ -188,15 +175,11 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
       status: "PENDING",
       ...userDetails,
     };
-
-    console.log("myOrder => ", myOrder);
-    console.log("orderRequest => ", orderRequest);
     db.collection("users")
       .doc(uid)
       .collection("myOrder")
       .add(myOrder)
       .then((docRef) => {
-        console.log("docRef.id", docRef.id);
         db.collection("users")
           .doc(resDetails.id)
           .collection("orderRequest")
@@ -280,7 +263,6 @@ function addItem(itemDetails) {
           .getDownloadURL()
           .then((success) => {
             const itemImageUrl = success;
-            console.log(itemImageUrl);
             const itemDetailsForDb = {
               itemName,
               itemIngredients,
@@ -330,20 +312,16 @@ function addItem(itemDetails) {
 function myFoodList() {
   return new Promise((resolve, reject) => {
     let user = firebase.auth().currentUser;
-    console.log("User =>", user);
     var uid;
     if (user != null) {
       uid = user.uid;
     }
-    console.log("uid =>", uid);
     let myFoods = [];
     db.collection("users")
       .doc(uid)
       .collection("menuItems")
       .get()
       .then((querySnapshot) => {
-        console.log("Inside db.collection");
-        console.log("querySnapshot =>", querySnapshot);
         querySnapshot.forEach((doc) => {
           const obj = { id: doc.id, ...doc.data() };
           myFoods.push(obj);
