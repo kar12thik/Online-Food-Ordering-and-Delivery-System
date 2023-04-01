@@ -6,6 +6,7 @@ import { logsRef, signUp } from "../config/firebase";
 import Swal from "sweetalert2";
 import GoogleButton from "react-google-button";
 import firebase from "firebase/compat/app";
+import * as Sentry from "@sentry/react";
 
 // firebase related imports
 import {
@@ -424,7 +425,6 @@ const Login = (props) => {
         // Signed in
         console.log("YESSSSSSSSSSSSSSSSSS");
         console.log(userLoginDetails);
-
         const user = userCredential.user;
         navigate("/");
         console.log("YESSSSSSSSSSSSSSSSSS");
@@ -440,6 +440,7 @@ const Login = (props) => {
                 email: user.email,
                 timestamp: firebase.database.ServerValue.TIMESTAMP,
               });
+              Sentry.captureMessage(`User ${doc.data().userName} Logged In!`);
               dispatch({
                 type: "LOGGED_IN_USER",
                 payload: {

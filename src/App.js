@@ -1,5 +1,15 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import * as Sentry from "@sentry/react";
+import React from "react";
+import {
+  Route,
+  Routes,
+  BrowserRouter,
+  useLocation,
+  useNavigationType,
+  createRoutesFromChildren,
+  matchRoutes,
+} from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
@@ -23,15 +33,23 @@ function App() {
         <Route path="/restaurants" element={<Restaurants />} />
         <Route path="/register-restaurant" element={<RegisterRestaurants />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/restaurant-details" element ={ <RestaurantDetails/>} />
-        <Route path="/order-requests" element ={ <OrderRequests/>} />
+        <Route path="/restaurant-details" element={<RestaurantDetails />} />
+        <Route path="/order-requests" element={<OrderRequests />} />
         <Route path="/add-menu-items" element={<AddMenuItem />} />
         <Route path="/my-foods" element={<MyFoods />} />
         <Route path="/my-orders" element={<MyOrders />} />
       </Routes>
       <Footer />
+      <button
+        onClick={() => {
+          throw Error("OOps");
+        }}
+      >
+        Break the world
+      </button>
+      ;
     </div>
   );
 }
 
-export default App;
+export default Sentry.withProfiler(App);
