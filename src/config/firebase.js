@@ -3,7 +3,7 @@ import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
-import "firebase/database";
+import { getDatabase } from "firebase/database";
 import * as Sentry from "@sentry/react";
 
 // #todo: Convert firebaseConfig to Environment Variables
@@ -22,7 +22,7 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = firebase.firestore(app);
-export const database = firebase.database();
+const database = getDatabase(app);
 export const logsRef = database.ref("logs");
 export default app;
 
