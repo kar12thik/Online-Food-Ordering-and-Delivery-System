@@ -22,7 +22,7 @@ afterAll(() => {
 
 const store = configureStore({ reducer: rootReducer });
 
-test("should render static content on search restaurants component", () => {
+test("should render static content on search restaurants component", (done) => {
   render(
     <Provider store={store}>
       <BrowserRouter>
@@ -37,9 +37,10 @@ test("should render static content on search restaurants component", () => {
   expect(screen.getByText("Delivery")).toBeInTheDocument();
   expect(screen.getByText("Reservations")).toBeInTheDocument();
   expect(screen.getByText("Home Services")).toBeInTheDocument();
+  done();
 });
 
-test("should render search text box and button on search restaurants component", () => {
+test("should render search text box and button on search restaurants component", (done) => {
   render(
     <Provider store={store}>
       <BrowserRouter>
@@ -52,9 +53,10 @@ test("should render search text box and button on search restaurants component",
   expect(searchtext).toBeInTheDocument();
   expect(searchtext).toHaveAttribute("type", "text");
   expect(screen.getByTestId("search-button")).toBeInTheDocument();
+  done();
 });
 
-test("should render static content on process info component", () => {
+test("should render static content on process info component", (done) => {
   render(
     <Provider store={store}>
       <BrowserRouter>
@@ -68,9 +70,10 @@ test("should render static content on process info component", () => {
   expect(screen.getByTestId("choose-rest")).toBeInTheDocument();
   expect(screen.getByTestId("choose-dish")).toBeInTheDocument();
   expect(screen.getByTestId("deliver")).toBeInTheDocument();
+  done();
 });
 
-test("should render static content and button on order now component", () => {
+test("should render static content and button on order now component", (done) => {
   render(
     <Provider store={store}>
       <BrowserRouter>
@@ -86,9 +89,10 @@ test("should render static content and button on order now component", () => {
   expect(
     screen.getByText("Avoid the lines and have food delivered by us")
   ).toBeInTheDocument();
+  done();
 });
 
-test("Order now button rendering", async () => {
+test("Order now button rendering", (done) => {
   render(
     <Provider store={store}>
       <BrowserRouter>
@@ -98,9 +102,10 @@ test("Order now button rendering", async () => {
     </Provider>
   );
   expect(screen.getByText("ORDER NOW")).toBeInTheDocument();
+  done();
 });
 
-test("should render contents on Featured restaurants component", async () => {
+test("should render contents on Featured restaurants component", () => {
   render(
     <Provider store={store}>
       <BrowserRouter>

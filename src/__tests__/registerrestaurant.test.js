@@ -1,4 +1,11 @@
-import { render, screen, cleanup, fireEvent } from "@testing-library/react";
+/* eslint-disable testing-library/no-unnecessary-act */
+import {
+  render,
+  screen,
+  cleanup,
+  fireEvent,
+  act,
+} from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import RegisterRestaurant from "../screens/RegisterRestaurant";
 import React from "react";
@@ -21,7 +28,7 @@ afterAll(() => {
 
 const store = configureStore({ reducer: rootReducer });
 
-test("should render Register Restaurant component correctly", () => {
+test("should render Register Restaurant component correctly", (done) => {
   render(
     <Provider store={store}>
       <BrowserRouter>
@@ -32,6 +39,7 @@ test("should render Register Restaurant component correctly", () => {
   );
   const element = screen.getByRole("heading");
   expect(element).toBeInTheDocument();
+  done();
 });
 
 test("should show error message when all the fields are not entered", async () => {
@@ -44,10 +52,12 @@ test("should show error message when all the fields are not entered", async () =
     </Provider>
   );
   const buttonElement = screen.getByRole("button");
-  await userEvent.click(buttonElement);
+  await act(async () => {
+    await userEvent.click(buttonElement);
+  });
 });
 
-test("should render Register a Restaurant form title", () => {
+test("should render Register a Restaurant form title", (done) => {
   render(
     <Provider store={store}>
       <BrowserRouter>
@@ -58,6 +68,7 @@ test("should render Register a Restaurant form title", () => {
   );
   const formElement = screen.getByText("Create an Account");
   expect(formElement).toBeInTheDocument();
+  done();
 });
 
 test("Should render all labels", async () => {
@@ -69,7 +80,9 @@ test("Should render all labels", async () => {
       </BrowserRouter>
     </Provider>
   );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
   expect(screen.getByText("Restaurant Name")).toBeInTheDocument();
   expect(screen.getByText("Restaurant Category")).toBeInTheDocument();
   expect(screen.getByText("Restaurant Description")).toBeInTheDocument();
@@ -92,7 +105,9 @@ test("Should render Terms and Conditions label", async () => {
       </BrowserRouter>
     </Provider>
   );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
   expect(screen.getByText("Accept Terms and Conditions")).toBeInTheDocument();
 });
 
@@ -105,7 +120,9 @@ test("Should render restaurant name input field", async () => {
       </BrowserRouter>
     </Provider>
   );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
   const inputEl = screen.getByTestId("restfullname-input");
   expect(inputEl).toBeInTheDocument();
   expect(inputEl).toHaveAttribute("type", "text");
@@ -120,7 +137,9 @@ test("Should render restaurant category dropdown", async () => {
       </BrowserRouter>
     </Provider>
   );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
   const dropdown = screen.getByTestId("restaurant-category-dropdown");
   expect(dropdown).toBeInTheDocument();
 });
@@ -134,7 +153,9 @@ test("Should render restaurant description input field", async () => {
       </BrowserRouter>
     </Provider>
   );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
   const inputEl = screen.getByTestId("restDescription-input");
   expect(inputEl).toBeInTheDocument();
   expect(inputEl).toHaveAttribute("type", "text");
@@ -149,7 +170,9 @@ test("Should render restaurant owner name input field", async () => {
       </BrowserRouter>
     </Provider>
   );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
   const inputEl = screen.getByTestId("fullname-input");
   expect(inputEl).toBeInTheDocument();
   expect(inputEl).toHaveAttribute("type", "text");
@@ -164,7 +187,9 @@ test("Should render email input field", async () => {
       </BrowserRouter>
     </Provider>
   );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
   const inputEmail = screen.getByTestId("email-input");
   expect(inputEmail).toBeInTheDocument();
   expect(inputEmail).toHaveAttribute("type", "email");
@@ -179,7 +204,9 @@ test("Should render password input fields", async () => {
       </BrowserRouter>
     </Provider>
   );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
 
   const inputPassword = screen.getByTestId("password-input");
   expect(inputPassword).toBeInTheDocument();
@@ -199,7 +226,9 @@ test("Should render city and country and age input fields", async () => {
       </BrowserRouter>
     </Provider>
   );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
 
   const inputCity = screen.getByTestId("city-input");
   expect(inputCity).toBeInTheDocument();
@@ -223,9 +252,13 @@ test("validates the form fields", async () => {
       </BrowserRouter>
     </Provider>
   );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
   const submitButton = screen.getByText("Create an Account");
-  fireEvent.click(submitButton);
+  await act(async () => {
+    fireEvent.click(submitButton);
+  });
   expect(window.alert).toBeCalledWith(
     "Invalid Input !! Please enter a valid restaurant name."
   );

@@ -1,4 +1,5 @@
-import { render, screen, cleanup } from "@testing-library/react";
+/* eslint-disable no-undef */
+import { render, screen, cleanup, act } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import NavBar from "../components/NavBar";
 import React from "react";
@@ -32,7 +33,7 @@ describe("Wrapping Firebase For NavBar Test", () => {
 
   afterEach(() => {
     // Re-enable network access after each test
-    firestore.enableNetwork();
+    // firestore.enableNetwork();
   });
 
   test("full app rendering/navigating to Restaurant page", async () => {
@@ -50,7 +51,9 @@ describe("Wrapping Firebase For NavBar Test", () => {
     expect(screen.queryByText("Featured Restaurants")).toBeNull();
 
     // verify page content for expected route after navigating
-    await user.click(screen.getByText("RESTAURANTS"));
+    await act(async () => {
+      await user.click(screen.getByText("RESTAURANTS"));
+    });
     expect(screen.getByText("Featured Restaurants")).toBeInTheDocument();
   });
 
@@ -69,11 +72,13 @@ describe("Wrapping Firebase For NavBar Test", () => {
     expect(screen.getByText(/Featured Restaurants/i)).toBeInTheDocument();
 
     // verify page content for expected route after navigating
-    await user.click(
-      screen.getByRole("link", {
-        name: /login\/register/i,
-      })
-    );
+    await act(async () => {
+      await user.click(
+        screen.getByRole("link", {
+          name: /login\/register/i,
+        })
+      );
+    });
     expect(screen.getByText("Login Your Account")).toBeInTheDocument();
   });
 
@@ -93,11 +98,13 @@ describe("Wrapping Firebase For NavBar Test", () => {
     expect(screen.getByText(/Login Your Account/i)).toBeInTheDocument();
 
     // verify page content for expected route after navigating
-    await user.click(screen.getByText("REGISTER RESTAURANT"));
+    await act(async () => {
+      await user.click(screen.getByText("REGISTER RESTAURANT"));
+    });
     expect(screen.getByText("Restaurant Name")).toBeInTheDocument();
   });
 
-  test("should render Quick Food Button", () => {
+  test("should render Quick Food Button", (done) => {
     firestore.disableNetwork();
     render(
       <Provider store={store}>
@@ -108,9 +115,10 @@ describe("Wrapping Firebase For NavBar Test", () => {
     );
     const navBarElement = screen.getByText("Quick Food");
     expect(navBarElement).toBeInTheDocument();
+    done();
   });
 
-  test("should render Restaurants Button", () => {
+  test("should render Restaurants Button", (done) => {
     firestore.disableNetwork();
     render(
       <Provider store={store}>
@@ -121,9 +129,10 @@ describe("Wrapping Firebase For NavBar Test", () => {
     );
     const navBarElement = screen.getByText("RESTAURANTS");
     expect(navBarElement).toBeInTheDocument();
+    done();
   });
 
-  test("should render LOGIN/REGISTER Button", () => {
+  test("should render LOGIN/REGISTER Button", (done) => {
     firestore.disableNetwork();
     render(
       <Provider store={store}>
@@ -134,9 +143,10 @@ describe("Wrapping Firebase For NavBar Test", () => {
     );
     const navBarElement = screen.getByText("LOGIN/REGISTER");
     expect(navBarElement).toBeInTheDocument();
+    done();
   });
 
-  test("should render Register Restaurant Button", () => {
+  test("should render Register Restaurant Button", (done) => {
     firestore.disableNetwork();
     render(
       <Provider store={store}>
@@ -147,5 +157,6 @@ describe("Wrapping Firebase For NavBar Test", () => {
     );
     const navBarElement = screen.getByText("REGISTER RESTAURANT");
     expect(navBarElement).toBeInTheDocument();
+    done();
   });
 });
