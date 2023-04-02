@@ -12,8 +12,13 @@ import OrderRequests from "./screens/OrderRequest";
 import AddMenuItem from "./screens/AddMenuItems";
 import MyFoods from "./screens/MyFoods";
 import MyOrders from "./screens/MyOrders";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function App() {
+  const user = useSelector((state) => state.loggedInUser);
+
   return (
     <div>
       <NavBar />
@@ -23,11 +28,34 @@ function App() {
         <Route path="/restaurants" element={<Restaurants />} />
         <Route path="/register-restaurant" element={<RegisterRestaurants />} />
         <Route path="/orders" element={<Orders />} />
-        <Route path="/restaurant-details" element ={ <RestaurantDetails/>} />
-        <Route path="/order-requests" element ={ <OrderRequests/>} />
-        <Route path="/add-menu-items" element={<AddMenuItem />} />
+        <Route path="/restaurant-details" element={<RestaurantDetails />} />
+
+        <Route
+          path="/order-requests"
+          element={
+            <ProtectedRoute user={user.loggedIn} redirectPath={"/login"}>
+              <MyOrders />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/add-menu-items"
+          element={
+            <ProtectedRoute user={user.loggedIn} redirectPath={"/login"}>
+              <MyOrders />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/my-foods" element={<MyFoods />} />
-        <Route path="/my-orders" element={<MyOrders />} />
+        <Route
+          path="/my-orders"
+          element={
+            <ProtectedRoute user={user.loggedIn} redirectPath={"/login"}>
+              <MyOrders />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
     </div>
