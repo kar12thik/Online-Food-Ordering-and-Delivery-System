@@ -12,12 +12,12 @@ import rootReducer from "./reducers/index.js";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 
-// process.env.REACT_APP_ENV === "PRODUCTION" &&
-Sentry.init({
-  dsn: "https://70ad64dbf363462da0d5fc4fb3155b4e@o4504930837594112.ingest.sentry.io/4504930839101440",
-  integrations: [new Sentry.BrowserTracing()],
-  tracesSampleRate: 1.0,
-});
+process.env.REACT_APP_ENV === "PRODUCTION" &&
+  Sentry.init({
+    dsn: "https://70ad64dbf363462da0d5fc4fb3155b4e@o4504930837594112.ingest.sentry.io/4504930839101440",
+    integrations: [new Sentry.BrowserTracing()],
+    tracesSampleRate: 1.0,
+  });
 
 const persistConfig = {
   key: "root",
