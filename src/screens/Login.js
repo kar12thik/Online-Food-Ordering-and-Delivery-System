@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-// import Navbar from '../components/Navbar';
-/* import Navbar2 from '../components/Navbar2'; */
-/* import Footer from '../components/Footer'; */
 import { logsRef, signUp } from "../config/firebase";
 import Swal from "sweetalert2";
 import GoogleButton from "react-google-button";
@@ -49,8 +46,6 @@ const Login = (props) => {
   const [message, setMessage] = useState(false);
 
   const options = ["Indian", "Thai", "Mexican", "Italian", "Chinese", "Greek"];
-  // redux state
-  //const loggedInUser = useSelector((state) => state.loggedInUser);
   const dispatch = useDispatch();
 
   const handleForms = () => {
