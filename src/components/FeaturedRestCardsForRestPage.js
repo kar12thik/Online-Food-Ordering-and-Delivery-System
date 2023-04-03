@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function FeaturedRestCardsForRestPage(props) {
   const [like, setLike] = useState(false);
   const data = props.restVal;
-  const userName = data.userName;
+  const restName = data.restName;
   const userProfileImageUrl = data.userProfileImageUrl;
   const category = data.category.charAt(0).toUpperCase() + data.category.slice(1);
 
@@ -22,7 +22,7 @@ function FeaturedRestCardsForRestPage(props) {
         />
         <div className="flex ml-4 flex-col justify-between leading-normal">
           <h5 className="mb-1 text-2xl font-bold tracking-tight text-black-900 text-justify">
-            {userName}
+            {restName}
           </h5>
           <p className="mb-1 font-normal text-gray-700 dark:text-gray-400 text-justify">
             {category}
