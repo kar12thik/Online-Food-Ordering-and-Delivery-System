@@ -9,7 +9,6 @@ function handleSendToInProgressBtn(userUid, orderId, restaurantUid, status) {
   firebase.firestore().collection('users').doc(restaurantUid).collection('orderRequest').doc(orderId).update({
       status: status,
   }).then(() => {
-      console.log("First Seccussfully send to IN PROGRESS")
       firebase.firestore().collection('users').doc(userUid).collection('myOrder').doc(orderId).update({
           status: status,
       }).then(()=>{

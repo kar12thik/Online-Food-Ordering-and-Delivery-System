@@ -10,9 +10,6 @@ function MyOrders() {
     (state) => state.loggedInUser.userProfileImageUrl
   );
 
-  console.log("username:",userName);
-  console.log("user Profile Image:",userProfileImageUrl);
-
   return (
     <div>
       <UserDetailsCover
