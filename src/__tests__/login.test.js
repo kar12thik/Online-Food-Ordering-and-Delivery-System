@@ -20,7 +20,7 @@ afterAll(() => {
 
 const store = configureStore({ reducer: rootReducer });
 
-test("Should render Login form title", () => {
+test("Should render Login form title", (done) => {
   render(
     <Provider store={store}>
       <BrowserRouter>
@@ -31,9 +31,10 @@ test("Should render Login form title", () => {
   );
   const formElement = screen.getByText("Login Your Account");
   expect(formElement).toBeInTheDocument();
+  done();
 });
 
-test("Should render User Email input fields", async () => {
+test("Should render User Email input fields", (done) => {
   render(
     <Provider store={store}>
       <BrowserRouter>
@@ -45,9 +46,10 @@ test("Should render User Email input fields", async () => {
 
   const inputPassword = screen.getByTestId("login-email");
   expect(inputPassword).toBeInTheDocument();
+  done();
 });
 
-test("Should render password input fields and make sure field is of type password", async () => {
+test("Should render password input fields and make sure field is of type password", (done) => {
   render(
     <Provider store={store}>
       <BrowserRouter>
@@ -60,9 +62,10 @@ test("Should render password input fields and make sure field is of type passwor
   const inputPassword = screen.getByTestId("login-password");
   expect(inputPassword).toBeInTheDocument();
   expect(inputPassword).toHaveAttribute("type", "password");
+  done();
 });
 
-test("Should render Create account link if you don't have account", () => {
+test("Should render Create account link if you don't have account", (done) => {
   render(
     <Provider store={store}>
       <BrowserRouter>
@@ -73,4 +76,5 @@ test("Should render Create account link if you don't have account", () => {
   );
   const formElement = screen.getByText("Create an Account");
   expect(formElement).toBeInTheDocument();
+  done();
 });

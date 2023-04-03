@@ -7,6 +7,7 @@
     "@fortawesome/free-brands-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@reduxjs/toolkit": "^1.9.3",
+    "@sentry/react": "^7.46.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
@@ -38,8 +39,9 @@
     "build:dev": "env-cmd -f .env.development react-scripts build",
     "build:qa": "env-cmd -f .env.qa react-scripts build",
     "build:prod": "env-cmd -e .env.production react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test": "react-scripts test  --detectOpenHandles --forceExit",
+    "eject": "react-scripts eject",
+    "test:cov": "jest --coverage"
   },
   "eslintConfig": {
     "extends": [

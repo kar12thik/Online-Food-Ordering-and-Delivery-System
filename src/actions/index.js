@@ -21,10 +21,3 @@ export const logOutUser = () => {
     type: "LOG_OUT_USER",
   };
 };
-
-// export const LOGOUT_USER = "LOGOUT_USER";
-// export const logoutUser = () => {
-//   return {
-//     type: LOGOUT_USER,
-//   };
-// };

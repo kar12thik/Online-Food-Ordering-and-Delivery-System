@@ -1,17 +1,17 @@
-import { auth } from "../config/firebase";
+import { auth, logsRef } from "../config/firebase";
 import { signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logOutUser } from "../actions/index";
 import { setNav } from "../actions/index.js";
 import { useNavigate } from "react-router-dom";
-//import { logout } from '../redux/actions/authActions';
+import firebase from "firebase/compat/app";
+import * as Sentry from "@sentry/react";
 
 function NavBar() {
   const navbar = useSelector((state) => state.navbar);
-  
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   return (
     <nav className="w-full bg-slate-200 shadow">
       <div className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
@@ -19,7 +19,6 @@ function NavBar() {
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
             <Link className="nav-logo" to="/">
               <h1 className="text-black font-bold">Quick Food</h1>
-              {/* <img src={Logo}/> */}
             </Link>
             <div className="md:hidden">
               <button
@@ -79,11 +78,6 @@ function RenderHomeLinks() {
   const userName = useSelector((state) => state.loggedInUser.userName);
   const isRestaurant = useSelector((state) => state.loggedInUser.isRestaurant);
   const dispatch = useDispatch();
-  // const history = useHistory();
-  // const handleLogout = () => {
-  //   dispatch(logoutUser());
-  //   history.push("/login"); // redirect to login page
-  // };
 
   return (
     <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
@@ -134,6 +128,11 @@ function RenderHomeLinks() {
                 className="btn rounded-lg bg-orange h-12 px-6"
                 onClick={(event) => {
                   event.preventDefault();
+                  logsRef.push({
+                    message: `User ${userName} Logged Out!`,
+                    timestamp: firebase.database.ServerValue.TIMESTAMP,
+                  });
+                  Sentry.captureMessage(`User ${userName} Logged Out!`);
                   dispatch(logOutUser());
                   signOut(auth);
                   navigate("/");
@@ -157,27 +156,5 @@ function RenderHomeLinks() {
     </ul>
   );
 }
-
-// function renderUserAccountLinks() {
-//   return (
-
-//     <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-//       <li className="text-white">
-//         <Link to='/restaurants'>RESTAURANTS</Link>
-//       </li>
-//       <li className="text-white">
-//         <Link to='/orders'>MY ORDERS</Link>
-//       </li>
-//       <li className="hidden md:flex text-white">
-//         Firstname Lastname
-//       </li>
-//       <li className="text-white">
-//         <Link to='/'>
-//           <button type="button" className="btn bg-orange h-12 px-6">LOG OUT</button>
-//         </Link>
-//       </li>
-//     </ul>
-//   );
-// }
 
 export default NavBar;

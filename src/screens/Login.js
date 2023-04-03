@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-// import Navbar from '../components/Navbar';
-/* import Navbar2 from '../components/Navbar2'; */
-/* import Footer from '../components/Footer'; */
-import { signUp } from "../config/firebase";
-import Swal from 'sweetalert2';
-import GoogleButton from 'react-google-button';
+import { logsRef, signUp } from "../config/firebase";
+import Swal from "sweetalert2";
+import GoogleButton from "react-google-button";
+import firebase from "firebase/compat/app";
+import * as Sentry from "@sentry/react";
 
 // firebase related imports
-import { signInWithEmailAndPassword,GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { auth } from "../config/firebase";
 import { db } from "../config/firebase";
@@ -43,8 +46,6 @@ const Login = (props) => {
   const [message, setMessage] = useState(false);
 
   const options = ["Indian", "Thai", "Mexican", "Italian", "Chinese", "Greek"];
-  // redux state
-  //const loggedInUser = useSelector((state) => state.loggedInUser);
   const dispatch = useDispatch();
 
   const handleForms = () => {
@@ -280,15 +281,19 @@ const Login = (props) => {
         userProfileImage: userProfileImage,
         isRestaurant: isRestaurantUser,
         propsHistory: props.history,
-        typeOfFood: []
+        typeOfFood: [],
       };
       try {
-        console.log(userDetails);
         // Sign-up Fix
         const signUpReturn = await signUp(userDetails);
-        console.log(signUpReturn);
         if (signUpReturn.success) {
           setMessage(false);
+          logsRef.push({
+            message: `New User ${userName} Signed Up!`,
+            email: userEmail,
+            timestamp: firebase.database.ServerValue.TIMESTAMP,
+          });
+          Sentry.captureMessage(`New User ${userName} Signed Up!`);
           navigate("/");
           Swal.fire({
             title: "Sign-up Successfully",
@@ -323,6 +328,12 @@ const Login = (props) => {
         }
       } catch (error) {
         setMessage(true);
+        logsRef.push({
+          message: `Signup Error! - ${userEmail}, ${userName}`,
+          error,
+          timestamp: firebase.database.ServerValue.TIMESTAMP,
+        });
+        Sentry.captureMessage(`Signup Error! - ${userEmail}, ${userName}`);
         if (isRestaurantUser) {
           console.log("Error in Register Restaurant => ", error);
         } else {
@@ -338,10 +349,8 @@ const Login = (props) => {
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        console.log(token);
         let uid;
         uid = result.user.uid;
-        console.log("Google sign-in successful:", result.user);
         dispatch({
           type: "LOGGED_IN_USER",
           payload: {
@@ -364,25 +373,40 @@ const Login = (props) => {
         });
         // code to add user to firestore database
         db.collection("users").doc(result.user.uid).set({
-          restName: ' ',
+          restName: " ",
           category: selectedOption,
-          restDescription: ' ',
+          restDescription: " ",
           userName: result.user.displayName,
           userEmail: result.user.email,
-          userPassword: ' ',
+          userPassword: " ",
           userProfileImageUrl: result.user.photoURL,
           isRestaurant: false,
-          typeOfFood: ' ',
+          typeOfFood: " ",
           userUid: uid,
           userAge: 0,
-          userCity: ' ',
-          userCountry: ' ',
-          userGender: 'Male',
+          userCity: " ",
+          userCountry: " ",
+          userGender: "Male",
         });
-
+        logsRef.push({
+          message: `New User ${result.user.displayName} - Google SignIn!`,
+          email: result.user.email,
+          timestamp: firebase.database.ServerValue.TIMESTAMP,
+        });
+        Sentry.captureMessage(
+          `New User ${result.user.displayName} - Google SignIn!`
+        );
         navigate("/");
       })
       .catch((error) => {
+        logsRef.push({
+          message: `Google Sign Failed! - ${userEmail}, ${userName}`,
+          error,
+          timestamp: firebase.database.ServerValue.TIMESTAMP,
+        });
+        Sentry.captureMessage(
+          `Google Sign Failed! - ${userEmail}, ${userName}`
+        );
         console.error("Google sign-in failed:", error);
       });
   };
@@ -398,7 +422,6 @@ const Login = (props) => {
     signInWithEmailAndPassword(auth, userLoginEmail, userLoginPassword)
       .then((userCredential) => {
         // Signed in
-        console.log(userLoginDetails);
         const user = userCredential.user;
         navigate("/");
         if (user) {
@@ -407,7 +430,12 @@ const Login = (props) => {
 
           q.get().then((doc) => {
             if (doc.exists) {
-              console.log(doc.data())
+              logsRef.push({
+                message: `User ${doc.data().userName} Logged In!`,
+                email: user.email,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+              });
+              Sentry.captureMessage(`User ${doc.data().userName} Logged In!`);
               dispatch({
                 type: "LOGGED_IN_USER",
                 payload: {
@@ -452,7 +480,7 @@ const Login = (props) => {
           orderRequestQuery.onSnapshot((querySnapshot) => {
             const receivedOrders = [];
             querySnapshot.forEach((doc) => {
-              const obj = { id: doc.id, ...doc.data() }
+              const obj = { id: doc.id, ...doc.data() };
               receivedOrders.push(obj);
             });
             dispatch({
@@ -468,6 +496,12 @@ const Login = (props) => {
       })
       .catch((error) => {
         const errorCode = error.code;
+        logsRef.push({
+          message: `User ${userName} Login Failed!`,
+          email: userEmail,
+          timestamp: firebase.database.ServerValue.TIMESTAMP,
+        });
+        Sentry.captureMessage(`User ${userName} Login Failed!`);
         window.alert(
           "User Not Found, Please try again with Valid Email & Password"
         );
@@ -733,7 +767,6 @@ const Login = (props) => {
               <center>
                 <button
                   type="button"
-                  
                   className=" cen-ter bg-yellow-500 text-white uppercase font-bold py-2 px-4 rounded mb-4"
                   onClick={handleCreateAccountBtn}
                   data-testid="signup-button"

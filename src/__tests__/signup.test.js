@@ -1,4 +1,11 @@
-import { render, screen, cleanup, fireEvent } from "@testing-library/react";
+/* eslint-disable testing-library/no-unnecessary-act */
+import {
+  render,
+  screen,
+  cleanup,
+  fireEvent,
+  act,
+} from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import Login from "../screens/Login";
 import React from "react";
@@ -8,6 +15,7 @@ import rootReducer from "../reducers/index";
 import { Provider } from "react-redux";
 
 window.scrollTo = jest.fn();
+jest.spyOn(window, "alert").mockImplementation(() => {});
 
 afterEach(() => {
   cleanup();
@@ -19,7 +27,7 @@ afterAll(() => {
 
 const store = configureStore({ reducer: rootReducer });
 
-test("should render Register component correctly", () => {
+test("should render Register component correctly", (done) => {
   render(
     <Provider store={store}>
       <BrowserRouter>
@@ -30,6 +38,7 @@ test("should render Register component correctly", () => {
   );
   const element = screen.getByRole("heading");
   expect(element).toBeInTheDocument();
+  done();
 });
 
 test("should render Create an account button", async () => {
@@ -41,12 +50,14 @@ test("should render Create an account button", async () => {
       </BrowserRouter>
     </Provider>
   );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
   const signupButton = screen.getByTestId("signup-button");
   expect(signupButton).toBeInTheDocument();
 });
 
-test("should render Create an Account form title", () => {
+test("should render Create an Account form title", (done) => {
   render(
     <Provider store={store}>
       <BrowserRouter>
@@ -57,6 +68,7 @@ test("should render Create an Account form title", () => {
   );
   const formElement = screen.getByText("Create an Account");
   expect(formElement).toBeInTheDocument();
+  done();
 });
 
 test("Should render all labels", async () => {
@@ -67,8 +79,10 @@ test("Should render all labels", async () => {
         <Login />{" "}
       </BrowserRouter>
     </Provider>
-    );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  );
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
   expect(screen.getByText("Full Name")).toBeInTheDocument();
   expect(screen.getByText("Email")).toBeInTheDocument();
   expect(screen.getByText("Password")).toBeInTheDocument();
@@ -82,14 +96,16 @@ test("Should render all labels", async () => {
 
 test("Should render Terms and Conditions label", async () => {
   render(
-  <Provider store={store}>
-    <BrowserRouter>
-      {" "}
-      <Login />{" "}
-    </BrowserRouter>
-  </Provider>
+    <Provider store={store}>
+      <BrowserRouter>
+        {" "}
+        <Login />{" "}
+      </BrowserRouter>
+    </Provider>
   );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
   expect(screen.getByText("Accept Terms and Conditions")).toBeInTheDocument();
 });
 
@@ -101,8 +117,10 @@ test("Should render Login here link", async () => {
         <Login />{" "}
       </BrowserRouter>
     </Provider>
-    );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  );
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
   expect(screen.getByText("Login Here")).toBeInTheDocument();
 });
 
@@ -114,8 +132,10 @@ test("Should render full name input field", async () => {
         <Login />{" "}
       </BrowserRouter>
     </Provider>
-    );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  );
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
   const inputEl = screen.getByTestId("fullname-input");
   expect(inputEl).toBeInTheDocument();
   expect(inputEl).toHaveAttribute("type", "text");
@@ -129,13 +149,14 @@ test("Should render email input field", async () => {
         <Login />{" "}
       </BrowserRouter>
     </Provider>
-    );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  );
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
 
   const inputEmail = screen.getByTestId("email-input");
   expect(inputEmail).toBeInTheDocument();
   expect(inputEmail).toHaveAttribute("type", "email");
-
 });
 
 test("Should render password input fields", async () => {
@@ -146,8 +167,10 @@ test("Should render password input fields", async () => {
         <Login />{" "}
       </BrowserRouter>
     </Provider>
-    );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  );
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
 
   const inputPassword = screen.getByTestId("password-input");
   expect(inputPassword).toBeInTheDocument();
@@ -166,8 +189,10 @@ test("Should render city, country and age input fields", async () => {
         <Login />{" "}
       </BrowserRouter>
     </Provider>
-    );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  );
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
 
   const inputCity = screen.getByTestId("city-input");
   expect(inputCity).toBeInTheDocument();
@@ -179,10 +204,9 @@ test("Should render city, country and age input fields", async () => {
 
   const ageCountry = screen.getByTestId("age-input");
   expect(ageCountry).toBeInTheDocument();
-
 });
 
-test('validates the form fields', async () => {
+test("validates the form fields", async () => {
   window.alert = jest.fn();
   render(
     <Provider store={store}>
@@ -191,11 +215,15 @@ test('validates the form fields', async () => {
         <Login />{" "}
       </BrowserRouter>
     </Provider>
-    );
-  await fireEvent.click(screen.getByText("Create an Account"));
+  );
+  await act(async () => {
+    await fireEvent.click(screen.getByText("Create an Account"));
+  });
   const submitButton = screen.queryAllByText("Create an Account");
-  await fireEvent.click(submitButton[1]);
-  expect(window.alert).toBeCalledWith('Invalid Input !! Please enter a valid name.');
+  await act(async () => {
+    await fireEvent.click(submitButton[1]);
+  });
+  expect(window.alert).toBeCalledWith(
+    "Invalid Input !! Please enter a valid name."
+  );
 });
-
-
