@@ -38,7 +38,7 @@
     "build": "env-cmd -f .env.development react-scripts build",
     "build:dev": "env-cmd -f .env.development react-scripts build",
     "build:qa": "env-cmd -f .env.qa react-scripts build",
-    "build:prod": "env-cmd -e .env.production react-scripts build",
+    "build:prod": "env-cmd -f .env.production react-scripts build",
     "test": "react-scripts test  --detectOpenHandles --forceExit",
     "eject": "react-scripts eject",
     "test:cov": "jest --coverage"
