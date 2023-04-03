@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
-import AddMenuItem from "./_mocks_/mockAddMenuItems";
+import AddMenuItem from "../_mocks_/mockAddMenuItems";
 import React from "react";
 import "@testing-library/jest-dom";
 import { configureStore } from "@reduxjs/toolkit";
