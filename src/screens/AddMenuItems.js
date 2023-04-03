@@ -57,8 +57,6 @@ function AddMenuItem() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(itemName);
-
     const itemNameFormate = /^[A-Za-z0-9\s]+$/i;
     const itemIngredientsFormate = /^[A-Za-z0-9\s,]+$/i;
     if (!itemName.match(itemNameFormate)) {

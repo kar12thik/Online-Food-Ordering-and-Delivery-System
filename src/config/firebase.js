@@ -2,16 +2,15 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import "firebase/compat/storage";
-import {
-  GoogleAuthProvider,
-  getAuth,
-  signInWithPopup,
-} from "firebase/auth";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import "firebase/compat/database";
+import * as Sentry from "@sentry/react";
 
 // #todo: Convert firebaseConfig to Environment Variables
 const firebaseConfig = {
   apiKey: "AIzaSyAlI4g1RYjy9Ea3l632wFzkPL_kYZs08L4",
   authDomain: "ofods-app.firebaseapp.com",
+  databaseURL: "https://ofods-app-default-rtdb.firebaseio.com/",
   projectId: "ofods-app",
   storageBucket: "ofods-app.appspot.com",
   messagingSenderId: "912102731712",
@@ -23,7 +22,8 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = firebase.firestore(app);
-
+const realtimeDatabase = firebase.database();
+export const logsRef = realtimeDatabase.ref("logs");
 export default app;
 
 // This function is not used but kept for future use
@@ -84,7 +84,6 @@ function signUp(userDetails) {
           .then((url) => {
             url.ref.getDownloadURL().then((success) => {
               const userProfileImageUrl = success;
-              console.log(userProfileImageUrl);
               const userDetailsForDb = {
                 restName,
                 category,
@@ -99,7 +98,7 @@ function signUp(userDetails) {
                 userUid: uid,
                 isRestaurant: isRestaurant,
                 userProfileImageUrl: userProfileImageUrl,
-                typeOfFood: typeOfFood
+                typeOfFood: typeOfFood,
               };
               db.collection("users")
                 .doc(uid)
@@ -140,30 +139,15 @@ function logIn(userLoginDetails) {
       .auth()
       .signInWithEmailAndPassword(userLoginEmail, userLoginPassword)
       .then((success) => {
-        console.log(" 00 - Second Iteration");
         userFound = true;
         db.collection("users")
           .doc(success.user.uid)
           .get()
-          .then((snapshot) => {
-            // propsHistory.push("/");
-            // //debugger
-            // console.log("11");
-            // console.log("snapshot.data =>>", snapshot.data().isRestaurant);
-            // if(snapshot.data().isRestaurant){
-            //     userLoginDetails.propsHistory.push("/Restaurants");
-            //     resolve(success)
-            // }else{
-            //     userLoginDetails.propsHistory.push("/");
-            //     resolve(success)
-            // }
-          });
+          .then((snapshot) => {});
       })
       .catch((error) => {
-        console.log("22");
         // Handle Errors here.
-        // var errorCode = error.code;
-        var errorMessage = error.message;
+        let errorMessage = error.message;
         reject(errorMessage);
       });
     return userFound;
@@ -171,20 +155,13 @@ function logIn(userLoginDetails) {
 }
 
 function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
-  console.log("Inside orderNow");
-  console.log("userDetails => ", userDetails);
-  console.log("resDetails => ", resDetails);
-  console.log("resDetails.id => ", resDetails.id);
   return new Promise((resolve, reject) => {
     let user = firebase.auth().currentUser;
     let uid;
     if (user != null) {
       uid = user.uid;
     }
-
-    console.log("User id", uid);
     uid = "TestUser5";
-
     const myOrder = {
       itemsList: cartItemsList,
       totalPrice: totalPrice,
@@ -198,15 +175,11 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
       status: "PENDING",
       ...userDetails,
     };
-
-    console.log("myOrder => ", myOrder);
-    console.log("orderRequest => ", orderRequest);
     db.collection("users")
       .doc(uid)
       .collection("myOrder")
       .add(myOrder)
       .then((docRef) => {
-        console.log("docRef.id", docRef.id);
         db.collection("users")
           .doc(resDetails.id)
           .collection("orderRequest")
@@ -252,20 +225,24 @@ function order_request() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         let orderRequest = [];
-        db.collection('users').doc(user.uid).collection("orderRequest").get().then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            const obj = { id: doc.id, ...doc.data() }
-            orderRequest.push(obj);
+        db.collection("users")
+          .doc(user.uid)
+          .collection("orderRequest")
+          .get()
+          .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              const obj = { id: doc.id, ...doc.data() };
+              orderRequest.push(obj);
+            });
+            resolve(orderRequest);
+          })
+          .catch((error) => {
+            reject(error);
           });
-          resolve(orderRequest);
-        })
-        .catch((error) => {
-          reject(error);
-        });
       }
     });
   });
-};
+}
 
 function addItem(itemDetails) {
   const { itemName, itemIngredients, itemPrice, itemCategory, itemImage } =
@@ -286,7 +263,6 @@ function addItem(itemDetails) {
           .getDownloadURL()
           .then((success) => {
             const itemImageUrl = success;
-            console.log(itemImageUrl);
             const itemDetailsForDb = {
               itemName,
               itemIngredients,
@@ -300,6 +276,16 @@ function addItem(itemDetails) {
               .add(itemDetailsForDb)
               .then((docRef) => {
                 resolve("Successfully added food item");
+                logsRef.push({
+                  message: `Added New Menu Item - ${itemName}!`,
+                  userId: uid,
+                  timestamp: firebase.database.ServerValue.TIMESTAMP,
+                });
+                Sentry.captureMessage({
+                  message: `Added New Menu Item - ${itemName}!`,
+                  userId: uid,
+                  timestamp: firebase.database.ServerValue.TIMESTAMP,
+                });
               })
               .catch(function (error) {
                 let errorMessage = error.message;
@@ -323,30 +309,39 @@ function addItem(itemDetails) {
   });
 }
 
-function myFoodList(){
+function myFoodList() {
   return new Promise((resolve, reject) => {
     let user = firebase.auth().currentUser;
-    console.log("User =>", user);
     var uid;
     if (user != null) {
       uid = user.uid;
     }
-    console.log("uid =>", uid);
     let myFoods = [];
-    db.collection('users').doc(uid).collection('menuItems').get().then((querySnapshot) => {
-      console.log("Inside db.collection");
-      console.log("querySnapshot =>", querySnapshot);
-      querySnapshot.forEach(doc => {
-        const obj = { id: doc.id, ...doc.data() }
-        myFoods.push(obj);
+    db.collection("users")
+      .doc(uid)
+      .collection("menuItems")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const obj = { id: doc.id, ...doc.data() };
+          myFoods.push(obj);
+        });
+        resolve(myFoods);
       })
-      resolve(myFoods);
-    }).catch((error) => {
-      reject(error);
-    });
+      .catch((error) => {
+        reject(error);
+      });
   });
 }
 
 // export default firebase;
-export { signUp, logIn, orderNow, restaurant_list, addItem, myFoodList, order_request, signInWithPopup  };
-
+export {
+  signUp,
+  logIn,
+  orderNow,
+  restaurant_list,
+  addItem,
+  myFoodList,
+  order_request,
+  signInWithPopup,
+};

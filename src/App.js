@@ -1,4 +1,6 @@
 import "./App.css";
+import * as Sentry from "@sentry/react";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Home from "./screens/Home";
@@ -29,7 +31,6 @@ function App() {
         <Route path="/register-restaurant" element={<RegisterRestaurants />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/restaurant-details" element={<RestaurantDetails />} />
-
         <Route
           path="/order-requests"
           element={
@@ -62,4 +63,4 @@ function App() {
   );
 }
 
-export default App;
+export default Sentry.withProfiler(App);

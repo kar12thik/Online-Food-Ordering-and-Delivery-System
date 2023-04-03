@@ -6,13 +6,8 @@ import UserOrderDetails from "../components/UserOrderDetails";
 function MyOrders() {
   const userName = useSelector((state) => state.loggedInUser.userName);
   const userProfileImageUrl = useSelector(
-    //(state) => state.loggedInUser.userProfileImageUrl,
     (state) => state.loggedInUser.userProfileImageUrl
   );
-
-  console.log("username:",userName);
-  console.log("user Profile Image:",userProfileImageUrl);
-
   return (
     <div>
       <UserDetailsCover
