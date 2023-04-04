@@ -104,7 +104,7 @@ function UserOrderDetails() {
 
         {/* List */}
         {tab1Content && (
-          <div className="w-full flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2">
+          <div className="w-full flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2" data-testid="send-to-inprogress">
             {pendingOrders.length !== 0 ? (
               pendingOrders.map((order) => {
                 return (
@@ -128,7 +128,7 @@ function UserOrderDetails() {
         )}
 
         {tab2Content && (
-          <div className=" flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2">
+          <div className=" flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2" data-testid="send-to-delivered">
             {inProgressOrders.length !== 0 ? (
               inProgressOrders.map((order) => {
                 return (
@@ -151,7 +151,7 @@ function UserOrderDetails() {
           </div>
         )}
         {tab3Content && (
-          <div className=" flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2">
+          <div className=" flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2" data-testid="delivered-status">
             {deliveredOrders.length !== 0 ? (
               deliveredOrders.map((order) => {
                 return (

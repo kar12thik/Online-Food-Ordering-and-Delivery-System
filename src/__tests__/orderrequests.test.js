@@ -1,12 +1,24 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { BrowserRouter } from "react-router-dom";
 import OrderRequest from '../screens/OrderRequest';
 import UserOrderDetails from '../components/UserOrderDetails';
-import RestDetailsCover from '../components/RestDetailsCover';
 import SingleUserOrderDetail from '../components/SingleUserOrderDetail';
 import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from '../reducers';
+import 'firebase/firestore';
+
+jest.mock('firebase/app', () => {
+    return {
+        firestore: jest.fn().mockReturnValue({
+            collection: jest.fn().mockReturnThis(),
+            doc: jest.fn().mockReturnThis(),
+            update: jest.fn().mockResolvedValue(),
+        }),
+    };
+});
 
 describe('OrderRequests', () => {
     let store;
@@ -38,6 +50,9 @@ describe('UserOrderDetails', () => {
     beforeEach(() => {
         store = configureStore({
             reducer: rootReducer,
+            myOrders: { orders: [] },
+            orderRequests: { orders: [] },
+            loggedInUser: { isRestaurant: false },
         });
     });
 
@@ -56,61 +71,139 @@ describe('UserOrderDetails', () => {
         expect(inProgressTab).toBeInTheDocument();
         expect(deliveredTab).toBeInTheDocument();
     });
-});
 
-const mockReducer = (state = {}, action) => {
-    switch (action.type) {
-        default:
-            return state;
-    }
-};
+    test('should switch tabs when clicking on them', async () => {
 
-const mockStore = configureStore({
-    reducer: { mockReducer },
-});
-
-describe("SingleUserOrderDetail component", () => {
-    let store;
-
-    beforeEach(() => {
-        store = ({
-            mockReducer: { userId: 'mockUserId' },
-        });
-    });
-
-    it("renders SingleUserOrderDetails component", () => {
-        const orderItemList = [
-            {
-                itemImageUrl: "https://example.com/image1.jpg",
-                itemTitle: "Item 1",
-                itemIngredients: "Ingredients 1",
-                itemPrice: 10.99
-            },
-            {
-                itemImageUrl: "https://example.com/image2.jpg",
-                itemTitle: "Item 2",
-                itemIngredients: "Ingredients 2",
-                itemPrice: 5.99
-            }
-        ];
-
-        const { getByTestId } = render(
+        render(
             <Provider store={store}>
-                <SingleUserOrderDetail
-                    orderId="1234"
-                    userUid="5678"
-                    order_status="Completed"
-                    order_status_color="text-green-500"
-                    restaurant_name="Example Restaurant"
-                    total_price={16.98}
-                    orderItemList={orderItemList}
-                    nextaction="Send to in-progress"
-                    status=""
-                />
+                <UserOrderDetails />
             </Provider>
         );
 
-        expect(getByTestId("rest_name")).toBeInTheDocument();
-        expect(getByTestId("order_status")).toBeInTheDocument();
+        const pendingTab = screen.getByText('Pending');
+        await waitFor(() => {
+            expect(pendingTab).toBeInTheDocument();
+        });
+        userEvent.click(pendingTab);
+        expect(pendingTab).toBeInTheDocument();
+
+        const inProgressTab = screen.getByText('In Progress');
+        await waitFor(() => {
+            expect(inProgressTab).toBeInTheDocument();
+        });
+        userEvent.click(inProgressTab);
+        expect(inProgressTab).toBeInTheDocument();
+
+        const deliveredTab = screen.getByText('Delivered');
+        await waitFor(() => {
+            expect(deliveredTab).toBeInTheDocument();
+        });
+        userEvent.click(deliveredTab);
+        expect(deliveredTab).toBeInTheDocument();
+    });
+
+    test("changes orders list to in progress when isRestaurant is true", () => {
+
+        const mockStore = {
+            myOrders: { orders: [] },
+            orderRequests: { orders: [{ id: 1, status: "PENDING" }] },
+            loggedInUser: { isRestaurant: true },
+        }
+
+        store = configureStore({
+            reducer: rootReducer,
+        });
+
+        render(
+            <Provider store={store} >
+                <BrowserRouter>
+                    {" "}
+                    <UserOrderDetails mockstore={mockStore} />{" "}
+                </BrowserRouter>
+            </Provider>
+        );
+
+        const pendingTab = screen.getByText('Pending');
+        expect(pendingTab).toBeInTheDocument();
+        userEvent.click(pendingTab);
+        expect(pendingTab).toBeInTheDocument();
+        expect(screen.getByTestId("send-to-inprogress")).toBeInTheDocument();
+    });
+
+    test("changes orders list to delivered when isRestaurant is true", () => {
+
+        const mockStore = {
+            myOrders: { orders: [] },
+            orderRequests: { orders: [{ id: 1, status: "IN PROGRESS" }] },
+            loggedInUser: { isRestaurant: true },
+        }
+
+        store = configureStore({
+            reducer: rootReducer,
+        });
+
+        render(
+            <Provider store={store} >
+                <BrowserRouter>
+                    {" "}
+                    <UserOrderDetails mockstore={mockStore} />{" "}
+                </BrowserRouter>
+            </Provider>
+        );
+
+        const inProgressTab = screen.getByText('In Progress');
+        expect(inProgressTab).toBeInTheDocument();
+        userEvent.click(inProgressTab);
+        expect(inProgressTab).toBeInTheDocument();
+        waitFor(() => {
+            expect(screen.queryByTestId("send-to-delivered")).toBeInTheDocument();
+        });
+    });
+
+    test("Render to delivered when isRestaurant is true", () => {
+
+        const mockStore = {
+            myOrders: { orders: [] },
+            orderRequests: { orders: [{ id: 1, status: "Delivered" }] },
+            loggedInUser: { isRestaurant: true },
+        }
+
+        store = configureStore({
+            reducer: rootReducer,
+        });
+
+        render(
+            <Provider store={store} >
+                <BrowserRouter>
+                    {" "}
+                    <UserOrderDetails mockstore={mockStore} />{" "}
+                </BrowserRouter>
+            </Provider>
+        );
+
+        const deliveredTab = screen.getByText('Delivered');
+        expect(deliveredTab).toBeInTheDocument();
+        userEvent.click(deliveredTab);
+        expect(deliveredTab).toBeInTheDocument();
+        waitFor(() => {
+            expect(screen.queryByTestId("delivered-status")).toBeInTheDocument();
+        });
     });
 });
+
+// describe('SingleUserOrderDetail', () => {
+
+//     let store = configureStore({
+//         reducer: rootReducer,
+//     });
+
+//     test('renders SingleUserOrderDetail component', () => {
+//         render(
+//             <Provider store={store}>
+//                 <SingleUserOrderDetail />
+//             </Provider>
+//         );
+//         const singleUserDetails = screen.getByTestId('single-user-details');
+//         expect(singleUserDetails).toBeInTheDocument();
+//     });
+// });

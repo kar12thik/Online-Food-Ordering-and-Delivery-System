@@ -59,6 +59,7 @@
     ]
   },
   "devDependencies": {
+    "redux-mock-store": "^1.5.4",
     "tailwindcss": "^3.2.6"
   }
 }
