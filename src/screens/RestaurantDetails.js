@@ -14,27 +14,38 @@ function RestaurantDetails() {
   const [showCartList, setshowCartList] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const location = useLocation();
-  const { rest_data } = location.state.data;
-  //const { id } = rest_data.id;
-  //console.log(id);
-  console.log(location.state.data);
+  const rest_data = location.state.data;
+  const [itemCategory, setitemCategory] = useState([]);
+  const [menuItems, setmenuItems] = useState([]);
+  const [items, setItems] = useState([]);
+  console.log(rest_data);
+
+  //const id = rest_data.id;
+  console.log(rest_data.id);
+  //console.log(location.state.data);
   // Use data to access restaurant related details like profile img, username, category, dish for various purposes
   // console.log(location);
   // const { data } = location.state;
 
-  //   useEffect(() => {
-  //     menu_detail_list()
-  //       .then((result) => {
-  //         setRestaurantList(result);
-  //         let menuItems = [
-  //           ...new Set(result.map((Val) => Val.category.toLowerCase())),
-  //         ];
-  //         setMenuItems(menuItems);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error:", error);
-  //       });
-  //   }, []);
+  useEffect(() => {
+    menu_detail_list(rest_data.id)
+      .then((result) => {
+        setmenuItems(result);
+        console.log(result);
+        console.log(menuItems);
+        let itemCategory = [
+          ...new Set(result.map((Val) => Val.itemCategory.toLowerCase())),
+        ];
+        setitemCategory(itemCategory);
+        console.log(itemCategory);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
+  useEffect(() => {
+    setItems(menuItems);
+  }, [menuItems]);
 
   const addToCart = (props) => {
     if (props) {
@@ -74,17 +85,18 @@ function RestaurantDetails() {
 
   return (
     <div>
-      <RestDetailsCover userName={"Riya"} />
+      <RestDetailsCover rest_data={rest_data} />
       <div className="container-fluid bg-slate-200">
         <div className="container mx-auto">
           <div className="flex mx-auto flex-col md:flex-row lg:flex-row sm:space-x-0  md:space-x-4 lg:space-x-4 pt-10 pl-20 pb-10 ml-10">
             <div className="w-1/3 justify-center">
-              <FoodCategories filter={filter} />
+              <FoodCategories filter={filter} itemCategory={itemCategory} />
             </div>
             <div className="w-2/3 flex justify-center">
               <MenuDetails
                 selectedCategories={selectedCategories}
                 addToCart={addToCart}
+                items={items}
               />
             </div>
             <div className="w-1/3 justify-center">

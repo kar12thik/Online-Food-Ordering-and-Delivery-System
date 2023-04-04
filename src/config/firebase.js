@@ -262,6 +262,7 @@ export function menu_detail_list(rest_id) {
           if (doc != null) {
             const obj = { id: doc.id, ...doc.data() };
             menuDetailList.push(obj);
+            console.log(menuDetailList);
           }
         });
         resolve(menuDetailList);
