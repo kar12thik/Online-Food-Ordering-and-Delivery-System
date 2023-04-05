@@ -7,14 +7,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "../reducers/index";
 import { Provider } from "react-redux";
 
-afterEach(() => {
-  cleanup();
-  jest.resetAllMocks();
-});
-afterAll(() => {
-  jest.clearAllMocks();
-});
-
 const store = configureStore({ reducer: rootReducer });
 
 test("should render social media buttons", (done) => {
