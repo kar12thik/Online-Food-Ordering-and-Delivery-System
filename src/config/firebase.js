@@ -334,6 +334,29 @@ function myFoodList() {
   });
 }
 
+function menu_detail_list(rest_id) {
+  return new Promise((resolve, reject) => {
+    let menuDetailList = [];
+    db.collection("users")
+      .doc(rest_id)
+      .collection("menuItems")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (doc != null) {
+            const obj = { id: doc.id, ...doc.data() };
+            menuDetailList.push(obj);
+            console.log(menuDetailList);
+          }
+        });
+        resolve(menuDetailList);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
 // export default firebase;
 export {
   signUp,
@@ -344,4 +367,5 @@ export {
   myFoodList,
   order_request,
   signInWithPopup,
+  menu_detail_list,
 };

@@ -1,7 +1,7 @@
 import React from 'react'
 
-function FoodCategories() {
-  const categories = ['Chicken', 'Burgers', 'Pizza', 'Sauces'];
+function FoodCategories({itemCategory}) {
+  const categories = itemCategory;
   const categoryLiElements = categories.map((category) => {
     return <li className="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
             <div className="flex items-center pl-3">
