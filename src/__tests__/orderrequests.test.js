@@ -5,7 +5,6 @@ import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from "react-router-dom";
 import OrderRequest from '../screens/OrderRequest';
 import UserOrderDetails from '../components/UserOrderDetails';
-import SingleUserOrderDetail from '../components/SingleUserOrderDetail';
 import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from '../reducers';
 import 'firebase/firestore';
@@ -190,20 +189,3 @@ describe('UserOrderDetails', () => {
         });
     });
 });
-
-// describe('SingleUserOrderDetail', () => {
-
-//     let store = configureStore({
-//         reducer: rootReducer,
-//     });
-
-//     test('renders SingleUserOrderDetail component', () => {
-//         render(
-//             <Provider store={store}>
-//                 <SingleUserOrderDetail />
-//             </Provider>
-//         );
-//         const singleUserDetails = screen.getByTestId('single-user-details');
-//         expect(singleUserDetails).toBeInTheDocument();
-//     });
-// });
