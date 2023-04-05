@@ -66,10 +66,10 @@ export default function SingleUserOrderDetail({
 }) {
   const restaurantUid = useSelector((state) => state.loggedInUser.userId);
   return (
-    <div>
+    <div data-testid="single-user-details">
       <div className="flex">
-        <h1 className="text-lg font-black">{restaurant_name}</h1>
-        <h1 className={`ml-auto uppercase font-bold ${order_status_color}`}>
+        <h1 className="text-lg font-black" data-testid="rest_name">{restaurant_name}</h1>
+        <h1 className={`ml-auto uppercase font-bold ${order_status_color}`} data-testid="order_status">
           {order_status}
         </h1>
       </div>
@@ -77,7 +77,7 @@ export default function SingleUserOrderDetail({
       {/* Single order list Card */}
       {orderItemList.map((item) => {
         return (
-          <div className="mt-6 w-full h-16 flex">
+          <div className="mt-6 w-full h-16 flex" data-testid="single-user-order-details">
             <div className="w-24 h-24 ml-0 p-1">
               <img src={item.itemImageUrl} alt="items" />
             </div>
@@ -108,9 +108,9 @@ export default function SingleUserOrderDetail({
       </div>
 
       {/* Divider */}
-      <div class="relative flex px-5 py-5 items-center">
-        <div class="flex-grow border-t border-gray-400"></div>
-        <div class="flex-grow border-t border-gray-400"></div>
+      <div className="relative flex px-5 py-5 items-center">
+        <div className="flex-grow border-t border-gray-400"></div>
+        <div className="flex-grow border-t border-gray-400"></div>
       </div>
     </div>
   );
