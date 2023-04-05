@@ -3,12 +3,9 @@ import { render, screen, cleanup } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import Footer from "../components/Footer";
 import React from "react";
-import "@testing-library/jest-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "../reducers/index";
 import { Provider } from "react-redux";
-
-window.scrollTo = jest.fn();
 
 afterEach(() => {
   cleanup();
@@ -19,11 +16,6 @@ afterAll(() => {
 });
 
 const store = configureStore({ reducer: rootReducer });
-
-afterEach(() => {
-  // Re-enable network access after each test
-  // firestore.enableNetwork();
-});
 
 test("should render social media buttons", (done) => {
   render(
