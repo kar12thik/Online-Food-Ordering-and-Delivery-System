@@ -5,7 +5,7 @@ import { AiFillInfoCircle } from "react-icons/ai";
 import FeaturedMenuCardsForRestPage from "./FeaturedMenuCardsForRestPage";
 import SearchFoodOnRestDetailsPage from "./SearchFoodOnRestDetailsPage";
 
-function MenuDetails({items}) {
+function MenuDetails({items, handleSearchBar, placeholder}) {
   const [tab1, settab1] = useState("columns-2 text-center bg-white");
   const [tab2, settab2] = useState("columns-2 text-center");
   const [tab3, settab3] = useState("columns-2 text-center");
@@ -92,17 +92,25 @@ function MenuDetails({items}) {
         {/* List */}
         {tab1Content && (
           <div className="">
-            <SearchFoodOnRestDetailsPage />
-
-            <div className="">
-              {items.map((Val) => {
-                            return(
-                            <FeaturedMenuCardsForRestPage
-                                restVal={Val}
-                            />
-                    );
+            <SearchFoodOnRestDetailsPage 
+              handleSearchBar={handleSearchBar}
+              placeholder={placeholder}
+            />
+            {items.length > 0 ? 
+              <div className="">
+                {items.map((Val) => {
+                  return(
+                    <FeaturedMenuCardsForRestPage
+                        restVal={Val}
+                    />
+                  );
                 })}
-            </div>
+              </div>
+              : 
+              <div className="flex flex-col item-center h-screen">
+                <p className="text-xl text-gray-600">Sorry, we couldn't find any menu items matching your search.</p>
+              </div>
+            }
           </div>
         )}
         {tab2Content && (

@@ -14,8 +14,18 @@ const RestaurantDetails = (props) => {
     const [menuItems, setMenuItems] = useState([]);
     const [itemCategory, setItemCategory] = useState([]);
     const [items, setItems] = useState([]);
+    const [filterCat, setFilterCat] = useState([]);
+    const [searchBoxText, setSearchBoxText] = useState("");
     // Use data to access restaurant related details like profile img, username, category, dish for various purposes
     const rest_data = location.state.data;
+
+    function filterItem(filterCategory) {
+        setFilterCat(filterCategory);
+    }
+
+    function handleSearchBar(searchBoxText) {
+        setSearchBoxText(searchBoxText);
+    }
 
     useEffect(() => {
         menu_detail_list(rest_data.id)
@@ -37,6 +47,31 @@ const RestaurantDetails = (props) => {
     useEffect(() => {
         setItems(menuItems);
     }, [menuItems]);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
+        var tempItem = [];
+        if (filterCat.length > 0) {
+            tempItem = menuItems.filter((newVal) => {
+                return filterCat.includes(newVal.itemCategory.toLowerCase());
+            });
+        } else {
+            tempItem = menuItems;
+        }
+
+        tempItem = tempItem.filter((val) => {
+            return (
+              val.itemName
+                .toLocaleLowerCase()
+                .indexOf(searchBoxText.toLocaleLowerCase()) !== -1
+            );
+        });
+
+        setItems(tempItem);
+    }, [searchBoxText, filterCat, menuItems]);
 
     const addToCart = (item) => {
         if (item) {
@@ -63,11 +98,14 @@ const RestaurantDetails = (props) => {
                 <div className="container mx-auto">
                     <div className="flex mx-auto flex-col md:flex-row lg:flex-row sm:space-x-0  md:space-x-4 lg:space-x-4 pt-10 pl-20 pb-10 ml-10">
                         <div className="w-1/3 justify-center">
-                            <FoodCategories itemCategory={itemCategory} />
+                            <FoodCategories itemCategory={itemCategory} filterItem={filterItem} />
                         </div>
                         <div className="w-2/3 flex justify-center">
                             <MenuDetails 
+                                handleSearchBar={handleSearchBar}
                                 items={items}
+                                placeholder={ searchBoxText }
+                                filterItem={filterItem}
                             />
                         </div>
                         <div className="w-1/3 justify-center">
