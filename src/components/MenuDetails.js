@@ -5,7 +5,7 @@ import { AiFillInfoCircle } from "react-icons/ai";
 import FeaturedMenuCardsForRestPage from "./FeaturedMenuCardsForRestPage";
 import SearchFoodOnRestDetailsPage from "./SearchFoodOnRestDetailsPage";
 
-function MenuDetails() {
+function MenuDetails({items}) {
   const [tab1, settab1] = useState("columns-2 text-center bg-white");
   const [tab2, settab2] = useState("columns-2 text-center");
   const [tab3, settab3] = useState("columns-2 text-center");
@@ -95,24 +95,13 @@ function MenuDetails() {
             <SearchFoodOnRestDetailsPage />
 
             <div className="">
-              <FeaturedMenuCardsForRestPage
-                restImg={imgUrl}
-                restName="Pavbhaji"
-                restDetail="A thick vegetable curry served with a soft bread roll."
-                restPrice="$15"
-              />
-              <FeaturedMenuCardsForRestPage
-                restImg={imgUrl}
-                restName="Dosa"
-                restDetail="A thin, crispy dish served with chutney and sambar."
-                restPrice="$10"
-              />
-              <FeaturedMenuCardsForRestPage
-                restImg={imgUrl}
-                restName="Biryani"
-                restDetail="Aromatic and flavorful with a variety of spices."
-                restPrice="$20"
-              />
+              {items.map((Val) => {
+                            return(
+                            <FeaturedMenuCardsForRestPage
+                                restVal={Val}
+                            />
+                    );
+                })}
             </div>
           </div>
         )}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import RestDetailsCover from '../components/RestDetailsCover';
 import FoodCategories from '../components/FoodCategories';
 import MenuDetails from '../components/MenuDetails';
@@ -13,6 +13,7 @@ const RestaurantDetails = (props) => {
     const location = useLocation();
     const [menuItems, setMenuItems] = useState([]);
     const [itemCategory, setItemCategory] = useState([]);
+    const [items, setItems] = useState([]);
     // Use data to access restaurant related details like profile img, username, category, dish for various purposes
     const rest_data = location.state.data;
 
@@ -56,7 +57,7 @@ const RestaurantDetails = (props) => {
     return (
         <div>
             <RestDetailsCover
-                userName={data.userName}
+                userName={rest_data.userName}
             />
             <div className="container-fluid bg-slate-200">
                 <div className="container mx-auto">
@@ -65,7 +66,9 @@ const RestaurantDetails = (props) => {
                             <FoodCategories itemCategory={itemCategory} />
                         </div>
                         <div className="w-2/3 flex justify-center">
-                            <MenuDetails />
+                            <MenuDetails 
+                                items={items}
+                            />
                         </div>
                         <div className="w-1/3 justify-center">
                             <Cart />
