@@ -1,7 +1,13 @@
 import { render, screen, cleanup } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import Restaurants from "../screens/Restaurants";
+<<<<<<< HEAD
 
+=======
+import FeaturedRestCardsForRestPage from "../components/FeaturedRestCardsForRestPage";
+import RestCategories from "../components/RestCategories";
+import RestList from "../components/RestList";
+>>>>>>> 7e4f35ea745505a2cf3803c4e4d24466db42b7fd
 window.scrollTo = jest.fn();
 
 afterEach(() => {

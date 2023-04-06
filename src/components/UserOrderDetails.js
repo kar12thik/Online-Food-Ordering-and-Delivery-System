@@ -39,7 +39,7 @@ function UserOrderDetails() {
   }
 
   return (
-    <div className="w-1/3 mx-auto">
+    <div className="w-1/3 mx-auto" data-testid="user-order-details">
       {/* Tabs */}
       <div className="w-full mr-6">
         <ul className="w-full flex-col md:flex-row lg: flex justify item-center sm:space-x-0 md:space-x-1 lg:flex space-x-1 justify-between mb-1 pt-10">
@@ -104,7 +104,7 @@ function UserOrderDetails() {
 
         {/* List */}
         {tab1Content && (
-          <div className="w-full flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2">
+          <div className="w-full flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2" data-testid="send-to-inprogress">
             {pendingOrders.length !== 0 ? (
               pendingOrders.map((order) => {
                 return (
@@ -128,7 +128,7 @@ function UserOrderDetails() {
         )}
 
         {tab2Content && (
-          <div className=" flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2">
+          <div className=" flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2" data-testid="send-to-delivered">
             {inProgressOrders.length !== 0 ? (
               inProgressOrders.map((order) => {
                 return (
@@ -151,7 +151,7 @@ function UserOrderDetails() {
           </div>
         )}
         {tab3Content && (
-          <div className=" flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2">
+          <div className=" flex flex-col space-x-1 justify-between mb-4 bg-white p-4 my-2" data-testid="delivered-status">
             {deliveredOrders.length !== 0 ? (
               deliveredOrders.map((order) => {
                 return (
