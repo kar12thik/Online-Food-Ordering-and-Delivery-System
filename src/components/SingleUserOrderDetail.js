@@ -82,7 +82,7 @@ export default function SingleUserOrderDetail({
               <img src={item.itemImageUrl} alt="items" />
             </div>
             <div className="flex flex-col ml-8">
-              <span className="text-lg font-black">{item.itemTitle}</span>{" "}
+              <span className="text-lg font-black">{item.itemName}</span>
               <span className="">{item.itemIngredients}</span>
             </div>
             <div className="ml-auto">${item.itemPrice}</div>

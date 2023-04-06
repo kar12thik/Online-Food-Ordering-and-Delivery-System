@@ -111,7 +111,7 @@ function Cart({
           <p className="text-green-600 p-3">Cart is empty.</p>
         )}
         <div>
-          {isLoggedIn && cartItemsList.length !== 0 ? (
+          {isLoggedIn ? (
             <button
               type="button"
               onClick={() => HandleConfirmOrderBtn()}
