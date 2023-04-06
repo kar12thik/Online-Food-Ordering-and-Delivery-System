@@ -1,16 +1,16 @@
 import { useEffect, React } from "react";
 import { useState } from "react";
 
-function SearchFoodOnRestDetails({handleSearchBar, placeholder}) {
+function SearchFoodOnRestDetails({ handleSearchBar, placeholder }) {
   const [searchBoxText, setsearchBoxText] = useState("");
 
   function handleInputChange(event) {
     setsearchBoxText(event.target.value);
   }
 
-  useEffect(() => { 
+  useEffect(() => {
     handleSearchBar(searchBoxText);
-  }, [searchBoxText])
+  }, [searchBoxText]);
 
   return (
     <div className="border w-full">
@@ -38,7 +38,9 @@ function SearchFoodOnRestDetails({handleSearchBar, placeholder}) {
             type="text"
             id="simple-search"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange  block w-full pl-10 p-2.5 "
-            placeholder={ placeholder ? (placeholder) : ("Search Restaurants...")}
+            placeholder={
+              placeholder ? placeholder : "Search Restaurant Options..."
+            }
             value={searchBoxText}
             onChange={handleInputChange}
             required

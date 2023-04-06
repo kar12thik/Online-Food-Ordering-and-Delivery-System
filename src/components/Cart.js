@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { getUserDetails, orderNow } from "../config/firebase";
 import { RxCross2 } from "react-icons/rx";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
+import { orderNow } from "../config/firebase";
 
 function Cart({
   cartItemsList,
@@ -13,6 +13,7 @@ function Cart({
   resDetails,
 }) {
   const navigate = useNavigate();
+  const isLoggedIn = useSelector((state) => state.loggedInUser.loggedIn);
 
   const HandleConfirmOrderBtn = async () => {
     if (userDetails) {
@@ -110,7 +111,7 @@ function Cart({
           <p className="text-green-600 p-3">Cart is empty.</p>
         )}
         <div>
-          {cartItemsList.length !== 0 ? (
+          {isLoggedIn && cartItemsList.length !== 0 ? (
             <button
               type="button"
               onClick={() => HandleConfirmOrderBtn()}
@@ -118,8 +119,9 @@ function Cart({
             >
               CONFIRM ORDER
             </button>
-          ) : null}
-          {/* <button type="button" className="btn rounded-lg ml-10 mt-4 text-white bg-orange p-3">CONFIRM ORDER</button> */}
+          ) : (
+            <button disabled>Please log in to confirm your order</button>
+          )}
         </div>
       </div>
     </div>
