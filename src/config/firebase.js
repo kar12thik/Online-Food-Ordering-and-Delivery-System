@@ -161,7 +161,6 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
     if (user != null) {
       uid = user.uid;
     }
-    uid = "TestUser5";
     const myOrder = {
       itemsList: cartItemsList,
       totalPrice: totalPrice,
@@ -175,6 +174,7 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
       status: "PENDING",
       ...userDetails,
     };
+
     db.collection("users")
       .doc(uid)
       .collection("myOrder")
@@ -346,10 +346,23 @@ function menu_detail_list(rest_id) {
           if (doc != null) {
             const obj = { id: doc.id, ...doc.data() };
             menuDetailList.push(obj);
-            console.log(menuDetailList);
           }
         });
         resolve(menuDetailList);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+function getUserDetails(userId) {
+  return new Promise((resolve, reject) => {
+    db.collection("users")
+      .doc(userId)
+      .get()
+      .then((doc) => {
+        resolve(doc.data());
       })
       .catch((error) => {
         reject(error);
@@ -368,4 +381,5 @@ export {
   order_request,
   signInWithPopup,
   menu_detail_list,
+  getUserDetails,
 };

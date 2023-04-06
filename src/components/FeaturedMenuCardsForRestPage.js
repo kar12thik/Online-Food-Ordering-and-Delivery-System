@@ -5,15 +5,22 @@ function FeaturedMenuCardsForRestPage(props) {
   const data = props.restVal;
   const itemName = data.itemName;
   const itemImageUrl = data.itemImageUrl;
-  const itemCategory = data.itemCategory.charAt(0).toUpperCase() + data.itemCategory.slice(1);
-  const itemPrice = '$ ' + data.itemPrice;
+  const itemCategory =
+    data.itemCategory.charAt(0).toUpperCase() + data.itemCategory.slice(1);
+  const itemPrice = "$ " + data.itemPrice;
   const itemIngredients = data.itemIngredients;
+
+  const handleClick = (event) => {
+    event.preventDefault();
+    props.addToCart(data);
+  };
 
   return (
     <div className="w-full">
       <a
         href="/"
         className="m-1 flex flex-col items-center bg-white shadow md:flex-row  hover:bg-gray-100 dark:border-gray-700 bg-white-800"
+        onClick={(event) => event.preventDefault()}
       >
         <img
           className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
@@ -29,7 +36,7 @@ function FeaturedMenuCardsForRestPage(props) {
           </p>
           <p className="flex items-center font-normal text-gray-700 dark:text-gray-400 text-justify">
             {itemPrice}
-            <button type="button" className="ml-2">
+            <button type="button" className="ml-2" onClick={handleClick}>
               <BsPlusCircle />
             </button>
           </p>
