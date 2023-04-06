@@ -4,7 +4,7 @@ import RestList from "../components/RestList";
 import { useState } from "react";
 import RestCategories from "../components/RestCategories";
 import { restaurant_list } from "../config/firebase";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Restaurants() {
   const [restaurantList, setRestaurantList] = useState([]);
@@ -49,9 +49,9 @@ function Restaurants() {
   useEffect(() => {
     var tempItem = [];
 
-    if(location.state){
+    if (location.state) {
       setSearchBoxText(location.state.searchBoxText);
-      navigate(location.state, {}); 
+      navigate(location.state, {});
     }
 
     if (filterCat.length > 0) {
@@ -79,13 +79,14 @@ function Restaurants() {
         dataTestId="Search_Restaurants_On_RestPage"
         restaurantList={restaurantList}
         handleSearchBar={handleSearchBar}
-        placeholder={ searchBoxText }
+        placeholder={searchBoxText}
       ></SearchRestOnRestPage>
       <div className="">
         <div className="container-fluid bg-slate-200 w-full flex mx-auto flex-col md:flex-row lg:flex-row sm:space-x-0 md:space-x-4 lg:space-x-4 pt-10 pb-10 px-3">
           <div className="w-1/3 justify-center md:block">
             <div className="sticky top-0">
               <RestCategories
+                dataTestId={"Rest_Categories"}
                 categorybar={categorybar}
                 setCategorybar={setCategorybar}
                 menuItems={menuItems}
