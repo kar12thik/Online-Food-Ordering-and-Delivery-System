@@ -8,9 +8,9 @@ function SearchRestOnRestPage({ dataTestId, handleSearchBar, placeholder }) {
     setsearchBoxText(event.target.value);
   }
 
-  useEffect(() => { 
+  useEffect(() => {
     handleSearchBar(searchBoxText);
-  }, [searchBoxText])
+  }, [searchBoxText]);
 
   return (
     <div className="border" data-testid={dataTestId}>
@@ -38,9 +38,11 @@ function SearchRestOnRestPage({ dataTestId, handleSearchBar, placeholder }) {
                 type="text"
                 id="simple-search"
                 className="block sm:w-auto md:w-80 lg:w-96 rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-                placeholder= { placeholder ? (placeholder) : ("Search Restaurants...")}
+                placeholder={
+                  placeholder ? placeholder : "Search Restaurants..."
+                }
                 value={searchBoxText}
-                onChange={ handleInputChange }
+                onChange={handleInputChange}
                 required
               />
             </div>
