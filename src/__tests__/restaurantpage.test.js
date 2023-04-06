@@ -35,6 +35,15 @@ test("should render Featured Restaurants component", (done) => {
       <Restaurants />
     </BrowserRouter>
   );
+  expect(screen.getByTestId("Featured_Restaurants")).toBeInTheDocument();
+  done();
+});
+test("should render Featured Restaurants component", (done) => {
+  render(
+    <BrowserRouter>
+      <Restaurants />
+    </BrowserRouter>
+  );
   expect(screen.getByText("Featured Restaurants")).toBeInTheDocument();
   expect(
     screen.getByText(
@@ -42,6 +51,16 @@ test("should render Featured Restaurants component", (done) => {
     )
   ).toBeInTheDocument();
 
+  done();
+});
+
+test("should render Categories component", (done) => {
+  render(
+    <BrowserRouter>
+      <Restaurants />
+    </BrowserRouter>
+  );
+  expect(screen.getByText("Categories")).toBeInTheDocument();
   done();
 });
 
