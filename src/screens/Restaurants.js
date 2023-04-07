@@ -86,11 +86,7 @@ function Restaurants() {
           <div className="w-1/3 justify-center md:block">
             <div className="sticky top-0">
               <RestCategories
-<<<<<<< HEAD
                 dataTestId="Rest_Categories"
-=======
-                dataTestId={"Rest_Categories"}
->>>>>>> 7e4f35ea745505a2cf3803c4e4d24466db42b7fd
                 categorybar={categorybar}
                 setCategorybar={setCategorybar}
                 menuItems={menuItems}
