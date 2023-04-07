@@ -22,6 +22,7 @@ const RestaurantDetails = (props) => {
 
   // Use data to access restaurant related details like profile img, username, category, dish for various purposes
   const rest_data = location.state.data;
+
   function filterItem(filterCategory) {
     setFilterCat(filterCategory);
   }
