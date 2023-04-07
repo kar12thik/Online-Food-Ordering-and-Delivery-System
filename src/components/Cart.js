@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 import Swal from "sweetalert2";
 import { useSelector } from "react-redux";
@@ -112,15 +112,24 @@ function Cart({
         )}
         <div>
           {isLoggedIn ? (
-            <button
-              type="button"
-              onClick={() => HandleConfirmOrderBtn()}
-              className="btn rounded-lg ml-10 mt-4 text-white bg-orange p-3"
-            >
-              CONFIRM ORDER
-            </button>
+            <div className="">
+              {cartItemsList.length > 0 ? (
+                <button
+                  type="button"
+                  onClick={() => HandleConfirmOrderBtn()}
+                  className="btn rounded-lg ml-10 mt-4 text-white bg-orange p-3"
+                >
+                  CONFIRM ORDER </button>
+              ) : (
+                <span></span> )}
+            </div>
           ) : (
-            <button disabled>Please log in to confirm your order</button>
+            <div>
+              {cartItemsList.length > 0 ? (
+                <button disabled>Please <Link to="/login"><a href="/" className="text-blue-500 underline">log in</a></Link> to confirm your order</button>
+              ):
+              <span></span>} 
+            </div>
           )}
         </div>
       </div>

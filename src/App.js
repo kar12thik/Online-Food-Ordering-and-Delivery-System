@@ -44,7 +44,7 @@ function App() {
           path="/add-menu-items"
           element={
             <ProtectedRoute user={user.loggedIn} redirectPath={"/login"}>
-              <MyOrders />
+              <AddMenuItem />
             </ProtectedRoute>
           }
         />

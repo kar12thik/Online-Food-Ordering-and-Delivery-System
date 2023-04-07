@@ -358,19 +358,30 @@ const Login = (props) => {
             userName: result.user.displayName,
             userProfileImageUrl: result.user.photoURL,
             isRestaurant: false,
+            userId: result.user.uid,
           },
         });
         // Try to set Profile Image.
-        dispatch({
-          type: "SET_ORDER",
-          payload: {
-            userId: result.user.uid,
-            userEmail: result.user.email,
-            userName: result.user.displayName,
-            userProfileImageUrl: result.user.photoURL,
-            orders: [],
-          },
+        const myOrdersQuery = db
+            .collection("users")
+            .doc(uid)
+            .collection("myOrder");
+
+        myOrdersQuery.onSnapshot((querySnapshot) => {
+          const myOrders = [];
+          querySnapshot.forEach((doc) => {
+            myOrders.push(doc.data());
+          });
+          dispatch({
+            type: "SET_ORDER",
+            payload: {
+              userEmail: result.user.email,
+              userId: result.user.uid,
+              orders: myOrders,
+            },
+          });
         });
+
         // code to add user to firestore database
         db.collection("users").doc(result.user.uid).set({
           restName: " ",
