@@ -1,7 +1,12 @@
+import { slowCypressDown } from "cypress-slow-down";
+
+slowCypressDown(300);
+
 /* eslint-disable no-undef */
 describe("payment", () => {
   beforeEach(() => {
     cy.clearCookies();
+    cy.viewport(1536, 1050);
     cy.visit("/login");
 
     cy.get("body").within(() => {
@@ -9,7 +14,8 @@ describe("payment", () => {
     });
     cy.findByRole("textbox", {
       name: /email/i,
-    }).type("hotelone@gmail.com");
+      // }).type("hotel40@gmail.com");
+    }).type("dionysosgarden@gmail.com");
     cy.findByLabelText(/password/i).type("Hotel@123.");
     cy.findByRole("button", {
       name: /login now/i,
@@ -18,26 +24,9 @@ describe("payment", () => {
   });
 
   it("restaurant user can make visit restaurants page", () => {
-    // cy.visit("/login");
-    // cy.findByRole("link", {
-    //   name: /restaurants/i,
-    // }).click();
-    // cy.get("div.restaurant:first").as("selectedRestaurant");
-    // cy.get("@selectedRestaurant").find("button.menu-button").click();
-    // cy.findByRole("button", {
-    //   name: /confirm order/i,
-    // }).click();
-    // cy.findByRole("button", {
-    //   name: /ok/i,
-    // }).click();
-    // cy.findByRole("link", {
-    //   name: /my orders/i,
-    // }).click();
     cy.findByRole("link", {
       name: /order requests/i,
     }).click();
-    // cy.get("div.order-created:first").as("selectedRestaurant");
-    // cy.get("@selectedRestaurant").find("button.menu-button").click();
     cy.findByRole("button", {
       name: /pending pending/i,
     }).click();
@@ -48,16 +37,27 @@ describe("payment", () => {
           cy.get("@selectedItem").find("button.order-button").click();
         });
     });
-    // cy.get("@selectedRestaurant").find("button.order-button").click();
-    // const button = null;
-    // button = cy
-    //   .findByRole("button", {
-    //     name: /in progress in progress/i,
+    cy.findByRole("button", {
+      name: /in progress in progress/i,
+    }).click();
+    cy.get("div.order-progress").within(() => {
+      cy.get("div.order-item:first")
+        .as("selectedItem")
+        .within(() => {
+          cy.get("@selectedItem").find("button.order-button").click();
+        });
+    });
+    cy.findByRole("button", {
+      name: /delivered delivered/i,
+    }).click();
+    // cy.get("div.order-delivered")
+    //   .within(() => {
+    //     cy.get("div.order-item:first")
+    //       .as("selectedItem")
+    //       .within(() => {
+    //         cy.get("@selectedItem").find("button.order-button").click();
+    //       });
     //   })
-    //   .within(button)
-    //   .findByText(/in progress/i)
-    //   .click();
-    // cy.get("div.restaurant:first").as("selectedRestaurant");
-    // cy.get("@selectedRestaurant").find("button.order-button").click();
+    //   .wait(1000);
   });
 });

@@ -16,7 +16,7 @@ function FeaturedMenuCardsForRestPage(props) {
   };
 
   return (
-    <div className="w-full">
+    <div className="items w-full">
       <a
         href="/"
         className="m-1 flex flex-col items-center bg-white shadow md:flex-row  hover:bg-gray-100 dark:border-gray-700 bg-white-800"
@@ -36,7 +36,11 @@ function FeaturedMenuCardsForRestPage(props) {
           </p>
           <p className="flex items-center font-normal text-gray-700 dark:text-gray-400 text-justify">
             {itemPrice}
-            <button type="button" className="ml-2" onClick={handleClick}>
+            <button
+              type="button"
+              className="add-item-to-cart ml-2"
+              onClick={handleClick}
+            >
               <BsPlusCircle />
             </button>
           </p>
