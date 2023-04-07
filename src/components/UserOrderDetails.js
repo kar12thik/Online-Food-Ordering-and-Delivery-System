@@ -111,7 +111,7 @@ function UserOrderDetails() {
                   <SingleUserOrderDetail
                     orderId={order.id}
                     userUid={order.userUid}
-                    restaurant_name={order.userName}
+                    restaurant_name={isRestaurant ? (order.userName):(order.restName)}
                     order_status={order.status}
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
@@ -135,7 +135,7 @@ function UserOrderDetails() {
                   <SingleUserOrderDetail
                     orderId={order.id}
                     userUid={order.userUid}
-                    restaurant_name={order.userName}
+                    restaurant_name={isRestaurant ? (order.userName):(order.restName)}
                     order_status={order.status}
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
@@ -158,7 +158,7 @@ function UserOrderDetails() {
                   <SingleUserOrderDetail
                     orderId={order.id}
                     userUid={order.userUid}
-                    restaurant_name={order.userName}
+                    restaurant_name={isRestaurant ? (order.userName):(order.restName)}
                     order_status={order.status}
                     total_price={order.totalPrice}
                     orderItemList={order.itemsList}
