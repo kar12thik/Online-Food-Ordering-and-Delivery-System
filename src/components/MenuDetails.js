@@ -5,7 +5,7 @@ import { AiFillInfoCircle } from "react-icons/ai";
 import FeaturedMenuCardsForRestPage from "./FeaturedMenuCardsForRestPage";
 import SearchFoodOnRestDetailsPage from "./SearchFoodOnRestDetailsPage";
 
-function MenuDetails() {
+function MenuDetails({ items, handleSearchBar, placeholder, addToCart }) {
   const [tab1, settab1] = useState("columns-2 text-center bg-white");
   const [tab2, settab2] = useState("columns-2 text-center");
   const [tab3, settab3] = useState("columns-2 text-center");
@@ -92,28 +92,23 @@ function MenuDetails() {
         {/* List */}
         {tab1Content && (
           <div className="">
-            <SearchFoodOnRestDetailsPage />
-
-            <div className="">
-              <FeaturedMenuCardsForRestPage
-                restImg={imgUrl}
-                restName="Pavbhaji"
-                restDetail="A thick vegetable curry served with a soft bread roll."
-                restPrice="$15"
-              />
-              <FeaturedMenuCardsForRestPage
-                restImg={imgUrl}
-                restName="Dosa"
-                restDetail="A thin, crispy dish served with chutney and sambar."
-                restPrice="$10"
-              />
-              <FeaturedMenuCardsForRestPage
-                restImg={imgUrl}
-                restName="Biryani"
-                restDetail="Aromatic and flavorful with a variety of spices."
-                restPrice="$20"
-              />
-            </div>
+            <SearchFoodOnRestDetailsPage
+              handleSearchBar={handleSearchBar}
+              placeholder={placeholder}
+            />
+            {items.length > 0 ? (
+              <div className="">
+                {items.map((Val) => {
+                  return <FeaturedMenuCardsForRestPage restVal={Val} addToCart={addToCart}/>;
+                })}
+              </div>
+            ) : (
+              <div className="flex flex-col item-center h-screen">
+                <p className="text-xl text-gray-600">
+                  Sorry, we couldn't find any menu items matching your search.
+                </p>
+              </div>
+            )}
           </div>
         )}
         {tab2Content && (
