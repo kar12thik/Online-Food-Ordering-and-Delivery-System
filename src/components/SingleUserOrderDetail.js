@@ -1,11 +1,10 @@
 import React from "react";
-import firebase from "../config/firebase";
+import firebase from "firebase/compat/app";
 import { useSelector } from "react-redux";
+import { logsRef } from "../config/firebase";
+import * as Sentry from "@sentry/react";
 
 function handleSendToInProgressBtn(userUid, orderId, restaurantUid, status) {
-  console.log("user id:", userUid);
-  console.log("order id:", orderId);
-  console.log("restaurant id:", restaurantUid);
   firebase
     .firestore()
     .collection("users")
@@ -16,7 +15,18 @@ function handleSendToInProgressBtn(userUid, orderId, restaurantUid, status) {
       status: status,
     })
     .then(() => {
-      console.log("First Seccussfully send to IN PROGRESS");
+      logsRef.push({
+        message: `Order ${orderId} - ${status}!`,
+        userId: userUid,
+        restaurantId: restaurantUid,
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
+      });
+      Sentry.captureMessage({
+        message: `Order ${orderId} - ${status}!`,
+        userId: userUid,
+        restaurantId: restaurantUid,
+        timestamp: firebase.database.ServerValue.TIMESTAMP,
+      });
       firebase
         .firestore()
         .collection("users")
@@ -27,7 +37,18 @@ function handleSendToInProgressBtn(userUid, orderId, restaurantUid, status) {
           status: status,
         })
         .then(() => {
-          console.log("Second Seccussfully send to IN PROGRESS");
+          logsRef.push({
+            message: `Order ${orderId} - ${status}!`,
+            userId: userUid,
+            restaurantId: restaurantUid,
+            timestamp: firebase.database.ServerValue.TIMESTAMP,
+          });
+          Sentry.captureMessage({
+            message: `Order ${orderId} - ${status}!`,
+            userId: userUid,
+            restaurantId: restaurantUid,
+            timestamp: firebase.database.ServerValue.TIMESTAMP,
+          });
         });
     });
 }
@@ -45,24 +66,23 @@ export default function SingleUserOrderDetail({
 }) {
   const restaurantUid = useSelector((state) => state.loggedInUser.userId);
   return (
-    <div className="order-item">
+    <div className="order-item" data-testid="single-user-details">
       <div className="flex">
-        <h1 className="text-lg font-black">{restaurant_name}</h1>
-        <h1 className={`ml-auto uppercase font-bold ${order_status_color}`}>
+        <h1 className="text-lg font-black" data-testid="rest_name">{restaurant_name}</h1>
+        <h1 className={`ml-auto uppercase font-bold ${order_status_color}`} data-testid="order_status">
           {order_status}
         </h1>
       </div>
 
       {/* Single order list Card */}
       {orderItemList.map((item) => {
-        console.log(item);
         return (
-          <div className="mt-6 w-full h-16 flex">
+          <div className="mt-6 w-full h-16 flex" data-testid="single-user-order-details">
             <div className="w-24 h-24 ml-0 p-1">
               <img src={item.itemImageUrl} alt="items" />
             </div>
             <div className="flex flex-col ml-8">
-              <span className="text-lg font-black">{item.itemTitle}</span>{" "}
+              <span className="text-lg font-black">{item.itemName}</span>
               <span className="">{item.itemIngredients}</span>
             </div>
             <div className="ml-auto">${item.itemPrice}</div>
@@ -88,9 +108,9 @@ export default function SingleUserOrderDetail({
       </div>
 
       {/* Divider */}
-      <div class="relative flex px-5 py-5 items-center">
-        <div class="flex-grow border-t border-gray-400"></div>
-        <div class="flex-grow border-t border-gray-400"></div>
+      <div className="relative flex px-5 py-5 items-center">
+        <div className="flex-grow border-t border-gray-400"></div>
+        <div className="flex-grow border-t border-gray-400"></div>
       </div>
     </div>
   );

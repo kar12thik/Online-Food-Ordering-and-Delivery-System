@@ -4,31 +4,31 @@ import { Link } from "react-router-dom";
 function FeaturedRestCardsForRestPage(props) {
   const [like, setLike] = useState(false);
   const data = props.restVal;
-  const userName = data.userName;
+  const restName = data.restName;
   const userProfileImageUrl = data.userProfileImageUrl;
   const category =
     data.category.charAt(0).toUpperCase() + data.category.slice(1);
 
   console.log(data, "data");
   return (
-    <div className="restaurant">
-      <Link to="/restaurant-details" state={{ data: data }}>
-        <a
-          href="/"
-          className="m-1 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:h-44 lg:h-56 md:max-w-xl lg:max-w-xl hover:bg-gray-100 dark:border-gray-700 bg-white-800"
-        >
-          <img
-            className=" py-2 w-full h-full object-fit rounded-t-lg md:w-48 md:rounded-none md:rounded-l-lg"
-            src={userProfileImageUrl}
-            alt=""
-          />
-          <div className="flex ml-4 flex-col justify-between leading-normal">
-            <h5 className="mb-1 text-2xl font-bold tracking-tight text-black-900 text-justify">
-              {userName}
-            </h5>
-            <p className="mb-1 font-normal text-gray-700 dark:text-gray-400 text-justify">
-              {category}
-            </p>
+    <div className="">
+      <Link to="/restaurant-details" state = {{ data: data }}>
+      <a
+        href="/"
+        className="m-1 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:h-44 lg:h-56 md:max-w-xl lg:max-w-xl hover:bg-gray-100 dark:border-gray-700 bg-white-800"
+      >
+        <img
+          className=" py-2 w-full h-full object-fit rounded-t-lg md:w-48 md:rounded-none md:rounded-l-lg"
+          src={userProfileImageUrl}
+          alt=""
+        />
+        <div className="flex ml-4 flex-col justify-between leading-normal">
+          <h5 className="mb-1 text-2xl font-bold tracking-tight text-black-900 text-justify">
+            {restName}
+          </h5>
+          <p className="mb-1 font-normal text-gray-700 dark:text-gray-400 text-justify">
+            {category}
+          </p>
 
             {/* Rating Stars */}
             <div className="flex items-center mt-1 mb-1">

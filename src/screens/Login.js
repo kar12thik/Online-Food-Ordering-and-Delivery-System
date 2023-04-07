@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-// import Navbar from '../components/Navbar';
-/* import Navbar2 from '../components/Navbar2'; */
-/* import Footer from '../components/Footer'; */
-import { signUp, logIn } from "../config/firebase";
-import Swal from 'sweetalert2';
+import { logsRef, signUp } from "../config/firebase";
+import Swal from "sweetalert2";
+import GoogleButton from "react-google-button";
+import firebase from "firebase/compat/app";
+import * as Sentry from "@sentry/react";
 
 // firebase related imports
-import { signInWithEmailAndPassword } from "firebase/auth";
-//import { useSelector } from "react-redux";
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { auth } from "../config/firebase";
 import { db } from "../config/firebase";
-
 import { useNavigate } from "react-router-dom";
 
 import "../App.css";
@@ -44,8 +46,6 @@ const Login = (props) => {
   const [message, setMessage] = useState(false);
 
   const options = ["Indian", "Thai", "Mexican", "Italian", "Chinese", "Greek"];
-  // redux state
-  //const loggedInUser = useSelector((state) => state.loggedInUser);
   const dispatch = useDispatch();
 
   const handleForms = () => {
@@ -281,15 +281,19 @@ const Login = (props) => {
         userProfileImage: userProfileImage,
         isRestaurant: isRestaurantUser,
         propsHistory: props.history,
-        typeOfFood: []
+        typeOfFood: [],
       };
       try {
-        console.log(userDetails);
         // Sign-up Fix
         const signUpReturn = await signUp(userDetails);
-        console.log(signUpReturn);
         if (signUpReturn.success) {
           setMessage(false);
+          logsRef.push({
+            message: `New User ${userName} Signed Up!`,
+            email: userEmail,
+            timestamp: firebase.database.ServerValue.TIMESTAMP,
+          });
+          Sentry.captureMessage(`New User ${userName} Signed Up!`);
           navigate("/");
           Swal.fire({
             title: "Sign-up Successfully",
@@ -324,6 +328,12 @@ const Login = (props) => {
         }
       } catch (error) {
         setMessage(true);
+        logsRef.push({
+          message: `Signup Error! - ${userEmail}, ${userName}`,
+          error,
+          timestamp: firebase.database.ServerValue.TIMESTAMP,
+        });
+        Sentry.captureMessage(`Signup Error! - ${userEmail}, ${userName}`);
         if (isRestaurantUser) {
           console.log("Error in Register Restaurant => ", error);
         } else {
@@ -331,6 +341,85 @@ const Login = (props) => {
         }
       }
     }
+  };
+
+  const handleSignInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        let uid;
+        uid = result.user.uid;
+        dispatch({
+          type: "LOGGED_IN_USER",
+          payload: {
+            userEmail: result.user.email,
+            userName: result.user.displayName,
+            userProfileImageUrl: result.user.photoURL,
+            isRestaurant: false,
+            userId: result.user.uid,
+          },
+        });
+        // Try to set Profile Image.
+        const myOrdersQuery = db
+            .collection("users")
+            .doc(uid)
+            .collection("myOrder");
+
+        myOrdersQuery.onSnapshot((querySnapshot) => {
+          const myOrders = [];
+          querySnapshot.forEach((doc) => {
+            myOrders.push(doc.data());
+          });
+          dispatch({
+            type: "SET_ORDER",
+            payload: {
+              userEmail: result.user.email,
+              userId: result.user.uid,
+              orders: myOrders,
+            },
+          });
+        });
+
+        // code to add user to firestore database
+        db.collection("users").doc(result.user.uid).set({
+          restName: " ",
+          category: selectedOption,
+          restDescription: " ",
+          userName: result.user.displayName,
+          userEmail: result.user.email,
+          userPassword: " ",
+          userProfileImageUrl: result.user.photoURL,
+          isRestaurant: false,
+          typeOfFood: " ",
+          userUid: uid,
+          userAge: 0,
+          userCity: " ",
+          userCountry: " ",
+          userGender: "Male",
+        });
+        logsRef.push({
+          message: `New User ${result.user.displayName} - Google SignIn!`,
+          email: result.user.email,
+          timestamp: firebase.database.ServerValue.TIMESTAMP,
+        });
+        Sentry.captureMessage(
+          `New User ${result.user.displayName} - Google SignIn!`
+        );
+        navigate("/");
+      })
+      .catch((error) => {
+        logsRef.push({
+          message: `Google Sign Failed! - ${userEmail}, ${userName}`,
+          error,
+          timestamp: firebase.database.ServerValue.TIMESTAMP,
+        });
+        Sentry.captureMessage(
+          `Google Sign Failed! - ${userEmail}, ${userName}`
+        );
+        console.error("Google sign-in failed:", error);
+      });
   };
 
   const handleLoginNowBtn = async (event) => {
@@ -352,7 +441,12 @@ const Login = (props) => {
 
           q.get().then((doc) => {
             if (doc.exists) {
-              console.log(doc.data())
+              logsRef.push({
+                message: `User ${doc.data().userName} Logged In!`,
+                email: user.email,
+                timestamp: firebase.database.ServerValue.TIMESTAMP,
+              });
+              Sentry.captureMessage(`User ${doc.data().userName} Logged In!`);
               dispatch({
                 type: "LOGGED_IN_USER",
                 payload: {
@@ -397,7 +491,7 @@ const Login = (props) => {
           orderRequestQuery.onSnapshot((querySnapshot) => {
             const receivedOrders = [];
             querySnapshot.forEach((doc) => {
-              const obj = { id: doc.id, ...doc.data() }
+              const obj = { id: doc.id, ...doc.data() };
               receivedOrders.push(obj);
             });
             dispatch({
@@ -413,6 +507,12 @@ const Login = (props) => {
       })
       .catch((error) => {
         const errorCode = error.code;
+        logsRef.push({
+          message: `User ${userName} Login Failed!`,
+          email: userEmail,
+          timestamp: firebase.database.ServerValue.TIMESTAMP,
+        });
+        Sentry.captureMessage(`User ${userName} Login Failed!`);
         window.alert(
           "User Not Found, Please try again with Valid Email & Password"
         );
@@ -463,6 +563,7 @@ const Login = (props) => {
                     <select
                       className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                       onChange={(e) => handleOptionClick(e.target.value)}
+                      data-testid="restaurant-category-dropdown"
                     >
                       {options.map((option) => (
                         <option key={option}>{option}</option>
@@ -679,6 +780,7 @@ const Login = (props) => {
                   type="button"
                   className=" cen-ter bg-yellow-500 text-white uppercase font-bold py-2 px-4 rounded mb-4"
                   onClick={handleCreateAccountBtn}
+                  data-testid="signup-button"
                   //onClick={handleForms}
                 >
                   <b>Create an Account</b>
@@ -772,9 +874,32 @@ const Login = (props) => {
                 ) : (
                   ""
                 )}
+                <div className="mt-4">
+                  <div className="flex items-center justify-center mb-4 relative">
+                    <div className="bg-gray-400 h-px flex-grow"></div>
+                    <div className="mx-3 text-black-600 font-bold text-sm z-10">
+                      OR
+                    </div>
+                    <div className="bg-gray-400 h-px flex-grow"></div>
+                    <div className="absolute inset-0 flex items-center justify-center z-0">
+                      <div className="bg-white px-2">-</div>
+                    </div>
+                  </div>
+                </div>
               </center>
             </form>
-            <p className="mt-4 text-center">
+            <div className="flex flex-col items-center">
+              <div className="flex space-x-4">
+                <GoogleButton
+                  className="bg-yellow-500 text-bold rounded-full"
+                  onClick={handleSignInWithGoogle}
+                >
+                  Google
+                </GoogleButton>
+              </div>
+            </div>
+
+            <p className="mt-4 text-center ">
               Don't have an account yet?{" "}
               <span
                 className="cursor-pointer text-yellow-500"
