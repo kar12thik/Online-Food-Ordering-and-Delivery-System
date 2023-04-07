@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from "react-router-dom";
-import OrderRequest from '../screens/OrderRequest';
+import RestDetailsCover from '../components/RestDetailsCover';
 import UserOrderDetails from '../components/UserOrderDetails';
 import { configureStore } from '@reduxjs/toolkit';
 import rootReducer from '../reducers';
@@ -28,18 +28,26 @@ describe('OrderRequests', () => {
         });
     });
 
-    test('renders OrderRequests component', () => {
+    test('renders RestDetailsCover component', () => {
+        const rest_data = {
+            restName: 'Testing Restaurant',
+            restDescription: 'RestName Testing',
+            userProfileImageUrl: 'restName.jpg'
+        };
+
         render(
             <Provider store={store}>
-                <OrderRequest />
+                <RestDetailsCover rest_data={rest_data} />
             </Provider>
         );
 
         const restDetailsCover = screen.getByTestId('rest-details-cover');
-        const userOrderDetails = screen.getByTestId('user-order-details');
+        const restName = screen.getByText('Testing Restaurant');
+        const restDescription = screen.getByText('RestName Testing');
 
         expect(restDetailsCover).toBeInTheDocument();
-        expect(userOrderDetails).toBeInTheDocument();
+        expect(restName).toBeInTheDocument();
+        expect(restDescription).toBeInTheDocument();
     });
 });
 

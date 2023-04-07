@@ -161,7 +161,6 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
     if (user != null) {
       uid = user.uid;
     }
-    uid = "TestUser5";
     const myOrder = {
       itemsList: cartItemsList,
       totalPrice: totalPrice,
@@ -175,6 +174,7 @@ function orderNow(cartItemsList, totalPrice, resDetails, userDetails) {
       status: "PENDING",
       ...userDetails,
     };
+
     db.collection("users")
       .doc(uid)
       .collection("myOrder")
@@ -334,6 +334,42 @@ function myFoodList() {
   });
 }
 
+function menu_detail_list(rest_id) {
+  return new Promise((resolve, reject) => {
+    let menuDetailList = [];
+    db.collection("users")
+      .doc(rest_id)
+      .collection("menuItems")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (doc != null) {
+            const obj = { id: doc.id, ...doc.data() };
+            menuDetailList.push(obj);
+          }
+        });
+        resolve(menuDetailList);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
+function getUserDetails(userId) {
+  return new Promise((resolve, reject) => {
+    db.collection("users")
+      .doc(userId)
+      .get()
+      .then((doc) => {
+        resolve(doc.data());
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
+
 // export default firebase;
 export {
   signUp,
@@ -344,4 +380,6 @@ export {
   myFoodList,
   order_request,
   signInWithPopup,
+  menu_detail_list,
+  getUserDetails,
 };
