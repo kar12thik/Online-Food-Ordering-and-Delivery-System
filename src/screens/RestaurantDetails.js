@@ -131,7 +131,7 @@ const RestaurantDetails = (props) => {
               <Cart
                 cartItemsList={cartItemsList}
                 removeCartItem={removeCartItem}
-                totalPrice={totalPrice}
+                totalPrice={Number(totalPrice).toFixed(2)}
                 userDetails={userDetails}
                 resDetails={rest_data}
               />
