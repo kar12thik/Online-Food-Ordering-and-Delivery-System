@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function FeaturedRestCardsForRestPage({ rest_data }) {
-  const [like, setLike] = useState(false);
   const restName = rest_data.restName;
   const userProfileImageUrl = rest_data.userProfileImageUrl;
-  const category = rest_data.category;
-
+  const category =
+    rest_data.category.charAt(0).toUpperCase() + rest_data.category.slice(1);
   return (
     <div className="">
       <Link to="/restaurant-details" state={{ data: data }}>
@@ -101,10 +100,7 @@ function FeaturedRestCardsForRestPage({ rest_data }) {
                   )}
                 </svg>
               </button>
-              <button
-                data-testid="Menu"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              >
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Menu
               </button>
             </div>
