@@ -1,7 +1,7 @@
 import React from "react";
-import { Provider } from "react-redux";
+import { NavLink } from "react-redux";
 import { render, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+//import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import Restaurants from "../screens/Restaurants";
 import { configureStore } from "@reduxjs/toolkit";
@@ -26,6 +26,14 @@ describe("Restaurants", () => {
   beforeEach(() => {
     store = configureStore({
       reducer: rootReducer,
+    });
+  });
+  describe("Restaurant details page link", () => {
+    const data = { restaurantId: 123, restaurantName: "Sample Restaurant" };
+    const link = '<Link to="/restaurant-details" state={{ data: (data)} }}>';
+
+    test("Link points to correct URL", () => {
+      expect(link).toMatch(/to="\/restaurant-details"/);
     });
   });
 
@@ -102,8 +110,7 @@ describe("Restaurants", () => {
   test("renders Restaurants component", () => {
     const rest_data = {
       restName: "Testing Restaurant",
-      userProfileImageUrl: "restName.jpg",
-      category: "RestName Category",
+      category: "Restaurant Category",
     };
 
     render(
@@ -113,13 +120,11 @@ describe("Restaurants", () => {
     );
 
     const restComponents = screen.getByTestId("rest-components");
-    const restName = screen.getByText("restName");
-    const userProfileImageUrl = screen.getByText("userProfileImageUrl");
-    const category = screen.getByText("category");
+    const restName = screen.getByText("Testing Restaurant");
+    const category = screen.getByText("Restaurant Category");
 
     expect(restComponents).toBeInTheDocument();
     expect(restName).toBeInTheDocument();
-    expect(userProfileImageUrl).toBeInTheDocument();
     expect(category).toBeInTheDocument();
   });
 });

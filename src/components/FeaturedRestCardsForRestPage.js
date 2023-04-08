@@ -3,20 +3,16 @@ import { Link } from "react-router-dom";
 
 function FeaturedRestCardsForRestPage({ rest_data }) {
   const [like, setLike] = useState(false);
-
   const data = rest_data.restVal;
-
   const restName = rest_data.restName;
-
   const userProfileImageUrl = rest_data.userProfileImageUrl;
-
   const category =
     rest_data.category.charAt(0).toUpperCase() + rest_data.category.slice(1);
 
   return (
     <div className="" data-testid=" rest-components">
       <Link to="/restaurant-details" state={{ data: data }}>
-        <a
+        <div
           href="/"
           className="m-1 flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:h-44 lg:h-56 md:max-w-xl lg:max-w-xl hover:bg-gray-100 dark:border-gray-700 bg-white-800"
         >
@@ -112,7 +108,7 @@ function FeaturedRestCardsForRestPage({ rest_data }) {
               </button>
             </div>
           </div>
-        </a>
+        </div>
       </Link>
     </div>
   );
