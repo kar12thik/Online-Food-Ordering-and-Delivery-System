@@ -4,10 +4,10 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import Restaurants from "../screens/Restaurants";
-
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "../reducers";
 import "firebase/firestore";
+import FeaturedRestCardsForRestPage from "../components/FeaturedRestCardsForRestPage";
 
 window.scrollTo = jest.fn();
 
@@ -20,63 +20,106 @@ jest.mock("firebase/app", () => {
     }),
   };
 });
+describe("Restaurants", () => {
+  let store;
 
-test("should render Search Restaurants component", (done) => {
-  render(
-    <BrowserRouter>
-      {" "}
-      <Restaurants />{" "}
-    </BrowserRouter>
-  );
-  const searchRestElement = screen.getAllByTestId(
-    "Search_Restaurants_On_RestPage"
-  );
-  expect(searchRestElement[0]).toBeInTheDocument();
-  done();
-});
+  beforeEach(() => {
+    store = configureStore({
+      reducer: rootReducer,
+    });
+  });
 
-test("should render Featured Restaurants component", (done) => {
-  render(
-    <BrowserRouter>
-      <Restaurants />
-    </BrowserRouter>
-  );
-  expect(screen.getByTestId("Featured_Restaurants")).toBeInTheDocument();
-  done();
-});
-test("should render Featured Restaurants component", (done) => {
-  render(
-    <BrowserRouter>
-      <Restaurants />
-    </BrowserRouter>
-  );
-  expect(screen.getByText("Featured Restaurants")).toBeInTheDocument();
-  expect(
-    screen.getByText(
-      "Sorry, we couldn't find any restaurants matching your search."
-    )
-  ).toBeInTheDocument();
+  test("should render Search Restaurants component", (done) => {
+    render(
+      <BrowserRouter>
+        {" "}
+        <Restaurants />{" "}
+      </BrowserRouter>
+    );
+    const searchRestElement = screen.getAllByTestId(
+      "Search_Restaurants_On_RestPage"
+    );
+    expect(searchRestElement[0]).toBeInTheDocument();
+    done();
+  });
 
-  done();
-});
+  test("should render Featured Restaurants component", (done) => {
+    render(
+      <BrowserRouter>
+        <Restaurants />
+      </BrowserRouter>
+    );
+    expect(screen.getByTestId("Featured_Restaurants")).toBeInTheDocument();
+    done();
+  });
+  test("should render Featured Restaurants component", (done) => {
+    render(
+      <BrowserRouter>
+        <Restaurants />
+      </BrowserRouter>
+    );
+    expect(screen.getByText("Featured Restaurants")).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Sorry, we couldn't find any restaurants matching your search."
+      )
+    ).toBeInTheDocument();
 
-test("should render Categories component", (done) => {
-  render(
-    <BrowserRouter>
-      <Restaurants />
-    </BrowserRouter>
-  );
-  expect(screen.getByText("Categories")).toBeInTheDocument();
-  done();
-});
+    done();
+  });
 
-test("should render Restaurant Categories component", (done) => {
-  render(
-    <BrowserRouter>
-      <Restaurants />
-    </BrowserRouter>
-  );
+  test("should render Categories component", (done) => {
+    render(
+      <BrowserRouter>
+        <Restaurants />
+      </BrowserRouter>
+    );
+    expect(screen.getByText("Categories")).toBeInTheDocument();
+    done();
+  });
 
-  expect(screen.getByTestId("Rest_Categories")).toBeInTheDocument();
-  done();
+  test("should render Restaurant Categories component", (done) => {
+    render(
+      <BrowserRouter>
+        <Restaurants />
+      </BrowserRouter>
+    );
+
+    expect(screen.getByTestId("Rest_Categories")).toBeInTheDocument();
+    done();
+  });
+  test("should render Restaurant component", (done) => {
+    render(
+      <BrowserRouter>
+        <Restaurants />
+      </BrowserRouter>
+    );
+
+    expect(screen.getByTestId("Rest_Categories")).toBeInTheDocument();
+    done();
+  });
+
+  test("renders Restaurants component", () => {
+    const rest_data = {
+      restName: "Testing Restaurant",
+      userProfileImageUrl: "restName.jpg",
+      category: "RestName Category",
+    };
+
+    render(
+      <BrowserRouter store={rest_data}>
+        <FeaturedRestCardsForRestPage rest_data={rest_data} />
+      </BrowserRouter>
+    );
+
+    const restComponents = screen.getByTestId("rest-components");
+    const restName = screen.getByText("restName");
+    const userProfileImageUrl = screen.getByText("userProfileImageUrl");
+    const category = screen.getByText("category");
+
+    expect(restComponents).toBeInTheDocument();
+    expect(restName).toBeInTheDocument();
+    expect(userProfileImageUrl).toBeInTheDocument();
+    expect(category).toBeInTheDocument();
+  });
 });

@@ -2,12 +2,19 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function FeaturedRestCardsForRestPage({ rest_data }) {
+  const [like, setLike] = useState(false);
+
+  const data = rest_data.restVal;
+
   const restName = rest_data.restName;
+
   const userProfileImageUrl = rest_data.userProfileImageUrl;
+
   const category =
     rest_data.category.charAt(0).toUpperCase() + rest_data.category.slice(1);
+
   return (
-    <div className="">
+    <div className="" data-testid=" rest-components">
       <Link to="/restaurant-details" state={{ data: data }}>
         <a
           href="/"
