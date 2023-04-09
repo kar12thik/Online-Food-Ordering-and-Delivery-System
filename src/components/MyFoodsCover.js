@@ -25,7 +25,7 @@ function MyFoodsCover() {
     <div className="container-fluid h-72 bg-cover bg-restaurant-cover">
         <div>
             <div className="container p-20 mx-0">
-                <div className="container">
+                <div className="container" data-testid="rest-cover">
                     {
                         isLoggedIn ? (
                             <div className="flex">

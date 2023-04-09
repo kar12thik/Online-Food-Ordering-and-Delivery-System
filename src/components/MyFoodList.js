@@ -53,7 +53,7 @@ function MyFoodList() {
 
   return (
     <div>
-      <h4 className="text-center pt-10 pb-10 text-2xl font-extrabold">
+      <h4 className="text-center pt-10 pb-10 text-2xl font-extrabold" data-testid="foods-list">
         My Food List
       </h4>
       {renderFoodList()}
