@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { BsPlusCircle } from "react-icons/bs";
 function FeaturedMenuCardsForRestPage(props) {
-  const [like, setLike] = useState(false);
   const data = props.restVal;
   const itemName = data.itemName;
   const itemImageUrl = data.itemImageUrl;
