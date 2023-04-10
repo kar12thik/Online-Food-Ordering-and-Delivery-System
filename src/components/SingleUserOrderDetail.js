@@ -66,10 +66,15 @@ export default function SingleUserOrderDetail({
 }) {
   const restaurantUid = useSelector((state) => state.loggedInUser.userId);
   return (
-    <div data-testid="single-user-details">
+    <div className="order-item" data-testid="single-user-details">
       <div className="flex">
-        <h1 className="text-lg font-black" data-testid="rest_name">{restaurant_name}</h1>
-        <h1 className={`ml-auto uppercase font-bold ${order_status_color}`} data-testid="order_status">
+        <h1 className="text-lg font-black" data-testid="rest_name">
+          {restaurant_name}
+        </h1>
+        <h1
+          className={`ml-auto uppercase font-bold ${order_status_color}`}
+          data-testid="order_status"
+        >
           {order_status}
         </h1>
       </div>
@@ -77,7 +82,10 @@ export default function SingleUserOrderDetail({
       {/* Single order list Card */}
       {orderItemList.map((item) => {
         return (
-          <div className="mt-6 w-full h-16 flex" data-testid="single-user-order-details">
+          <div
+            className="mt-6 w-full h-16 flex"
+            data-testid="single-user-order-details"
+          >
             <div className="w-24 h-24 ml-0 p-1">
               <img src={item.itemImageUrl} alt="items" />
             </div>
@@ -96,7 +104,7 @@ export default function SingleUserOrderDetail({
         ) : (
           <button
             type="button"
-            className="ml-2 rounded-lg bg-orange p-2.5 text-sm font-medium text-black"
+            className="order-button ml-2 rounded-lg bg-orange p-2.5 text-sm font-medium text-black"
             onClick={() =>
               handleSendToInProgressBtn(userUid, orderId, restaurantUid, status)
             }
